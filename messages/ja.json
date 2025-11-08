@@ -1,0 +1,19 @@
+{
+    "nav": {
+        "home": "ホーム",
+        "gallery": "ギャラリー",
+        "service": "サービス",
+        "contact": "お問い合わせ",
+        "reserve": "ご予約"
+    },
+    "footer": {
+        "company": "DMC.LLC",
+        "copyright": "© 2025 DMC.LLC All Rights Reserved."
+    },
+    "contact": {
+        "info": {
+            "title": "店舗情報",
+            "hoursValue": "11:00〜17:00"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "nav": {
+        "home": "Home",
+        "gallery": "Gallery",
+        "service": "Service",
+        "contact": "Contact",
+        "reserve": "Reserve"
+    },
+    "footer": {
+        "company": "DMC.LLC",
+        "copyright": "© 2025 DMC.LLC All Rights Reserved."
+    },
+    "contact": {
+        "info": {
+            "title": "Store Information",
+            "hoursValue": "11:00 - 17:00"
+        }
+    }
+}
