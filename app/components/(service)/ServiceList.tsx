@@ -22,49 +22,28 @@ export default function ServiceList() {
         plans: [
           {
             name: "DMCクラブメンバー",
-            price: "¥5,000",
-            features: [
-              "着物レンタル",
-              "着付け・ヘアスタイリング",
-              "プロ撮影",
-              "データ納品",
-            ],
+            price: "¥1,000",
+            features: ["着物レンタル", "スタジオ(1時間)"],
           },
           {
             name: "非メンバー",
-            price: "¥10,000",
-            features: [
-              "着物レンタル",
-              "着付け・ヘアスタイリング",
-              "プロ撮影",
-              "データ納品",
-            ],
+            price: "¥5,000",
+            features: ["着物レンタル", "スタジオ(1時間)"],
           },
         ],
         membership: "メンバー費：¥3,000/月",
-        locations: [
-          "富士山 & 茶畑ロケーション撮影",
-          "スタジオ撮影（プロライティング）",
-        ],
+        locations: ["スタジオ撮影"],
       },
       chloe: {
         title: "Chloe (クロエ)",
         subtitle: "レンタルスタジオ - 2階",
         description:
-          "七五三、成人式、ドレス、着物撮影に対応したレンタルスタジオ。プロ仕様の機材とスペースをリーズナブルな価格でご利用いただけます。",
+          "撮影に対応したレンタルスタジオ。プロ仕様のスペースをリーズナブルな価格でご利用いただけます。",
         pricing: [
           { duration: "1時間", price: "¥2,000" },
           { duration: "4時間", price: "¥5,000" },
         ],
-        features: [
-          "七五三撮影",
-          "成人式撮影",
-          "ドレス撮影",
-          "着物撮影",
-          "衣装レンタル可能",
-          "照明機材完備",
-          "背景セット各種",
-        ],
+        features: ["照明機材完備", "背景セット各種"],
         note: "※カメラマン・メイクは含まれません",
       },
       cafe: {
@@ -113,20 +92,12 @@ export default function ServiceList() {
         title: "Chloe",
         subtitle: "Rental Studio - 2nd Floor",
         description:
-          "Professional rental studio for Shichi-Go-San, coming-of-age ceremonies, dress and kimono photography. Professional equipment and space at reasonable rates.",
+          "Professional rental studio for photography. Professional space at reasonable rates.",
         pricing: [
           { duration: "1 hour", price: "¥2,000" },
           { duration: "4 hours", price: "¥5,000" },
         ],
-        features: [
-          "Shichi-Go-San photography",
-          "Coming-of-age ceremony",
-          "Dress photography",
-          "Kimono photography",
-          "Costume rental available",
-          "Lighting equipment",
-          "Various backgrounds",
-        ],
+        features: ["Lighting equipment", "Various backgrounds"],
         note: "※Photographer and makeup not included",
       },
       cafe: {
@@ -161,10 +132,10 @@ export default function ServiceList() {
             // 極小画面で高さを抑える（iPhone 5/SE 対策）
             className="
     group relative overflow-hidden rounded-2xl shadow-2xl
-    h-80                         /* 基本 */
-    max-[360px]:h-[260px]             /* iPhone 5/SE 等 */
-    max-[390px]:h-[300px]             /* iPhone 12 mini 等 */
-    sm:h-[420px]                      /* 640px〜 */
+    h-80
+    max-[360px]:h-[260px]
+    max-[390px]:h-[300px]
+    sm:h-[420px]
     md:h-[500px]
     lg:h-[600px]
   "
@@ -175,9 +146,7 @@ export default function ServiceList() {
               src="/images/camu.webp"
               alt="CAMU Kimono Photo"
               fill
-              // 富士山を見せるため、上寄せ気味のオブジェクト位置
               className="object-cover transition-all duration-1000 ease-out group-hover:scale-110 group-hover:brightness-110 object-[50%_30%]"
-              // レイアウト最適化（小さい端末で無理に大画像を読まない）
               sizes="(max-width: 390px) 100vw, (max-width: 768px) 100vw, 50vw"
               priority
             />
@@ -213,7 +182,6 @@ export default function ServiceList() {
                   whileHover={{ scale: 1.02, x: 10 }}
                   className="rounded-xl border-2 border-[#2C2C2C]/10 bg-white p-6 shadow-lg transition-all hover:border-[#8B7355] hover:shadow-xl"
                 >
-                  {/* ←ここを修正（スマホは縦積み / sm以上で横並び） */}
                   <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                     <h3 className="text-xl font-bold text-[#2C2C2C]">
                       {plan.name}
@@ -268,6 +236,7 @@ export default function ServiceList() {
               ))}
             </div>
 
+            {/* CTA（英語のみ「詳細を見る」を表示／日本語は非表示） */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -275,15 +244,17 @@ export default function ServiceList() {
               transition={{ duration: 0.5 }}
               className="flex flex-col gap-3 sm:flex-row"
             >
-              <Link href={`/${locale}/service/camu`}>
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full border-2 border-[#8B7355] bg-transparent px-8 py-4 font-bold uppercase tracking-wider text-[#8B7355] transition-all hover:bg-[#8B7355] hover:text-white sm:w-auto"
-                >
-                  {locale === "ja" ? "詳細を見る" : "View Details"}
-                </motion.button>
-              </Link>
+              {locale !== "ja" && (
+                <Link href={`/${locale}/service/camu`}>
+                  <motion.button
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-full border-2 border-[#8B7355] bg-transparent px-8 py-4 font-bold uppercase tracking-wider text-[#8B7355] transition-all hover:bg-[#8B7355] hover:text-white sm:w-auto"
+                  >
+                    {locale === "ja" ? "詳細を見る" : "View Details"}
+                  </motion.button>
+                </Link>
+              )}
               <Link href={`/${locale}/contact`}>
                 <motion.button
                   whileHover={{ scale: 1.05, y: -2 }}
@@ -361,7 +332,7 @@ export default function ServiceList() {
                     className="flex items-center justify-between rounded-lg bg-[#F5F3F0] p-4"
                   >
                     <span className="font-medium text-[#2C2C2C]">
-                      <Clock className="mr-2 inline h-4 w-4 text-[#8B7355]" />
+                      <Clock className="mr-2 inline h-4 w-4 text-[#8B7355]}]" />
                       {price.duration}
                     </span>
                     <span className="text-xl font-bold text-[#8B7355]">
@@ -386,24 +357,8 @@ export default function ServiceList() {
 
               <p className="mb-6 text-sm italic text-[#999]">{t.chloe.note}</p>
 
-              {/* CTA */}
+              {/* CTA（詳細ボタンは削除、予約のみ） */}
               <div className="mt-auto flex flex-col gap-3">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={vp}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Link href={`/${locale}/service/chloe`}>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-full border-2 border-[#8B7355] bg-transparent px-6 py-3 text-sm font-bold uppercase tracking-wider text-[#8B7355] transition-all hover:bg-[#8B7355] hover:text-white"
-                    >
-                      {locale === "ja" ? "詳細を見る" : "View Details"}
-                    </motion.button>
-                  </Link>
-                </motion.div>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
