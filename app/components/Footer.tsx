@@ -20,7 +20,8 @@ export default function Footer() {
     <footer className="bg-[#5A4A3A] text-white">
       {/* Main Footer Content */}
       <div className="container mx-auto px-6 py-12 lg:px-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        {/* 3カラム：会社情報 / メニュー / 連絡先 */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -75,27 +76,6 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div className="space-y-4">
-            <h3 className="font-['Crimson_Text'] text-lg font-bold">
-              {locale === "ja" ? "サービス" : "Services"}
-            </h3>
-            <ul className="space-y-2 font-['Noto_Sans_JP'] text-sm text-white/80">
-              <li>
-                {locale === "ja"
-                  ? "花夢 (CAMU) - 着物撮影"
-                  : "CAMU - Kimono Photo"}
-              </li>
-              <li>
-                {locale === "ja"
-                  ? "Chloe - フォトスタジオ"
-                  : "Chloe - Photo Studio"}
-              </li>
-              <li>{locale === "ja" ? "カフェスペース" : "Cafe Space"}</li>
-              <li>{locale === "ja" ? "レンタルスタジオ" : "Rental Studio"}</li>
             </ul>
           </div>
 
