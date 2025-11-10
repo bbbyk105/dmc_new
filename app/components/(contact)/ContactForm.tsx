@@ -57,18 +57,9 @@ export default function ContactForm() {
           label: "住所",
           value: "〒417-0001\n静岡県富士市新田島町1-13",
         },
-        phone: {
-          label: "電話番号",
-          value: "+81-545-55-4550",
-        },
-        email: {
-          label: "メール",
-          value: "dmc.fuji0823@gmail.com",
-        },
-        hours: {
-          label: "営業時間",
-          value: "11:00〜17:00\n定休日: 水曜日",
-        },
+        phone: { label: "電話番号", value: "+81-545-55-4550" },
+        email: { label: "メール", value: "dmc.fuji0823@gmail.com" },
+        hours: { label: "営業時間", value: "11:00〜17:00\n定休日: 水曜日" },
       },
       success: {
         title: "送信完了",
@@ -81,7 +72,6 @@ export default function ContactForm() {
           "送信に失敗しました。お手数ですが、もう一度お試しいただくか、お電話にてお問い合わせください。",
       },
     },
-
     en: {
       title: "Contact Us",
       subtitle: "Get in touch for reservations and inquiries",
@@ -111,14 +101,8 @@ export default function ContactForm() {
           label: "Address",
           value: "1-13 Shintajima-cho, Fuji City, Shizuoka 417-0001, Japan",
         },
-        phone: {
-          label: "Phone",
-          value: "+81-545-55-4550",
-        },
-        email: {
-          label: "Email",
-          value: "dmc.fuji0823@gmail.com",
-        },
+        phone: { label: "Phone", value: "+81-545-55-4550" },
+        email: { label: "Email", value: "dmc.fuji0823@gmail.com" },
         hours: {
           label: "Business Hours",
           value: "11:00–17:00\nClosed: Wednesday",
@@ -139,6 +123,7 @@ export default function ContactForm() {
 
   const t = content[(locale as "ja" | "en") ?? "ja"] ?? content.ja;
 
+  // ✅ 型の修正（ChangeEvent<HTML...> の総称ジェネリクスを正しく記述）
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -152,17 +137,21 @@ export default function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      // 実運用では /api/contact に POST してください
-      setSubmitStatus("success");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        service: "",
-        message: "",
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, locale }),
       });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", phone: "", service: "", message: "" });
     } catch {
       setSubmitStatus("error");
     } finally {
@@ -172,7 +161,6 @@ export default function ContactForm() {
 
   return (
     <div className="min-h-screen bg-[#FAFAF8]">
-      {/* ヘッダー */}
       <section className="border-b border-[#E5E3DC] bg-white py-20">
         <div className="container mx-auto px-6 lg:px-12">
           <motion.div
@@ -190,11 +178,9 @@ export default function ContactForm() {
         </div>
       </section>
 
-      {/* メインコンテンツ */}
       <section className="py-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* フォーム */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -204,7 +190,6 @@ export default function ContactForm() {
                 onSubmit={handleSubmit}
                 className="space-y-6 border border-[#E5E3DC] bg-white p-8 shadow-lg md:p-10"
               >
-                {/* 名前 */}
                 <div>
                   <label
                     htmlFor="name"
@@ -225,7 +210,6 @@ export default function ContactForm() {
                   />
                 </div>
 
-                {/* メールアドレス */}
                 <div>
                   <label
                     htmlFor="email"
@@ -246,7 +230,6 @@ export default function ContactForm() {
                   />
                 </div>
 
-                {/* 電話番号 */}
                 <div>
                   <label
                     htmlFor="phone"
@@ -265,7 +248,6 @@ export default function ContactForm() {
                   />
                 </div>
 
-                {/* サービス選択 */}
                 <div>
                   <label
                     htmlFor="service"
@@ -288,7 +270,6 @@ export default function ContactForm() {
                   </select>
                 </div>
 
-                {/* メッセージ */}
                 <div>
                   <label
                     htmlFor="message"
@@ -309,7 +290,6 @@ export default function ContactForm() {
                   />
                 </div>
 
-                {/* 送信ボタン */}
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
@@ -320,7 +300,6 @@ export default function ContactForm() {
                   {isSubmitting ? t.form.submitting : t.form.submit}
                 </motion.button>
 
-                {/* 送信結果メッセージ */}
                 {submitStatus === "success" && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
@@ -351,7 +330,6 @@ export default function ContactForm() {
               </form>
             </motion.div>
 
-            {/* 店舗情報 */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -366,7 +344,6 @@ export default function ContactForm() {
               </div>
 
               <div className="space-y-8 border border-[#E5E3DC] bg-white p-8 shadow-lg">
-                {/* 住所 */}
                 <div className="flex gap-4">
                   <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
                   <div>
@@ -379,13 +356,13 @@ export default function ContactForm() {
                   </div>
                 </div>
 
-                {/* 電話番号 */}
                 <div className="flex gap-4 border-t border-[#E5E3DC] pt-8">
                   <Phone className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
                   <div>
                     <p className="mb-2 font-light tracking-wide text-gray-900">
                       {t.info.phone.label}
                     </p>
+                    {/* ✅ 開始タグを追加 */}
                     <a
                       href={`tel:${t.info.phone.value.replace(/[^0-9]/g, "")}`}
                       className="text-sm text-gray-600 transition-colors hover:text-[#8B7355]"
@@ -395,7 +372,6 @@ export default function ContactForm() {
                   </div>
                 </div>
 
-                {/* メール */}
                 <div className="flex gap-4 border-t border-[#E5E3DC] pt-8">
                   <Mail className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
                   <div>
@@ -411,7 +387,6 @@ export default function ContactForm() {
                   </div>
                 </div>
 
-                {/* 営業時間 */}
                 <div className="flex gap-4 border-t border-[#E5E3DC] pt-8">
                   <Clock className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
                   <div>
@@ -425,7 +400,6 @@ export default function ContactForm() {
                 </div>
               </div>
 
-              {/* Google Map（オプション） */}
               <div className="h-[300px] overflow-hidden border border-[#E5E3DC] bg-gray-200 shadow-lg">
                 <div className="flex h-full items-center justify-center text-sm text-gray-500">
                   Google Map
