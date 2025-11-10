@@ -154,7 +154,7 @@ export default function ServiceList() {
         transition={{ duration: 0.8 }}
         className="mb-32"
       >
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-stretch gap-12 lg:grid-cols-2 lg:gap-16">
           {/* 画像 */}
           <motion.div
             initial={{ opacity: 0, x: -100 }}
@@ -287,7 +287,7 @@ export default function ServiceList() {
       </motion.section>
 
       {/* Chloe（レンタルスタジオ） & カフェ（2カラム） */}
-      <div className="grid gap-12 lg:grid-cols-2">
+      <div className="grid items-stretch gap-12 lg:grid-cols-2">
         {/* Chloe レンタルスタジオ */}
         <motion.section
           initial={{ opacity: 0, y: 100 }}
@@ -298,7 +298,7 @@ export default function ServiceList() {
           <motion.div
             whileHover={{ y: -10 }}
             transition={{ duration: 0.3 }}
-            className="h-full overflow-hidden rounded-2xl bg-white shadow-xl"
+            className="h-full overflow-hidden rounded-2xl bg-white shadow-xl flex flex-col"
           >
             {/* 画像 */}
             <div className="group relative h-64 overflow-hidden md:h-80 lg:h-96">
@@ -314,7 +314,7 @@ export default function ServiceList() {
             </div>
 
             {/* コンテンツ */}
-            <div className="p-8">
+            <div className="p-8 flex-1 flex flex-col">
               <motion.div
                 initial={{ opacity: 0, scale: 0 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -374,7 +374,8 @@ export default function ServiceList() {
 
               <p className="mb-6 text-sm italic text-[#999]">{t.chloe.note}</p>
 
-              <div className="flex flex-col gap-3">
+              {/* CTA */}
+              <div className="mt-auto flex flex-col gap-3">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -422,7 +423,7 @@ export default function ServiceList() {
           <motion.div
             whileHover={{ y: -10 }}
             transition={{ duration: 0.3 }}
-            className="h-full overflow-hidden rounded-2xl bg-white shadow-xl"
+            className="h-full overflow-hidden rounded-2xl bg-white shadow-xl flex flex-col"
           >
             {/* 画像 */}
             <div className="group relative h-64 overflow-hidden md:h-80 lg:h-96">
@@ -438,7 +439,7 @@ export default function ServiceList() {
             </div>
 
             {/* コンテンツ */}
-            <div className="p-8">
+            <div className="p-8 flex-1 flex flex-col">
               <motion.div
                 initial={{ opacity: 0, scale: 0 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -452,7 +453,7 @@ export default function ServiceList() {
                 </span>
               </motion.div>
 
-              <h3 className="mb-2 font-['Crimson_Text'] text-3ミ font-black text-[#2C2C2C]">
+              <h3 className="mb-2 font-['Crimson_Text'] text-3xl font-black text-[#2C2C2C]">
                 {t.cafe.title}
               </h3>
               <p className="mb-4 text-sm text-[#8B7355]">{t.cafe.subtitle}</p>
@@ -483,12 +484,13 @@ export default function ServiceList() {
                 ))}
               </div>
 
+              {/* 下寄せボックス（下の余白を消す） */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={vp}
                 transition={{ duration: 0.5 }}
-                className="rounded-lg bg-[#8B7355]/10 p-4 text-center"
+                className="mt-auto rounded-lg bg-[#8B7355]/10 p-4 text-center"
               >
                 <p className="text-sm text-[#5A5A5A]">
                   {locale === "ja"

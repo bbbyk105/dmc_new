@@ -11,13 +11,12 @@ export default function ServiceHero() {
     ja: {
       title: "SERVICE",
       subtitle: "サービス案内",
-      description: "富士山を背景に、特別な瞬間を美しく残すサービス",
+      description: "DMCのサービスを紹介いたします",
     },
     en: {
       title: "SERVICE",
       subtitle: "Our Services",
-      description:
-        "Capture your special moments with Mt. Fuji as your backdrop",
+      description: "Introducing DMC’s Services",
     },
   };
 
