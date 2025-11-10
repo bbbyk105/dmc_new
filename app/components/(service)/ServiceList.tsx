@@ -78,38 +78,35 @@ export default function ServiceList() {
     en: {
       camu: {
         title: "CAMU",
-        subtitle: "Kimono Photo Shoot - For International Guests",
+        subtitle: "Kimono Photo Shoot — Mt. Fuji & Tea Fields",
         description:
-          "Capture your special moments in traditional kimono with Mt. Fuji and tea fields as your backdrop. Professional lighting and styling to beautifully preserve your memories.",
+          "A professional kimono photo experience that combines outdoor views of Mt. Fuji and tea fields with a studio session under elegant lighting. Photo data are delivered online. Advance reservation required.",
         plans: [
           {
             name: "Premium Plan",
-            price: "¥98,000",
+            price: "¥100,000 / person (tax included)",
             features: [
-              "Location + Studio + Tea + Album",
-              "Kimono rental (up to 2 outfits)",
+              "Location + Studio session",
+              "Studio rental (60 min)",
+              "Kimono rental",
               "Dressing & hairstyling",
               "Professional photo shoot",
-              "Matcha tea experience",
-              "Photo album included",
+              "10 photo data files (online delivery)",
             ],
           },
           {
-            name: "Girls' Trip Light Plan",
-            price: "¥40,000/person",
+            name: "Light Plan",
+            price: "¥40,000 / person (tax included)",
             features: [
-              "Fun group kimono experience",
-              "Kimono rental (1 outfit per person)",
-              "Dressing & hairstyling",
-              "Professional photo shoot",
-              "Online photo delivery",
+              "Kimono rental",
+              "Self-shoot allowed (use your own device)",
             ],
           },
         ],
         membership: "",
         locations: [
-          "Location shoot - Mt. Fuji & Tea Fields",
-          "Studio shoot - Professional lighting",
+          "Location shoot — Mt. Fuji & Tea Fields (weather dependent)",
+          "Studio shoot — Professional lighting",
         ],
       },
       chloe: {
@@ -154,14 +151,23 @@ export default function ServiceList() {
         transition={{ duration: 0.8 }}
         className="mb-32"
       >
-        <div className="grid items-stretch gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-stretch gap-12 xl:grid-cols-2 xl:gap-16">
           {/* 画像 */}
           <motion.div
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={vp}
             transition={{ duration: 0.8 }}
-            className="group relative h-[500px] overflow-hidden rounded-2xl shadow-2xl lg:h-[600px]"
+            // 極小画面で高さを抑える（iPhone 5/SE 対策）
+            className="
+    group relative overflow-hidden rounded-2xl shadow-2xl
+    h-80                         /* 基本 */
+    max-[360px]:h-[260px]             /* iPhone 5/SE 等 */
+    max-[390px]:h-[300px]             /* iPhone 12 mini 等 */
+    sm:h-[420px]                      /* 640px〜 */
+    md:h-[500px]
+    lg:h-[600px]
+  "
           >
             <div className="absolute inset-0 z-10 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
             <div className="absolute inset-0 z-10 bg-linear-to-br from-white/20 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-30" />
@@ -169,7 +175,11 @@ export default function ServiceList() {
               src="/images/camu.webp"
               alt="CAMU Kimono Photo"
               fill
-              className="object-cover transition-all duration-1000 ease-out group-hover:scale-110 group-hover:brightness-110"
+              // 富士山を見せるため、上寄せ気味のオブジェクト位置
+              className="object-cover transition-all duration-1000 ease-out group-hover:scale-110 group-hover:brightness-110 object-[50%_30%]"
+              // レイアウト最適化（小さい端末で無理に大画像を読まない）
+              sizes="(max-width: 390px) 100vw, (max-width: 768px) 100vw, 50vw"
+              priority
             />
             <div className="absolute inset-0 z-20 border-4 border-white/0 transition-all duration-700 group-hover:border-white/30" />
           </motion.div>
@@ -203,14 +213,16 @@ export default function ServiceList() {
                   whileHover={{ scale: 1.02, x: 10 }}
                   className="rounded-xl border-2 border-[#2C2C2C]/10 bg-white p-6 shadow-lg transition-all hover:border-[#8B7355] hover:shadow-xl"
                 >
-                  <div className="mb-4 flex items-center justify-between">
+                  {/* ←ここを修正（スマホは縦積み / sm以上で横並び） */}
+                  <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                     <h3 className="text-xl font-bold text-[#2C2C2C]">
                       {plan.name}
                     </h3>
-                    <span className="text-2xl font-black text-[#8B7355]">
+                    <span className="text-2xl font-black text-[#8B7355] leading-tight sm:whitespace-nowrap">
                       {plan.price}
                     </span>
                   </div>
+
                   <ul className="space-y-2">
                     {plan.features.map((feature, i) => (
                       <li

@@ -8,10 +8,67 @@ import Link from "next/link";
 import { useLocale } from "next-intl";
 import { ArrowLeft } from "lucide-react";
 
+/* ========= Type Definitions ========= */
+type LocationItem = {
+  name: string;
+  description: string;
+  image: string;
+  isStudio?: boolean;
+};
+
+type SupportItem = {
+  title: string;
+  description: string;
+};
+
+type Plan = {
+  name: string;
+  price: string;
+  tax: string;
+  features: string[];
+};
+
+type DomesticPricing = {
+  title: string;
+  plans: Plan[];
+  membership: {
+    title: string;
+    price: string;
+    description: string;
+  };
+};
+
+type InternationalPricing = {
+  title: string;
+  plans: Plan[];
+};
+
+type Pricing = {
+  title: string;
+  domestic: DomesticPricing;
+  international: InternationalPricing;
+};
+
+type Intro = { title: string; description: string };
+type Locations = { title: string; items: LocationItem[] };
+type Support = { title: string; description: string; items: SupportItem[] };
+type Notes = { title: string; items: string[] };
+
+type LocaleBundle = {
+  title: string;
+  subtitle: string;
+  intro: Intro;
+  locations: Locations;
+  support: Support;
+  pricing: Pricing;
+  notes: Notes;
+};
+/* ========= End Types ========= */
+
 export default function CamuDetail() {
   const locale = useLocale();
 
-  const content = {
+  const content: Record<"ja" | "en", LocaleBundle> = {
     ja: {
       title: "花夢 (CAMU)",
       subtitle: "着物撮影サービス",
@@ -40,7 +97,7 @@ export default function CamuDetail() {
             description:
               "天候に左右されることなく、プロ仕様のライティング機材を使用した本格的なスタジオ撮影も可能です。着物の色彩や刺繍、質感まで美しく表現し、細部までこだわった写真をお撮りいたします。",
             image: "/images/studio.webp",
-            isStudio: true, // スタジオ撮影のフラグを追加
+            isStudio: true,
           },
         ],
       },
@@ -152,13 +209,15 @@ export default function CamuDetail() {
         ],
       },
     },
+
+    /* ===== EN (flyer-accurate) ===== */
     en: {
       title: "CAMU",
-      subtitle: "Kimono Photography Service",
+      subtitle: "Kimono Photo Shoot — Mt. Fuji & Tea Fields",
       intro: {
         title: "Traditional Beauty with Mt. Fuji and Tea Fields",
         description:
-          "Experience professional kimono photography with the majestic Mt. Fuji and beautiful tea fields of Fuji City, Shizuoka as your backdrop. Our experienced staff provides comprehensive support from photography to kimono dressing and hairstyling, ensuring your precious moments are captured in the finest quality.",
+          "A professional kimono photo experience that combines outdoor views of Mt. Fuji and tea fields with an elegant studio session. Photo data are delivered online. Advance reservation required.",
       },
       locations: {
         title: "Photography Locations",
@@ -166,135 +225,102 @@ export default function CamuDetail() {
           {
             name: "Mt. Fuji Viewpoint",
             description:
-              "Capture unforgettable photos with the World Heritage Mt. Fuji as your backdrop. Each season offers unique expressions of Mt. Fuji. On clear days, the snow-capped mountain creates a stunning contrast with your kimono, resulting in extraordinary photographs.",
+              "Capture unforgettable photos with Mt. Fuji as your backdrop. Seasonal scenery enhances the contrast with your kimono, creating a timeless image.",
             image: "/images/fuji.webp",
           },
           {
-            name: "Tea Field Location",
+            name: "Tea Field",
             description:
-              "Photography in Fuji City's iconic tea fields. The expansive green tea fields enhance the colors of your kimono, creating images that evoke the Japanese landscape. The fresh green tea season provides particularly vibrant photography conditions.",
+              "Shoot among iconic tea fields in Fuji City. The vivid green landscape beautifully complements the colors and textures of your kimono.",
             image: "/images/cha.webp",
           },
           {
-            name: "Studio Photography",
+            name: "Studio Session",
             description:
-              "Professional studio photography with advanced lighting equipment, unaffected by weather conditions. We capture every detail of your kimono - from colors and embroidery to texture - with meticulous attention to quality.",
+              "Weather-proof photography in our studio with professional lighting to highlight embroidery, color, and texture with refined detail.",
             image: "/images/studio.webp",
-            isStudio: true, // スタジオ撮影のフラグを追加
+            isStudio: true,
           },
         ],
       },
       support: {
-        title: "Comprehensive Support by Professional Staff",
+        title: "Comprehensive Support by Professionals",
         description:
-          "Our experienced staff provides attentive support throughout each stage to ensure you can enjoy your photography session with complete peace of mind.",
+          "From dressing and hairstyling to photography, our experienced staff support you at every step for a smooth experience.",
         items: [
           {
             title: "Professional Photographer",
             description:
-              "Our experienced photographers capture compositions and angles that highlight your best features. We prioritize natural communication to create a relaxed atmosphere, drawing out genuine expressions during the shoot.",
+              "We capture flattering compositions and natural expressions in a relaxed atmosphere.",
           },
           {
             title: "Kimono Dresser",
             description:
-              "Expert dressers with traditional kimono dressing techniques ensure your kimono looks its absolute best. The dressing is secure to prevent any dishevelment during extended photography sessions. We provide careful guidance on kimono selection and obi tying methods.",
+              "Secure, beautiful dressing that resists dishevelment during longer sessions.",
           },
           {
             title: "Hair & Makeup Stylist",
             description:
-              "Our stylists create Japanese hairstyles perfectly coordinated with your kimono, tailored to your preferences. From traditional styles to modern arrangements, we accommodate a wide range. Throughout the shoot, we continuously check and maintain the perfect condition.",
+              "Traditional to modern looks coordinated to your preferences and kimono.",
           },
           {
             title: "Photography Assistant",
             description:
-              "Support for transportation on shoot day, prop management, and photography schedule coordination ensure smooth proceedings. We provide attentive care so you can focus entirely on your photography experience.",
+              "On-site support for props, schedule, and smooth progress throughout.",
           },
         ],
       },
       pricing: {
         title: "Pricing Plans",
         domestic: {
-          title: "Plans for Japanese Guests",
-          plans: [
-            {
-              name: "DMC Club Member",
-              price: "¥5,000",
-              tax: "(tax included)",
-              features: [
-                "Kimono rental (1 outfit)",
-                "Dressing & hairstyling",
-                "Professional photographer",
-                "Location shoot (Mt. Fuji/tea fields) or studio shoot",
-                "Online photo delivery",
-              ],
-            },
-            {
-              name: "General",
-              price: "¥10,000",
-              tax: "(tax included)",
-              features: [
-                "Kimono rental (1 outfit)",
-                "Dressing & hairstyling",
-                "Professional photographer",
-                "Location shoot (Mt. Fuji/tea fields) or studio shoot",
-                "Online photo delivery",
-              ],
-            },
-          ],
-          membership: {
-            title: "DMC Club Membership",
-            price: "¥3,000/month",
-            description:
-              "Monthly membership offers 50% off photography fees, priority booking, bonus photo data, and various other benefits.",
-          },
+          /* 英語ページでは未使用だが型のため空で定義 */
+          title: "",
+          plans: [],
+          membership: { title: "", price: "", description: "" },
         },
         international: {
           title: "Plans for International Guests",
           plans: [
             {
               name: "Premium Plan",
-              price: "¥98,000",
-              tax: "(tax included)",
+              price: "¥100,000",
+              tax: "(per person, tax included)",
               features: [
-                "Location shoot (Mt. Fuji & tea fields)",
-                "Studio photography",
-                "Kimono rental (up to 2 outfits)",
+                "Location + Studio session",
+                "Studio rental (60 min)",
+                "Kimono rental",
                 "Dressing & hairstyling",
-                "Professional photographer",
-                "Matcha tea experience with sweets",
-                "Special photo album",
-                "Online photo delivery",
+                "Professional photo shoot",
+                "10 photo data files (online delivery)",
               ],
             },
             {
-              name: "Girls' Trip Light Plan",
+              name: "Light Plan",
               price: "¥40,000",
               tax: "(per person, tax included)",
               features: [
-                "Group kimono experience",
-                "Kimono rental (1 outfit per person)",
-                "Dressing & hairstyling",
-                "Professional photographer",
-                "Location or studio shoot",
-                "Online photo delivery",
+                "Kimono rental",
+                "Self-shoot allowed (use your own device)",
               ],
             },
           ],
         },
       },
       notes: {
-        title: "Reservations & Important Information",
+        title: "Reservations & Notes",
         items: [
-          "Reservations required. Please book at least one week before your desired date.",
-          "Location shoots may be changed to studio photography if weather conditions are unfavorable.",
-          "Photo data will be delivered online approximately 1-2 weeks after the shoot.",
-          "Cancellations must be made at least 3 days in advance. Late cancellations incur fees.",
+          "Reservations are required in advance.",
+          "Location shoots may change depending on weather conditions.",
+          "Photo data are delivered online.",
+          "Please contact us at least 3 days in advance for cancellations.",
         ],
       },
     },
   };
 
-  const t = content[locale as keyof typeof content] || content.ja;
+  // locale の型を固定して t に型を付与
+  const currentLocale: "ja" | "en" = locale === "en" ? "en" : "ja";
+  const t: LocaleBundle = content[currentLocale];
 
   return (
     <div className="min-h-screen bg-white">
@@ -302,23 +328,24 @@ export default function CamuDetail() {
       <div className="border-b border-gray-200 bg-white pt-12">
         <div className="container mx-auto px-6 py-4 lg:px-12">
           <Link
-            href={`/${locale}/service`}
+            href={`/${currentLocale}/service`}
             className="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-[#8B7355]"
           >
             <ArrowLeft className="h-4 w-4" />
-            {locale === "ja" ? "サービス一覧に戻る" : "Back to Services"}
+            {currentLocale === "ja" ? "サービス一覧に戻る" : "Back to Services"}
           </Link>
         </div>
       </div>
 
-      {/* メインビジュアル */}
-      <section className="relative h-[50vh] overflow-hidden bg-gray-900 md:h-[60vh]">
+      {/* メインビジュアル：極小幅対策 + sizes */}
+      <section className="relative overflow-hidden bg-gray-900 h-[42vh] max-[360px]:h-[36vh] md:h-[55vh]">
         <Image
           src="/images/camu.webp"
           alt="CAMU Kimono Photography"
           fill
-          className="object-cover opacity-70"
+          className="object-cover opacity-70 object-[50%_35%]"
           priority
+          sizes="(max-width: 390px) 100vw, (max-width: 768px) 100vw, 100vw"
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="px-6 text-center">
@@ -362,7 +389,7 @@ export default function CamuDetail() {
         </div>
       </section>
 
-      {/* 撮影ロケーション */}
+      {/* 撮影ロケーション：iPadで重ならないよう 2カラム開始を xl に */}
       <section className="border-b border-gray-200 py-20">
         <div className="container mx-auto px-6 lg:px-12">
           <motion.h2
@@ -376,30 +403,30 @@ export default function CamuDetail() {
           </motion.h2>
 
           <div className="space-y-20">
-            {t.locations.items.map((location, index) => (
+            {t.locations.items.map((location: LocationItem, index: number) => (
               <motion.div
-                key={index}
+                key={`${location.name}-${index}`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className={`grid gap-8 lg:grid-cols-2 lg:gap-12 ${
-                  index % 2 === 1 ? "lg:grid-flow-dense" : ""
+                className={`grid gap-8 xl:grid-cols-2 xl:gap-12 ${
+                  index % 2 === 1 ? "xl:grid-flow-dense" : ""
                 }`}
               >
                 <div
                   className={`relative overflow-hidden ${
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (location as any).isStudio
+                    location.isStudio
                       ? "mx-auto aspect-9/16 w-full max-w-md"
-                      : "h-[300px] md:h-[400px]"
-                  } ${index % 2 === 1 ? "lg:col-start-2" : ""}`}
+                      : "h-[300px] max-[360px]:h-60 md:h-[380px] lg:h-[420px]"
+                  } ${index % 2 === 1 ? "xl:col-start-2" : ""}`}
                 >
                   <Image
                     src={location.image}
                     alt={location.name}
                     fill
-                    className="object-cover"
+                    className="object-cover object-[50%_40%]"
+                    sizes="(max-width: 1280px) 100vw, 50vw"
                   />
                 </div>
                 <div className="flex flex-col justify-center">
@@ -435,9 +462,9 @@ export default function CamuDetail() {
           </motion.div>
 
           <div className="grid gap-8 md:grid-cols-2">
-            {t.support.items.map((item, index) => (
+            {t.support.items.map((item: SupportItem, index: number) => (
               <motion.div
-                key={index}
+                key={`${item.title}-${index}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -469,16 +496,16 @@ export default function CamuDetail() {
             {t.pricing.title}
           </motion.h2>
 
-          {/* 日本人向けプラン */}
-          {locale === "ja" && (
+          {/* 日本語：国内プラン */}
+          {currentLocale === "ja" && (
             <div className="mb-20">
               <h3 className="mb-8 text-center text-2xl font-bold text-gray-900">
                 {t.pricing.domestic.title}
               </h3>
               <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
-                {t.pricing.domestic.plans.map((plan, index) => (
+                {t.pricing.domestic.plans.map((plan: Plan, index: number) => (
                   <motion.div
-                    key={index}
+                    key={`${plan.name}-${index}`}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -489,8 +516,8 @@ export default function CamuDetail() {
                       <h4 className="mb-2 text-xl font-bold text-gray-900">
                         {plan.name}
                       </h4>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-bold text-[#8B7355]">
+                      <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-2">
+                        <span className="text-4xl font-bold text-[#8B7355] leading-tight sm:whitespace-nowrap">
                           {plan.price}
                         </span>
                         <span className="text-sm text-gray-600">
@@ -499,9 +526,9 @@ export default function CamuDetail() {
                       </div>
                     </div>
                     <ul className="space-y-3">
-                      {plan.features.map((feature, i) => (
+                      {plan.features.map((feature: string, i: number) => (
                         <li
-                          key={i}
+                          key={`${plan.name}-feat-${i}`}
                           className="flex items-start gap-3 text-sm text-gray-700"
                         >
                           <span className="mt-1 text-[#8B7355]">•</span>
@@ -533,48 +560,50 @@ export default function CamuDetail() {
             </div>
           )}
 
-          {/* 外国人向けプラン */}
-          {locale === "en" && (
+          {/* 英語：国際プラン */}
+          {currentLocale === "en" && (
             <div>
               <h3 className="mb-8 text-center text-2xl font-bold text-gray-900">
                 {t.pricing.international.title}
               </h3>
               <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
-                {t.pricing.international.plans.map((plan, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.2 }}
-                    className="border-2 border-gray-200 bg-white p-8"
-                  >
-                    <div className="mb-6 border-b border-gray-200 pb-6">
-                      <h4 className="mb-2 text-xl font-bold text-gray-900">
-                        {plan.name}
-                      </h4>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-bold text-[#8B7355]">
-                          {plan.price}
-                        </span>
-                        <span className="text-sm text-gray-600">
-                          {plan.tax}
-                        </span>
+                {t.pricing.international.plans.map(
+                  (plan: Plan, index: number) => (
+                    <motion.div
+                      key={`${plan.name}-${index}`}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.2 }}
+                      className="border-2 border-gray-200 bg-white p-8"
+                    >
+                      <div className="mb-6 border-b border-gray-200 pb-6">
+                        <h4 className="mb-2 text-xl font-bold text-gray-900">
+                          {plan.name}
+                        </h4>
+                        <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-2">
+                          <span className="text-4xl font-bold text-[#8B7355] leading-tight sm:whitespace-nowrap">
+                            {plan.price}
+                          </span>
+                          <span className="text-sm text-gray-600">
+                            {plan.tax}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    <ul className="space-y-3">
-                      {plan.features.map((feature, i) => (
-                        <li
-                          key={i}
-                          className="flex items-start gap-3 text-sm text-gray-700"
-                        >
-                          <span className="mt-1 text-[#8B7355]">•</span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                ))}
+                      <ul className="space-y-3">
+                        {plan.features.map((feature: string, i: number) => (
+                          <li
+                            key={`${plan.name}-feat-${i}`}
+                            className="flex items-start gap-3 text-sm text-gray-700"
+                          >
+                            <span className="mt-1 text-[#8B7355]">•</span>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )
+                )}
               </div>
             </div>
           )}
@@ -595,9 +624,9 @@ export default function CamuDetail() {
               {t.notes.title}
             </h2>
             <div className="space-y-4 bg-white p-8">
-              {t.notes.items.map((note, index) => (
+              {t.notes.items.map((note: string, index: number) => (
                 <p
-                  key={index}
+                  key={`note-${index}`}
                   className="border-l-2 border-gray-300 pl-4 text-sm leading-relaxed text-gray-700"
                 >
                   {note}
@@ -611,13 +640,13 @@ export default function CamuDetail() {
       {/* CTA */}
       <section className="border-t border-gray-200 py-16">
         <div className="container mx-auto px-6 text-center lg:px-12">
-          <Link href={`/${locale}/contact`}>
+          <Link href={`/${currentLocale}/contact`}>
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="border-2 border-[#2C2C2C] bg-[#2C2C2C] px-12 py-4 font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C]"
             >
-              {locale === "ja" ? "ご予約・お問い合わせ" : "Book Now"}
+              {currentLocale === "ja" ? "ご予約・お問い合わせ" : "Book Now"}
             </motion.button>
           </Link>
         </div>
