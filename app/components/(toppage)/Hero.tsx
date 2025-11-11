@@ -248,7 +248,7 @@ export default function Hero() {
                   {t.buttonGallery}
                 </button>
               </Link>
-              <Link href={`/${locale}/contact`}>
+              <Link href="https://dmcfuji0823.wixsite.com/reservation/en">
                 <button className="w-full whitespace-nowrap border-2 border-[#8B7355] bg-transparent px-8 py-3 text-xs font-bold uppercase tracking-wider text-[#8B7355] transition-all duration-300 hover:bg-[#8B7355] hover:text-white sm:w-auto">
                   {t.buttonReserve}
                 </button>

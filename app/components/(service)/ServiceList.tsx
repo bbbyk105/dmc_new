@@ -129,16 +129,15 @@ export default function ServiceList() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={vp}
             transition={{ duration: 0.8 }}
-            // 極小画面で高さを抑える（iPhone 5/SE 対策）
             className="
-    group relative overflow-hidden rounded-2xl shadow-2xl
-    h-80
-    max-[360px]:h-[260px]
-    max-[390px]:h-[300px]
-    sm:h-[420px]
-    md:h-[500px]
-    lg:h-[600px]
-  "
+              group relative overflow-hidden rounded-2xl shadow-2xl
+              h-80
+              max-[360px]:h-[260px]
+              max-[390px]:h-[300px]
+              sm:h-[420px]
+              md:h-[500px]
+              lg:h-[600px]
+            "
           >
             <div className="absolute inset-0 z-10 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
             <div className="absolute inset-0 z-10 bg-linear-to-br from-white/20 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-30" />
@@ -251,11 +250,11 @@ export default function ServiceList() {
                     whileTap={{ scale: 0.95 }}
                     className="w-full border-2 border-[#8B7355] bg-transparent px-8 py-4 font-bold uppercase tracking-wider text-[#8B7355] transition-all hover:bg-[#8B7355] hover:text-white sm:w-auto"
                   >
-                    {locale === "ja" ? "詳細を見る" : "View Details"}
+                    View Details
                   </motion.button>
                 </Link>
               )}
-              <Link href={`/${locale}/contact`}>
+              <Link href="https://dmcfuji0823.wixsite.com/reservation">
                 <motion.button
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
@@ -332,7 +331,7 @@ export default function ServiceList() {
                     className="flex items-center justify-between rounded-lg bg-[#F5F3F0] p-4"
                   >
                     <span className="font-medium text-[#2C2C2C]">
-                      <Clock className="mr-2 inline h-4 w-4 text-[#8B7355]}]" />
+                      <Clock className="mr-2 inline h-4 w-4 text-[#8B7355]" />
                       {price.duration}
                     </span>
                     <span className="text-xl font-bold text-[#8B7355]">
@@ -365,7 +364,7 @@ export default function ServiceList() {
                   viewport={vp}
                   transition={{ duration: 0.5 }}
                 >
-                  <Link href={`/${locale}/contact`}>
+                  <Link href="https://dmcfuji0823.wixsite.com/reservation">
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -469,54 +468,8 @@ export default function ServiceList() {
           </motion.div>
         </motion.section>
       </div>
-
-      {/* CTA セクション */}
-      <motion.section
-        initial={{ opacity: 0, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={vp}
-        transition={{ duration: 0.8 }}
-        className="mt-32 rounded-3xl bg-linear-to-r from-[#2C2C2C] to-[#5A4A3A] p-12 text-center text-white md:p-20"
-      >
-        <motion.h2
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={vp}
-          transition={{ duration: 0.5 }}
-          className="mb-6 font-['Crimson_Text'] text-4xl font-black md:text-5xl"
-        >
-          {locale === "ja"
-            ? "特別な瞬間を残しませんか？"
-            : "Ready to Capture Your Special Moment?"}
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={vp}
-          transition={{ duration: 0.5 }}
-          className="mb-8 text-lg text-white/80"
-        >
-          {locale === "ja"
-            ? "ご予約・お問い合わせはこちらから"
-            : "Contact us for booking and inquiries"}
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={vp}
-          transition={{ duration: 0.5 }}
-        >
-          <Link href={`/${locale}/contact`}>
-            <motion.button
-              whileHover={{ scale: 1.1, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              className="border-2 border-white bg-white px-12 py-4 text-lg font-bold uppercase tracking-wider text-[#2C2C2C] transition-all hover:bg-transparent hover:text-white"
-            >
-              {locale === "ja" ? "お問い合わせ" : "Contact Us"}
-            </motion.button>
-          </Link>
-        </motion.div>
-      </motion.section>
+      {/* 末尾の余白は既存のセクション間隔を維持（CTA削除に伴う崩れ対策） */}
+      <div className="mt-24" />
     </div>
   );
 }

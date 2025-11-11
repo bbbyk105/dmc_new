@@ -72,7 +72,7 @@ export default function Header() {
 
           {/* Reserve Button */}
           <a
-            href="https://wix.to/your-booking-page"
+            href="https://dmcfuji0823.wixsite.com/reservation/en"
             target="_blank"
             rel="noopener noreferrer"
             className={`rounded border-2 px-6 py-2 font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider transition-all ${
