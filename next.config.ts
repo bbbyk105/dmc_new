@@ -17,7 +17,24 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "plus.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "hexahlchflqtbohyshxy.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/public/**",
+      },
+      {
+        protocol: "https",
+        hostname: "hexahlchflqtbohyshxy.supabase.co",
+        port: "",
+        pathname: "/storage/v1/render/image/public/**",
+      },
     ],
+    minimumCacheTTL: 60,
+    // 画像最適化のタイムアウトを延長
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 };
 

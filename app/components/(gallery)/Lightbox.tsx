@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { GalleryImage } from "@/lib/supabase";
 
 interface LightboxProps {
-  images: Array<{ id: number; src: string; category: string; alt: string }>;
+  images: GalleryImage[];
   currentIndex: number;
   onClose: () => void;
   onNavigate: (index: number) => void;
@@ -68,6 +69,7 @@ export default function Lightbox({
           whileTap={{ scale: 0.9 }}
           onClick={onClose}
           className="absolute right-4 top-4 z-50 rounded-full bg-white/10 p-3 backdrop-blur-sm transition-colors hover:bg-white/20 md:right-8 md:top-8"
+          aria-label="閉じる"
         >
           <X className="h-6 w-6 text-white md:h-8 md:w-8" />
         </motion.button>
@@ -85,6 +87,7 @@ export default function Lightbox({
             handlePrevious();
           }}
           className="absolute left-4 z-50 rounded-full bg-white/10 p-3 backdrop-blur-sm transition-colors hover:bg-white/20 md:left-8"
+          aria-label="前の画像"
         >
           <ChevronLeft className="h-6 w-6 text-white md:h-8 md:w-8" />
         </motion.button>
@@ -102,6 +105,7 @@ export default function Lightbox({
             handleNext();
           }}
           className="absolute right-4 z-50 rounded-full bg-white/10 p-3 backdrop-blur-sm transition-colors hover:bg-white/20 md:right-8"
+          aria-label="次の画像"
         >
           <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8" />
         </motion.button>
@@ -125,8 +129,8 @@ export default function Lightbox({
               className="relative h-full w-full"
             >
               <Image
-                src={images[currentIndex].src}
-                alt={images[currentIndex].alt}
+                src={images[currentIndex].publicUrl}
+                alt={images[currentIndex].name}
                 fill
                 className="object-contain"
                 sizes="100vw"

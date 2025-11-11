@@ -19,15 +19,15 @@ export default function GalleryFilter({
       { id: "all", label: "すべて" },
       { id: "kimono", label: "着物撮影" },
       { id: "studio", label: "スタジオ" },
-      { id: "portrait", label: "ポートレート" },
-      { id: "event", label: "イベント" },
+      { id: "chloe", label: "Chloe" },
+      { id: "gallery", label: "ギャラリー" },
     ],
     en: [
       { id: "all", label: "All" },
       { id: "kimono", label: "Kimono" },
       { id: "studio", label: "Studio" },
-      { id: "portrait", label: "Portrait" },
-      { id: "event", label: "Event" },
+      { id: "chloe", label: "Chloe" },
+      { id: "gallery", label: "Gallery" },
     ],
   };
 
@@ -48,10 +48,10 @@ export default function GalleryFilter({
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
-          whileHover={{ scale: 1.1, y: -5 }}
+          whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setActiveCategory(category.id)}
-          className={`relative overflow-hidden px-8 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-300 ${
+          className={`relative overflow-hidden rounded-md px-8 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-300 ${
             activeCategory === category.id
               ? "bg-[#2C2C2C] text-white shadow-lg"
               : "border-2 border-[#2C2C2C] bg-transparent text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-white"

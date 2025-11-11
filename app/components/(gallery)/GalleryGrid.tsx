@@ -2,8 +2,9 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Lightbox from "./Lightbox";
+import { getAllGalleryImages, GalleryImage } from "@/lib/supabase";
 
 interface GalleryGridProps {
   activeCategory: string;
@@ -11,68 +12,63 @@ interface GalleryGridProps {
 
 export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [allImages, setAllImages] = useState<GalleryImage[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [imageLoadErrors, setImageLoadErrors] = useState<Set<string>>(
+    new Set()
+  );
 
-  // ダミー画像データ
-  const allImages = [
-    { id: 1, src: "/images/hero1.jpg", category: "kimono", alt: "着物撮影 1" },
-    {
-      id: 2,
-      src: "/images/hero2.jpg",
-      category: "studio",
-      alt: "スタジオ撮影 1",
-    },
-    {
-      id: 3,
-      src: "/images/hero3.jpg",
-      category: "portrait",
-      alt: "ポートレート 1",
-    },
-    { id: 4, src: "/images/hero1.jpg", category: "kimono", alt: "着物撮影 2" },
-    {
-      id: 5,
-      src: "/images/hero2.jpg",
-      category: "event",
-      alt: "イベント撮影 1",
-    },
-    {
-      id: 6,
-      src: "/images/hero3.jpg",
-      category: "studio",
-      alt: "スタジオ撮影 2",
-    },
-    {
-      id: 7,
-      src: "/images/hero1.jpg",
-      category: "portrait",
-      alt: "ポートレート 2",
-    },
-    { id: 8, src: "/images/hero2.jpg", category: "kimono", alt: "着物撮影 3" },
-    {
-      id: 9,
-      src: "/images/hero3.jpg",
-      category: "studio",
-      alt: "スタジオ撮影 3",
-    },
-    {
-      id: 10,
-      src: "/images/hero1.jpg",
-      category: "event",
-      alt: "イベント撮影 2",
-    },
-    {
-      id: 11,
-      src: "/images/hero2.jpg",
-      category: "portrait",
-      alt: "ポートレート 3",
-    },
-    { id: 12, src: "/images/hero3.jpg", category: "kimono", alt: "着物撮影 4" },
-  ];
+  // Supabaseから画像を取得
+  useEffect(() => {
+    async function fetchImages() {
+      setLoading(true);
+      try {
+        const images = await getAllGalleryImages();
+        setAllImages(images);
+      } catch (error) {
+        console.error("Error fetching gallery images:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchImages();
+  }, []);
 
   // フィルター処理
   const filteredImages =
     activeCategory === "all"
       ? allImages
       : allImages.filter((img) => img.category === activeCategory);
+
+  // 画像読み込みエラーハンドリング
+  const handleImageError = (imageId: string) => {
+    setImageLoadErrors((prev) => new Set(prev).add(imageId));
+  };
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          className="h-12 w-12 rounded-full border-4 border-[#8B7355] border-t-transparent"
+        />
+      </div>
+    );
+  }
+
+  if (filteredImages.length === 0) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="flex min-h-[400px] items-center justify-center"
+      >
+        <p className="text-lg text-[#2C2C2C]/60">画像が見つかりませんでした</p>
+      </motion.div>
+    );
+  }
 
   return (
     <>
@@ -96,19 +92,32 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
               onClick={() => setSelectedImage(index)}
             >
               {/* 画像 */}
-              <div className="relative aspect-3/4 overflow-hidden">
+              <div className="relative aspect-3/4 overflow-hidden bg-gray-100">
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.6 }}
                   className="h-full w-full"
                 >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
+                  {!imageLoadErrors.has(image.id) ? (
+                    <Image
+                      src={image.publicUrl}
+                      alt={image.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      loading="lazy"
+                      quality={75}
+                      onError={() => handleImageError(image.id)}
+                      placeholder="blur"
+                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-gray-200">
+                      <p className="text-sm text-gray-600">
+                        画像を読み込めません
+                      </p>
+                    </div>
+                  )}
                 </motion.div>
 
                 {/* オーバーレイ */}
