@@ -31,7 +31,7 @@ export default function Hero() {
       description: "富士山と茶畑を背景に、伝統的な着物姿で特別な一枚を。",
       descriptionLong:
         "富士山と茶畑を背景に、伝統的な着物姿で特別な一枚を。プロのライティングとスタイリングで、あなたの大切な瞬間を美しく残します。",
-      address: "静岡県富士市新田島町1-13",
+      address: "静岡県富士市荒田島町1-13 ラシェット1",
       phone: "TEL: 0545-55-4550",
       hours: "営業時間: 11:00-17:00 / 定休日: 水曜日",
       buttonGallery: "View Gallery",
@@ -89,10 +89,10 @@ export default function Hero() {
           {/* タイトル */}
           <div className="space-y-0">
             <h1 className="font-['Crimson_Text'] text-[3.5rem] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]">
-              PHOTO
+              KIMONO
             </h1>
             <h1 className="font-['Crimson_Text'] text-[3.5rem] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]">
-              KIMONO
+              PHOTO
             </h1>
             <h1 className="font-['Crimson_Text'] text-[3.5rem] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]">
               STUDIO
@@ -180,7 +180,7 @@ export default function Hero() {
               transition={{ duration: 0.8 }}
               className="font-['Crimson_Text'] text-[clamp(4rem,12vw,8rem)] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]"
             >
-              PHOTO
+              KIMONO
             </motion.h1>
             <motion.h1
               initial={{ opacity: 0, x: -50 }}
@@ -188,7 +188,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="font-['Crimson_Text'] text-[clamp(4rem,12vw,8rem)] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]"
             >
-              KIMONO
+              PHOTO
             </motion.h1>
             <motion.h1
               initial={{ opacity: 0, x: -50 }}

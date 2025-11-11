@@ -89,7 +89,7 @@ export default function Footer() {
                 <MapPin className="mt-1 h-4 w-4 shrink-0" />
                 <span>
                   {locale === "ja"
-                    ? "〒417-0001 静岡県富士市新田島町1-13"
+                    ? "〒417-0001 静岡県富士市荒田島町1-13 ラシェット1"
                     : "1-13 Aratajimacho, Fuji-shi, Shizuoka, 417-0001, Japan"}
                 </span>
               </li>

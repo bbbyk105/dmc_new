@@ -224,7 +224,7 @@ export const createAutoReplyTemplate = (name: string, locale: string) => {
                   <p><strong>DMC</strong></p>
                   <p>
                     〒417-0001<br>
-                    静岡県富士市新田島町1-13<br>
+                    静岡県富士市荒田島町1-13 ラシェット1<br>
                     TEL: 0545-55-4550<br>
                     Email: dmc.fuji0823@gmail.com<br>
                     営業時間: 11:00〜17:00（定休日: 水曜日）
@@ -250,7 +250,7 @@ ${name} 様
 ――――――――――――――――――
 DMC
 〒417-0001
-静岡県富士市新田島町1-13
+静岡県富士市荒田島町1-13 ラシェット1
 TEL: 0545-55-4550
 Email: dmc.fuji0823@gmail.com
 営業時間: 11:00〜17:00（定休日: 水曜日）
@@ -293,7 +293,7 @@ Email: dmc.fuji0823@gmail.com
                 <div class="signature">
                   <p><strong>DMC</strong></p>
                   <p>
-                    1-13 Shintajima-cho, Fuji City<br>
+                    1-13 Aratajima-cho, Fuji City<br>
                     Shizuoka 417-0001, Japan<br>
                     TEL: +81-545-55-4550<br>
                     Email: dmc.fuji0823@gmail.com<br>
@@ -319,7 +319,7 @@ We appreciate your patience.
 
 ――――――――――――――――――
 DMC
-1-13 Shintajima-cho, Fuji City
+1-13 Aratatajima-cho, Fuji City
 Shizuoka 417-0001, Japan
 TEL: +81-545-55-4550
 Email: dmc.fuji0823@gmail.com

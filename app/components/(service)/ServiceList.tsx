@@ -15,10 +15,10 @@ export default function ServiceList() {
   const content = {
     ja: {
       camu: {
-        title: "花夢 (CAMU)",
+        title: "花夢 (ハナユメ)",
         subtitle: "着物撮影 - 日本人向け",
         description:
-          "富士山と茶畑を背景に、伝統的な着物姿で特別な一枚を。プロのライティングとスタイリングで、あなたの大切な瞬間を美しく残します。",
+          "伝統的な着物姿で特別な一枚を。プロ仕様の撮影スタジオと着物で、あなたの大切な瞬間を美しく残します。",
         plans: [
           {
             name: "DMCクラブメンバー",
@@ -31,7 +31,6 @@ export default function ServiceList() {
             features: ["着物レンタル", "スタジオ(1時間)"],
           },
         ],
-        membership: "メンバー費：¥3,000/月",
         locations: ["スタジオ撮影"],
       },
       chloe: {
@@ -50,8 +49,15 @@ export default function ServiceList() {
         title: "アンティークカフェ",
         subtitle: "1階カフェスペース",
         description:
-          "アンティーク家具に囲まれた落ち着いた空間で、こだわりのコーヒーをお楽しみいただけます。撮影の合間のひとときに。",
-        menu: [{ item: "コーヒー", price: "¥200" }],
+          "アンティーク家具に囲まれた落ち着いた空間で、こだわりのコーヒーや日本茶をお楽しみいただけます。撮影の合間のひとときに。",
+        menu: [
+          { item: "コーヒー", price: "¥200" },
+          { item: "紅茶", price: "¥200" },
+          { item: "和紅茶", price: "¥200" },
+          { item: "黒ほうじ茶", price: "¥200" },
+          { item: "白ほうじ茶", price: "¥200" },
+          { item: "玉露茶", price: "¥200" },
+        ],
       },
     },
     en: {
@@ -104,8 +110,15 @@ export default function ServiceList() {
         title: "Antique Cafe",
         subtitle: "1st Floor Cafe Space",
         description:
-          "Enjoy specialty coffee in a calm space surrounded by antique furniture. Perfect for a relaxing break between photo sessions.",
-        menu: [{ item: "Coffee", price: "¥200" }],
+          "A calm, antique-inspired space offering specialty coffee and Japanese tea selections. Perfect for a relaxing break between photo sessions.",
+        menu: [
+          { item: "Coffee", price: "¥200" },
+          { item: "Black Tea", price: "¥200" },
+          { item: "Japanese Black Tea (Wakoucha)", price: "¥200" },
+          { item: "Dark Roasted Hojicha", price: "¥200" },
+          { item: "White Hojicha", price: "¥200" },
+          { item: "Gyokuro Green Tea", price: "¥200" },
+        ],
       },
     },
   };
@@ -204,19 +217,6 @@ export default function ServiceList() {
                 </motion.div>
               ))}
             </div>
-
-            {/* メンバーシップ情報 */}
-            {t.camu.membership && (
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={vp}
-                transition={{ duration: 0.5 }}
-                className="text-sm font-bold text-[#8B7355]"
-              >
-                {t.camu.membership}
-              </motion.p>
-            )}
 
             {/* ロケーション */}
             <div className="space-y-2">
