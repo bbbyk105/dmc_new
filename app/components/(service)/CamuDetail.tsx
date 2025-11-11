@@ -129,7 +129,7 @@ export default function CamuDetail() {
               price: "¥100,000",
               tax: "(per person, tax included)",
               features: [
-                "Location + Studio session",
+                "Location or Studio session",
                 "Studio rental (60 min)",
                 "Kimono rental",
                 "Dressing & hairstyling",
@@ -155,7 +155,7 @@ export default function CamuDetail() {
           "Reservations are required in advance.",
           "Location shoots may change depending on weather conditions.",
           "Photo data are delivered online.",
-          "Please contact us at least 3 days in advance for cancellations.",
+          "Please contact us at least 2 days in advance for cancellations.",
         ],
       },
     },
@@ -414,7 +414,7 @@ export default function CamuDetail() {
       {/* CTA */}
       <section className="border-t border-gray-200 py-16">
         <div className="container mx-auto px-6 text-center lg:px-12">
-          <Link href={`/${currentLocale}/contact`}>
+          <Link href="https://dmcfuji0823.wixsite.com/reservation/en">
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

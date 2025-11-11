@@ -71,7 +71,7 @@ export default function ServiceList() {
             name: "Premium Plan",
             price: "¥100,000 / person (tax included)",
             features: [
-              "Location + Studio session",
+              "Location or Studio session",
               "Studio rental (60 min)",
               "Kimono rental",
               "Dressing & hairstyling",
@@ -254,7 +254,7 @@ export default function ServiceList() {
                   </motion.button>
                 </Link>
               )}
-              <Link href="https://dmcfuji0823.wixsite.com/reservation">
+              <Link href="https://dmcfuji0823.wixsite.com/reservation/en">
                 <motion.button
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
