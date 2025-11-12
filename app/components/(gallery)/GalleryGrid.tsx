@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Lightbox from "./Lightbox";
 import { getAllGalleryImages, GalleryImage } from "@/lib/supabase";
 
@@ -19,9 +19,12 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
   );
   const [currentPage, setCurrentPage] = useState(1);
 
+  // ▼ 追加：現在ページのロード進捗
+  const [loadedCount, setLoadedCount] = useState(0);
+
   const imagesPerPage = 9;
 
-  // Supabaseから画像を取得
+  // Supabaseから画像を取得（非同期）
   useEffect(() => {
     async function fetchImages() {
       setLoading(true);
@@ -34,15 +37,17 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
         setLoading(false);
       }
     }
-
     fetchImages();
   }, []);
 
   // フィルター処理
-  const filteredImages =
-    activeCategory === "all"
-      ? allImages
-      : allImages.filter((img) => img.category === activeCategory);
+  const filteredImages = useMemo(
+    () =>
+      activeCategory === "all"
+        ? allImages
+        : allImages.filter((img) => img.category === activeCategory),
+    [activeCategory, allImages]
+  );
 
   // 🔁 フィルター変更時に1ページ目へ（Lightboxも閉じて上部へスクロール）
   useEffect(() => {
@@ -61,8 +66,28 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
     startIndex + imagesPerPage
   );
 
+  // ▼ 追加：ページが変わった/絞り込みが変わったらロードカウンタをリセット
+  useEffect(() => {
+    setLoadedCount(0);
+  }, [startIndex, activeCategory, filteredImages.length]);
+
+  // ▼ 追加：現在ページの「読込み対象枚数」（エラーも完了扱いにする）
+  const targetCount = currentImages.length;
+  const allLoaded = targetCount > 0 && loadedCount >= targetCount;
+
   const handleImageError = (imageId: string) => {
-    setImageLoadErrors((prev) => new Set(prev).add(imageId));
+    setImageLoadErrors((prev) => {
+      const next = new Set(prev);
+      if (!next.has(imageId)) {
+        next.add(imageId);
+        setLoadedCount((c) => c + 1); // エラーも1枚完了としてカウント
+      }
+      return next;
+    });
+  };
+
+  const handleImageLoaded = () => {
+    setLoadedCount((c) => c + 1);
   };
 
   const handlePageChange = (page: number) => {
@@ -71,6 +96,7 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // 初期の全体ローディング（一覧データ未取得時）
   if (loading) {
     return (
       <div className="flex min-h-[400px] items-center justify-center bg-[#F5F3F0]">
@@ -88,7 +114,7 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex min-h=[400px] items-center justify-center"
+        className="flex min-h-[400px] items-center justify-center"
       >
         <p className="text-lg text-[#2C2C2C]/60">画像が見つかりませんでした</p>
       </motion.div>
@@ -97,12 +123,16 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
 
   return (
     <>
-      {/* グリッド本体 */}
+      {/* グリッド本体（読み込み完了まで非表示 & クリック不可） */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ staggerChildren: 0.1 }}
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        animate={{ opacity: allLoaded ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        className={`grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 ${
+          allLoaded ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+        aria-busy={!allLoaded}
+        aria-live="polite"
       >
         <AnimatePresence mode="popLayout">
           {currentImages.map((image, index) => (
@@ -131,14 +161,15 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
                       fill
                       className="object-cover"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      loading="lazy"
+                      loading="lazy" // 既存：帯域最適化
                       quality={75}
                       onError={() => handleImageError(image.id)}
+                      onLoadingComplete={handleImageLoaded} // ★ 全画像読み込み完了まで待つ
                       placeholder="blur"
                       blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-gray-2 00">
+                    <div className="flex h-full w-full items-center justify-center bg-gray-200">
                       <p className="text-sm text-gray-600">
                         画像を読み込めません
                       </p>
@@ -146,7 +177,7 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
                   )}
                 </motion.div>
 
-                {/* オーバーレイ */}
+                {/* オーバーレイ（ホバー時） */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
@@ -191,10 +222,38 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
         </AnimatePresence>
       </motion.div>
 
-      {/* ページネーション */}
+      {/* ▼ ページ内 全画像ロード完了までのオーバーレイ（スケルトン + スピナー） */}
+      {!allLoaded && (
+        <div className="relative">
+          {/* スケルトン：レイアウトシフト対策で同じグリッドをダミー表示 */}
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({
+              length: Math.max(currentImages.length, imagesPerPage),
+            }).map((_, i) => (
+              <div
+                key={`skeleton-${i}`}
+                className="overflow-hidden rounded-lg bg-white shadow-lg"
+              >
+                <div className="aspect-3/4 animate-pulse bg-gray-200" />
+              </div>
+            ))}
+          </div>
+          {/* センターのスピナー */}
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              className="h-12 w-12 rounded-full border-4 border-[#8B7355] border-t-transparent"
+              aria-label="読み込み中"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* ページネーション（あなたのレスポンシブUIそのまま） */}
       {totalPages > 1 && (
         <div className="mt-12 flex flex-col items-center gap-3">
-          {/* ▼ モバイル（iPhone想定）：Prev | 1/10 | Next */}
+          {/* iPhone用コンパクト */}
           <div className="flex w-full items-center justify-center gap-3 sm:hidden">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
@@ -208,11 +267,9 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
             >
               前へ
             </button>
-
             <span className="select-none text-sm font-semibold text-[#2C2C2C]">
               {currentPage} / {totalPages}
             </span>
-
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
@@ -227,7 +284,7 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
             </button>
           </div>
 
-          {/* ▼ タブレット〜デスクトップ（iPad Air / iPad Pro / PC想定） */}
+          {/* iPad〜PC用：省略記号つき */}
           <div className="hidden items-center justify-center gap-2 sm:flex">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
@@ -242,25 +299,17 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
               ← 前へ
             </button>
 
-            {/* ページ番号（現在ページの前後を中心に表示／両端は省略記号） */}
             {(() => {
               const pages: (number | "dots")[] = [];
               const add = (p: number | "dots") => pages.push(p);
-
-              const showWindow = 1; // 現在ページの前後に何枚見せるか（sm/md想定）
+              const showWindow = 1;
               const start = Math.max(1, currentPage - showWindow);
               const end = Math.min(totalPages, currentPage + showWindow);
-
-              // 先頭
               if (start > 1) add(1);
               if (start > 2) add("dots");
-
               for (let p = start; p <= end; p++) add(p);
-
-              // 末尾
               if (end < totalPages - 1) add("dots");
               if (end < totalPages) add(totalPages);
-
               return pages.map((p, i) =>
                 p === "dots" ? (
                   <span key={`dots-${i}`} className="px-2 text-[#2C2C2C]/60">
@@ -299,7 +348,7 @@ export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
         </div>
       )}
 
-      {/* Lightbox */}
+      {/* Lightbox（既存） */}
       {selectedImage !== null && (
         <Lightbox
           images={filteredImages}
