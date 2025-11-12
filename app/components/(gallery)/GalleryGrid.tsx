@@ -8,6 +8,7 @@ import { getAllGalleryImages, GalleryImage } from "@/lib/supabase";
 
 interface GalleryGridProps {
   activeCategory: string;
+  initialImages: GalleryImage[];
 }
 
 export default function GalleryGrid({ activeCategory }: GalleryGridProps) {
