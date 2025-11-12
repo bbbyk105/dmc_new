@@ -74,7 +74,7 @@ export default function ServiceList() {
               "Location or Studio session",
               "Studio rental (60 min)",
               "Kimono rental",
-              "Dressing & hairstyling",
+              "Dressing",
               "Professional photo shoot",
               "10 photo data files (online delivery)",
             ],

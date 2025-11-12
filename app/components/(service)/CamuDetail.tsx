@@ -95,7 +95,7 @@ export default function CamuDetail() {
       support: {
         title: "Comprehensive Support by Professionals",
         description:
-          "From dressing and hairstyling to photography, our experienced staff support you at every step for a smooth experience.",
+          "From dressing to photography, our experienced staff support you at every step for a smooth experience.",
         items: [
           {
             title: "Professional Photographer",
@@ -132,7 +132,7 @@ export default function CamuDetail() {
                 "Location or Studio session",
                 "Studio rental (60 min)",
                 "Kimono rental",
-                "Dressing & hairstyling",
+                "Dressing",
                 "Professional photo shoot",
                 "10 photo data files (online delivery)",
               ],
