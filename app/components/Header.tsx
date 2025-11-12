@@ -20,6 +20,18 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 背景スクロール制限
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
   const navItems = [
     { href: `/${locale}`, label: t("home") },
     { href: `/${locale}/gallery`, label: t("gallery") },
@@ -110,33 +122,92 @@ export default function Header() {
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="bg-white/95 backdrop-blur-sm lg:hidden">
-          <div className="container mx-auto flex flex-col gap-4 px-6 py-6">
-            {navItems.map((item) => (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Mobile Menu */}
+      <div
+        className={`fixed right-0 top-0 z-50 h-full w-[85%] max-w-sm transform bg-linear-to-br from-[#5A4A3A] via-[#6B5A4A] to-[#5A4A3A] shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex h-full flex-col">
+          {/* Header with Close Button */}
+          <div className="flex items-center justify-between border-b border-white/10 px-6 py-6">
+            <div className="flex flex-col">
+              <span className="font-['Crimson_Text'] text-2xl font-bold text-white">
+                DMC
+              </span>
+              <span className="font-['Noto_Sans_JP'] text-xs tracking-wider text-white/80">
+                DressManCode
+              </span>
+            </div>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="rounded-full p-2 transition-colors hover:bg-white/10"
+              aria-label="Close menu"
+            >
+              <X className="h-6 w-6 text-white" />
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-6 py-8">
+            {navItems.map((item, index) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider text-[#5A4A3A] hover:text-[#8B7355]"
+                className="group relative overflow-hidden rounded-lg px-4 py-4 font-['Noto_Sans_JP'] text-base font-medium uppercase tracking-wider text-white/90 transition-all hover:bg-white/10 hover:text-white"
+                style={{
+                  animation: `slideIn 0.3s ease-out ${index * 0.1}s both`,
+                }}
               >
-                {item.label}
+                <span className="relative z-10">{item.label}</span>
+                <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/5 to-transparent transition-transform duration-300 group-hover:translate-x-full" />
               </Link>
             ))}
+          </nav>
+
+          {/* Bottom Section */}
+          <div className="space-y-4 border-t border-white/10 px-6 py-6">
+            {/* Reserve Button */}
             <a
-              href="https://wix.to/your-booking-page"
+              href="https://dmcfuji0823.wixsite.com/reservation/en"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="rounded border-2 border-[#8B7355] bg-[#8B7355] px-6 py-2 text-center font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider text-white"
+              className="block rounded-lg border-2 border-white bg-white px-6 py-3 text-center font-['Noto_Sans_JP'] text-sm font-semibold uppercase tracking-wider text-[#5A4A3A] transition-all hover:bg-transparent hover:text-white"
             >
               {t("reserve")}
             </a>
-            <LanguageSwitcher isScrolled={true} />
+
+            {/* Language Switcher */}
+            <div className="flex justify-center">
+              <LanguageSwitcher isScrolled={false} />
+            </div>
           </div>
         </div>
-      )}
+      </div>
+
+      {/* Animation Keyframes */}
+      <style jsx>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </header>
   );
 }
