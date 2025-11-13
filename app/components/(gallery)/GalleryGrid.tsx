@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Lightbox from "./Lightbox";
 import { getAllGalleryImages, GalleryImage } from "@/lib/supabase";
 
@@ -17,39 +16,44 @@ export default function GalleryGrid({
   initialImages,
 }: GalleryGridProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const [allImages, setAllImages] = useState<GalleryImage[]>(
-    initialImages ?? []
-  );
-  const [loading, setLoading] = useState(allImages.length === 0);
+  const [allImages, setAllImages] = useState<GalleryImage[]>(initialImages);
+  const [loadingList, setLoadingList] = useState(initialImages.length === 0);
   const [imageLoadErrors, setImageLoadErrors] = useState<Set<string>>(
     new Set()
   );
-  const [overrideSrc, setOverrideSrc] = useState<Record<string, string>>({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [loadedCount, setLoadedCount] = useState(0);
 
-  const imagesPerPage = 6;
+  // ▼ ローダー制御（Filter直下に表示）
+  const [showLoader, setShowLoader] = useState(true);
+  // 画面幅に応じて「先頭何枚を eager にするか」
+  const [eagerCount, setEagerCount] = useState(3); // 初期はモバイル想定
 
-  // 最新取得（初期はSSR分が即出る）
   useEffect(() => {
-    let mounted = true;
+    const w = window.innerWidth;
+    // sm未満:3, md未満:4, それ以上:6 くらいが体感バランス良い
+    setEagerCount(w < 640 ? 3 : w < 1024 ? 4 : 6);
+  }, []);
+
+  // 初回 & 再取得（安全のため）
+  useEffect(() => {
+    if (initialImages.length > 0) {
+      setLoadingList(false);
+      return;
+    }
     (async () => {
-      setLoading(true);
+      setLoadingList(true);
       try {
         const images = await getAllGalleryImages();
-        if (mounted) setAllImages(images);
+        setAllImages(images);
       } catch (e) {
         console.error("Error fetching gallery images:", e);
       } finally {
-        if (mounted) setLoading(false);
+        setLoadingList(false);
       }
     })();
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  }, [initialImages]);
 
-  // フィルタ
+  // フィルター
   const filteredImages = useMemo(
     () =>
       activeCategory === "all"
@@ -58,7 +62,8 @@ export default function GalleryGrid({
     [activeCategory, allImages]
   );
 
-  // ページネーション
+  // ページング
+  const imagesPerPage = 6;
   const totalPages = Math.ceil(filteredImages.length / imagesPerPage);
   const startIndex = (currentPage - 1) * imagesPerPage;
   const currentImages = filteredImages.slice(
@@ -66,43 +71,42 @@ export default function GalleryGrid({
     startIndex + imagesPerPage
   );
 
-  // ページ/絞り込み変更時
+  // 先頭N枚の読み込みカウント（lazy待ちで詰まらないように）
+  const [loadedEagerCount, setLoadedEagerCount] = useState(0);
+  const targetEager = Math.min(eagerCount, currentImages.length);
+
+  // カテゴリ変更時は1ページ目に戻す
   useEffect(() => {
     setCurrentPage(1);
-    setSelectedImage(null);
-    setLoadedCount(0);
-    if (typeof window !== "undefined")
-      window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeCategory]);
 
+  // ページ/フィルター変更時にリセット & フォールバックタイマー
   useEffect(() => {
-    setLoadedCount(0);
-  }, [startIndex, filteredImages.length]);
+    setLoadedEagerCount(0);
+    setShowLoader(true);
 
-  const targetCount = currentImages.length;
-  const allLoaded = targetCount > 0 && loadedCount >= targetCount;
+    // 1.8秒フォールバック：ネットが遅くても表示を開始
+    const t = setTimeout(() => setShowLoader(false), 1800);
+    return () => clearTimeout(t);
+  }, [startIndex, activeCategory, filteredImages.length, eagerCount]);
 
-  /* ▼▼▼ ここから差し替え：プロキシ初期・object直フォールバックだけに統一 ▼▼▼ */
-  const toObject = (url: string) =>
-    url.replace("/render/image/public/", "/object/public/");
-
-  const handleImageError = (imageId: string, image: GalleryImage) => {
+  const handleImageError = (imageId: string, idx: number) => {
     setImageLoadErrors((prev) => {
       const next = new Set(prev);
-      if (!next.has(imageId)) {
-        // 初回エラー → object直URLへフォールバック
-        setOverrideSrc((s) => ({ ...s, [imageId]: toObject(image.publicUrl) }));
-        next.add(imageId);
-      } else {
-        // 2回目以降はそのまま（既にobject直）。必要なら別の代替画像に差し替え可。
-      }
+      if (!next.has(imageId)) next.add(imageId);
       return next;
     });
-    setLoadedCount((c) => c + 1); // 失敗も完了としてカウント
+    // エラーでも eager 対象ならカウントを進める
+    if (idx < targetEager) setLoadedEagerCount((c) => c + 1);
   };
-  /* ▲▲▲ ここまで差し替え ▲▲▲ */
 
-  const handleImageLoaded = () => setLoadedCount((c) => c + 1);
+  const handleImageLoaded = (idx: number) => {
+    if (idx < targetEager) setLoadedEagerCount((c) => c + 1);
+  };
+
+  // 表示判定：先頭N枚が読み込み完了 or フォールバック経過
+  const readyToShow =
+    !loadingList && (loadedEagerCount >= targetEager || !showLoader);
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
@@ -110,97 +114,108 @@ export default function GalleryGrid({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // 初回の全体ローディング（Filter直下に表示）
-  if (loading && allImages.length === 0) {
-    return (
-      <div className="mt-4 flex min-h-60 items-center justify-center">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="h-10 w-10 rounded-full border-4 border-[#8B7355] border-t-transparent"
-          aria-label="読み込み中"
-        />
-      </div>
-    );
-  }
-
-  if (filteredImages.length === 0) {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="mt-4 flex min-h-60 items-center justify-center"
-      >
-        <p className="text-lg text-[#2C2C2C]/60">画像が見つかりませんでした</p>
-      </motion.div>
-    );
-  }
-
+  // --- UI ---
   return (
     <>
-      {/* グリッド（全画像ロード完了までクリック不可） */}
+      {/* ▼ Filter直下にローダーを固定配置（スマホ/PC共通で視認可能） */}
+      {!readyToShow && (
+        <div className="mb-6 flex w-full items-center justify-center">
+          <motion.div
+            aria-label="読み込み中"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            className="h-10 w-10 rounded-full border-4 border-[#8B7355] border-t-transparent"
+          />
+        </div>
+      )}
+
+      {/* スケルトン（レイアウトシフト防止） */}
+      {!readyToShow && (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: Math.max(currentImages.length, imagesPerPage) })
+            .slice(0, imagesPerPage)
+            .map((_, i) => (
+              <div
+                key={`skeleton-${i}`}
+                className="overflow-hidden rounded-lg bg-white shadow-lg"
+              >
+                <div className="aspect-3/4 animate-pulse bg-gray-200" />
+              </div>
+            ))}
+        </div>
+      )}
+
+      {/* グリッド本体 */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: allLoaded ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
+        animate={{ opacity: readyToShow ? 1 : 0 }}
+        transition={{ duration: 0.25 }}
         className={`grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 ${
-          allLoaded ? "pointer-events-auto" : "pointer-events-none"
+          readyToShow ? "pointer-events-auto" : "pointer-events-none"
         }`}
-        aria-busy={!allLoaded}
-        aria-live="polite"
+        aria-busy={!readyToShow}
       >
         <AnimatePresence mode="popLayout">
-          {currentImages.map((image, index) => {
-            /* ▼▼▼ 差し替え：初期は proxiedUrl を使う。override があればそれを優先 ▼▼▼ */
-            const src = overrideSrc[image.id] ?? image.proxiedUrl;
-            /* ▲▲▲ 差し替えここまで ▲▲▲ */
+          {currentImages.map((image, idxOnPage) => {
+            const globalIndex = startIndex + idxOnPage;
+            const isEager = idxOnPage < targetEager; // 先頭N枚だけ eager
 
-            const eager = currentPage === 1 && index < 3;
             return (
               <motion.div
                 key={image.id}
                 layout
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                whileHover={{ y: -10, scale: 1.02 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                whileHover={{ y: -6, scale: 1.01 }}
                 className="group relative cursor-pointer overflow-hidden rounded-lg bg-white shadow-lg"
-                onClick={() => setSelectedImage(startIndex + index)}
+                onClick={() => setSelectedImage(globalIndex)}
               >
                 <div className="relative aspect-3/4 overflow-hidden bg-gray-100">
                   <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
+                    whileHover={{ scale: 1.06 }}
+                    transition={{ duration: 0.5 }}
                     className="h-full w-full"
                   >
-                    <Image
-                      src={src}
-                      alt={image.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      priority={eager}
-                      loading={eager ? "eager" : "lazy"}
-                      quality={75}
-                      onError={() => handleImageError(image.id, image)}
-                      onLoadingComplete={handleImageLoaded}
-                      placeholder="blur"
-                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
-                    />
+                    {!imageLoadErrors.has(image.id) ? (
+                      <Image
+                        src={image.publicUrl /* or `/api/img/${image.url}` */}
+                        alt={image.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+                        // ▼ 先頭N枚は即読み込み（lazy待ちで詰まらない）
+                        priority={isEager}
+                        loading={isEager ? "eager" : "lazy"}
+                        quality={75}
+                        onError={() => handleImageError(image.id, idxOnPage)}
+                        // ★ ここを onLoad に置き換え（Next.js 16で推奨）
+                        onLoad={() => handleImageLoaded(idxOnPage)}
+                        placeholder="blur"
+                        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
+                        decoding="async"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-gray-200">
+                        <p className="text-sm text-gray-600">
+                          画像を読み込めません
+                        </p>
+                      </div>
+                    )}
                   </motion.div>
 
-                  {/* Hover overlay */}
+                  {/* hover overlay */}
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25 }}
                     className="absolute inset-0 flex items-center justify-center bg-black/60"
                   >
                     <motion.div
                       initial={{ scale: 0, rotate: -180 }}
                       whileHover={{ scale: 1, rotate: 0 }}
-                      transition={{ duration: 0.5, type: "spring" }}
+                      transition={{ duration: 0.45, type: "spring" }}
                       className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-white"
                     >
                       <svg
@@ -224,7 +239,7 @@ export default function GalleryGrid({
                 <motion.div
                   initial={{ x: -100, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
+                  transition={{ duration: 0.4, delay: 0.15 }}
                   className="absolute left-4 top-4 rounded-full bg-white/90 px-4 py-1 text-xs font-bold uppercase tracking-wider text-[#2C2C2C] backdrop-blur-sm"
                 >
                   {image.category}
@@ -235,33 +250,7 @@ export default function GalleryGrid({
         </AnimatePresence>
       </motion.div>
 
-      {/* Filter直下のローダー（全画像ロード完了まで） */}
-      {!allLoaded && (
-        <div className="relative mt-6">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({
-              length: Math.max(currentImages.length, imagesPerPage),
-            }).map((_, i) => (
-              <div
-                key={`skeleton-${i}`}
-                className="overflow-hidden rounded-lg bg-white shadow-lg"
-              >
-                <div className="aspect-3/4 animate-pulse bg-gray-200" />
-              </div>
-            ))}
-          </div>
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="h-10 w-10 rounded-full border-4 border-[#8B7355] border-t-transparent"
-              aria-label="読み込み中"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* ページネーション */}
+      {/* ページネーション（既存そのまま） */}
       {totalPages > 1 && (
         <div className="mt-12 flex flex-col items-center gap-3">
           <div className="flex w-full items-center justify-center gap-3 sm:hidden">
@@ -271,8 +260,9 @@ export default function GalleryGrid({
               className={`min-w-14 rounded-md px-3 py-2 text-sm font-medium transition ${
                 currentPage === 1
                   ? "cursor-not-allowed text-gray-400"
-                  : "text-[#2C2C2C] hover:bg-[#2C2C2C]/10"
+                  : "text-[#2C2C2C] hover:bg-[#2C2C2C]/10 active:scale-[0.98]"
               }`}
+              aria-label="前のページ"
             >
               前へ
             </button>
@@ -285,8 +275,9 @@ export default function GalleryGrid({
               className={`min-w-14 rounded-md px-3 py-2 text-sm font-medium transition ${
                 currentPage === totalPages
                   ? "cursor-not-allowed text-gray-400"
-                  : "text-[#2C2C2C] hover:bg-[#2C2C2C]/10"
+                  : "text-[#2C2C2C] hover:bg-[#2C2C2C]/10 active:scale-[0.98]"
               }`}
+              aria-label="次へ"
             >
               次へ
             </button>
@@ -301,6 +292,7 @@ export default function GalleryGrid({
                   ? "cursor-not-allowed text-gray-400"
                   : "text-[#2C2C2C] hover:bg-[#2C2C2C]/10"
               }`}
+              aria-label="前のページ"
             >
               ← 前へ
             </button>
@@ -344,6 +336,7 @@ export default function GalleryGrid({
                   ? "cursor-not-allowed text-gray-400"
                   : "text-[#2C2C2C] hover:bg-[#2C2C2C]/10"
               }`}
+              aria-label="次へ"
             >
               次へ →
             </button>
@@ -351,6 +344,7 @@ export default function GalleryGrid({
         </div>
       )}
 
+      {/* Lightbox */}
       {selectedImage !== null && (
         <Lightbox
           images={filteredImages}
