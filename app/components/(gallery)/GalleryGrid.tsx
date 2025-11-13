@@ -28,9 +28,9 @@ export default function GalleryGrid({
   const [currentPage, setCurrentPage] = useState(1);
   const [loadedCount, setLoadedCount] = useState(0);
 
-  const imagesPerPage = 9;
+  const imagesPerPage = 6;
 
-  // 非同期で最新を取得（初期表示はSSR分が即時出る）
+  // 最新取得（初期はSSR分が即出る）
   useEffect(() => {
     let mounted = true;
     (async () => {
@@ -82,25 +82,25 @@ export default function GalleryGrid({
   const targetCount = currentImages.length;
   const allLoaded = targetCount > 0 && loadedCount >= targetCount;
 
-  const toProxy = (image: GalleryImage) => `/api/img/${image.url}`;
+  /* ▼▼▼ ここから差し替え：プロキシ初期・object直フォールバックだけに統一 ▼▼▼ */
   const toObject = (url: string) =>
     url.replace("/render/image/public/", "/object/public/");
 
   const handleImageError = (imageId: string, image: GalleryImage) => {
     setImageLoadErrors((prev) => {
       const next = new Set(prev);
-      if (next.has(imageId)) {
-        // 2回目の失敗 → object直
+      if (!next.has(imageId)) {
+        // 初回エラー → object直URLへフォールバック
         setOverrideSrc((s) => ({ ...s, [imageId]: toObject(image.publicUrl) }));
-      } else {
-        // 1回目の失敗 → API経由
-        setOverrideSrc((s) => ({ ...s, [imageId]: toProxy(image) }));
         next.add(imageId);
+      } else {
+        // 2回目以降はそのまま（既にobject直）。必要なら別の代替画像に差し替え可。
       }
       return next;
     });
     setLoadedCount((c) => c + 1); // 失敗も完了としてカウント
   };
+  /* ▲▲▲ ここまで差し替え ▲▲▲ */
 
   const handleImageLoaded = () => setLoadedCount((c) => c + 1);
 
@@ -151,7 +151,10 @@ export default function GalleryGrid({
       >
         <AnimatePresence mode="popLayout">
           {currentImages.map((image, index) => {
-            const src = overrideSrc[image.id] ?? image.publicUrl;
+            /* ▼▼▼ 差し替え：初期は proxiedUrl を使う。override があればそれを優先 ▼▼▼ */
+            const src = overrideSrc[image.id] ?? image.proxiedUrl;
+            /* ▲▲▲ 差し替えここまで ▲▲▲ */
+
             const eager = currentPage === 1 && index < 3;
             return (
               <motion.div
@@ -232,7 +235,7 @@ export default function GalleryGrid({
         </AnimatePresence>
       </motion.div>
 
-      {/* Filter直下に常時出る「ページ内ローダー」 */}
+      {/* Filter直下のローダー（全画像ロード完了まで） */}
       {!allLoaded && (
         <div className="relative mt-6">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -258,7 +261,7 @@ export default function GalleryGrid({
         </div>
       )}
 
-      {/* ページネーション（そのまま） */}
+      {/* ページネーション */}
       {totalPages > 1 && (
         <div className="mt-12 flex flex-col items-center gap-3">
           <div className="flex w-full items-center justify-center gap-3 sm:hidden">
