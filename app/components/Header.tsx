@@ -1,3 +1,4 @@
+// app/components/Header.tsx
 "use client";
 
 import Link from "next/link";
@@ -13,20 +14,14 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // 背景スクロール制限
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -39,11 +34,16 @@ export default function Header() {
     { href: `/${locale}/contact`, label: t("contact") },
   ];
 
+  // ヘッダーの見た目（メニュー展開中はブラー無効＆完全不透明）
+  const headerSkin = isMobileMenuOpen
+    ? "bg-white shadow-md"
+    : isScrolled
+    ? "bg-white/95 shadow-md backdrop-blur-sm"
+    : "bg-transparent";
+
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? "bg-white/95 shadow-md backdrop-blur-sm" : "bg-transparent"
-      }`}
+      className={`fixed top-0 z-[9999] w-full transition-all duration-300 ${headerSkin}`}
     >
       <nav className="container mx-auto flex items-center justify-between px-6 py-4 lg:px-12">
         {/* Logo */}
@@ -51,14 +51,16 @@ export default function Header() {
           <div className="flex flex-col">
             <span
               className={`font-['Crimson_Text'] text-xl font-bold transition-colors ${
-                isScrolled ? "text-[#5A4A3A]" : "text-white"
+                isScrolled || isMobileMenuOpen ? "text-[#5A4A3A]" : "text-white"
               }`}
             >
               DMC
             </span>
             <span
               className={`font-['Noto_Sans_JP'] text-xs tracking-wider transition-colors ${
-                isScrolled ? "text-[#8B7355]" : "text-white/90"
+                isScrolled || isMobileMenuOpen
+                  ? "text-[#8B7355]"
+                  : "text-white/90"
               }`}
             >
               DressManCode
@@ -90,7 +92,7 @@ export default function Header() {
             className={`rounded border-2 px-6 py-2 font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider transition-all ${
               isScrolled
                 ? "border-[#8B7355] bg-[#8B7355] text-white hover:border-[#5A4A3A] hover:bg-[#5A4A3A]"
-                : "border-white bg-white/10 text-white backdrop-blur-sm hover:bg-white hover:text-[#5A4A3A]"
+                : "border-white bg-white/10 text-white hover:bg-white hover:text-[#5A4A3A]"
             }`}
           >
             {t("reserve")}
@@ -102,16 +104,12 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden"
+          onClick={() => setIsMobileMenuOpen((v) => !v)}
+          className="relative z-[10001] lg:hidden"
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
-            <X
-              className={`h-6 w-6 ${
-                isScrolled ? "text-[#5A4A3A]" : "text-white"
-              }`}
-            />
+            <X className="h-6 w-6 text-[#5A4A3A]" />
           ) : (
             <Menu
               className={`h-6 w-6 ${
@@ -125,16 +123,20 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-[10000] bg-black/70 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
+          aria-hidden="true"
         />
       )}
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu（透け防止：完全不透明 + 正しいgradientクラス + 有効z-index） */}
       <div
-        className={`fixed right-0 top-0 z-50 h-full w-[85%] max-w-sm transform bg-linear-to-br from-[#5A4A3A] via-[#6B5A4A] to-[#5A4A3A] shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed right-0 top-0 z-[10001] h-full w-[85%] max-w-sm transform
+        bg-[#5A4A3A] bg-gradient-to-br from-[#5A4A3A] via-[#6B5A4A] to-[#5A4A3A]
+        shadow-2xl transition-transform duration-300 ease-in-out lg:hidden
+        ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
+        role="dialog"
+        aria-modal="true"
       >
         <div className="flex h-full flex-col">
           {/* Header with Close Button */}
@@ -169,14 +171,13 @@ export default function Header() {
                 }}
               >
                 <span className="relative z-10">{item.label}</span>
-                <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/5 to-transparent transition-transform duration-300 group-hover:translate-x-full" />
+                <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent transition-transform duration-300 group-hover:translate-x-full" />
               </Link>
             ))}
           </nav>
 
           {/* Bottom Section */}
           <div className="space-y-4 border-t border-white/10 px-6 py-6">
-            {/* Reserve Button */}
             <a
               href="https://dmcfuji0823.wixsite.com/reservation/en"
               target="_blank"
@@ -186,8 +187,6 @@ export default function Header() {
             >
               {t("reserve")}
             </a>
-
-            {/* Language Switcher */}
             <div className="flex justify-center">
               <LanguageSwitcher isScrolled={false} />
             </div>

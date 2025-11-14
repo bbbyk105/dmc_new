@@ -1,3 +1,4 @@
+// app/components/(contact)/ContactForm.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -123,17 +124,17 @@ export default function ContactForm() {
 
   const t = content[(locale as "ja" | "en") ?? "ja"] ?? content.ja;
 
-  // ✅ 型の修正（ChangeEvent<HTML...> の総称ジェネリクスを正しく記述）
+  // ✅ 型を正しく付け直し（ここが原因）
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name as keyof FormData]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
@@ -146,9 +147,8 @@ export default function ContactForm() {
       });
 
       const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to send message");
-      }
+      if (!response.ok)
+        throw new Error(data?.error || "Failed to send message");
 
       setSubmitStatus("success");
       setFormData({ name: "", email: "", phone: "", service: "", message: "" });
@@ -206,6 +206,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     required
                     placeholder={t.form.namePlaceholder}
+                    autoComplete="name"
                     className="w-full border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-[#8B7355] focus:outline-none"
                   />
                 </div>
@@ -226,6 +227,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     required
                     placeholder={t.form.emailPlaceholder}
+                    autoComplete="email"
                     className="w-full border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-[#8B7355] focus:outline-none"
                   />
                 </div>
@@ -244,6 +246,7 @@ export default function ContactForm() {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder={t.form.phonePlaceholder}
+                    autoComplete="tel"
                     className="w-full border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-[#8B7355] focus:outline-none"
                   />
                 </div>
@@ -362,9 +365,8 @@ export default function ContactForm() {
                     <p className="mb-2 font-light tracking-wide text-gray-900">
                       {t.info.phone.label}
                     </p>
-                    {/* ✅ 開始タグを追加 */}
                     <a
-                      href={`tel:${t.info.phone.value.replace(/[^0-9]/g, "")}`}
+                      href={`tel:${t.info.phone.value.replace(/[^+\d]/g, "")}`}
                       className="text-sm text-gray-600 transition-colors hover:text-[#8B7355]"
                     >
                       {t.info.phone.value}
@@ -400,10 +402,18 @@ export default function ContactForm() {
                 </div>
               </div>
 
-              <div className="h-[300px] overflow-hidden border border-[#E5E3DC] bg-gray-200 shadow-lg">
-                <div className="flex h-full items-center justify-center text-sm text-gray-500">
-                  Google Map
-                </div>
+              {/* Google Map */}
+              <div className="h-[300px] overflow-hidden border border-[#E5E3DC] shadow-lg">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.935887267429!2d138.68353227668302!3d35.15821965852564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601a2b006bb14195%3A0x5dfbf3ad2e789fda!2zRE1D44OJ44Os44K544Oe44Oz44Kz44O844OJ!5e0!3m2!1sja!2sjp!4v1763086557169!5m2!1sja!2sjp"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="DMC Photo Studio Location"
+                />
               </div>
             </motion.div>
           </div>
