@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -23,6 +24,76 @@ const crimsonText = Crimson_Text({
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
+}
+
+const siteName = "DMC FUJI | Kimono Photo Studio & Rental";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isJa = locale === "ja";
+
+  const baseTitle = isJa
+    ? "DMC FUJI | 富士市の着物撮影・レンタルスタジオ"
+    : "DMC FUJI | Kimono Photography & Rental Studio in Fuji";
+
+  const description = isJa
+    ? "静岡県富士市のフォトスタジオDMC FUJI。着物撮影「花夢(CAMU)」やレンタルスタジオ「Chloe」、アンティークカフェ併設で記念日撮影や成人式・七五三・ブライダルまで対応。"
+    : "DMC FUJI is a kimono photography and rental studio in Fuji City, Shizuoka. We offer CAMU kimono shoots, Chloe rental studio, and an antique cafe for portraits, weddings, and family milestones.";
+
+  const keywords = isJa
+    ? [
+        "DMC FUJI",
+        "着物撮影",
+        "富士市 着物",
+        "富士市 フォトスタジオ",
+        "花夢 CAMU",
+        "成人式 前撮り",
+        "七五三 写真",
+        "ブライダルフォト",
+        "レンタルスタジオ",
+        "アンティークカフェ",
+      ]
+    : [
+        "DMC FUJI",
+        "kimono Fuji",
+        "Fuji City photo studio",
+        "kimono photography Japan",
+        "pre-wedding shoot Fuji",
+        "family portraits Fuji",
+        "rental studio Fuji",
+        "antique cafe Fuji",
+      ];
+
+  const alternates = Object.fromEntries(
+    locales.map((localeCode) => [localeCode, `/${localeCode}`])
+  );
+
+  return {
+    title: { default: baseTitle, template: `%s | ${siteName}` },
+    description,
+    keywords,
+    openGraph: {
+      title: baseTitle,
+      description,
+      siteName,
+      locale,
+      type: "website",
+      url: `/${locale}`,
+    },
+    twitter: {
+      card: "summary",
+      title: baseTitle,
+      description,
+    },
+    alternates: {
+      canonical: `/${locale}`,
+      languages: alternates,
+    },
+  };
 }
 
 export default async function LocaleLayout({
