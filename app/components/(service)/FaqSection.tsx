@@ -19,7 +19,7 @@ export default function FaqSection() {
         {
           question: "持ち物はありますか？",
           answer:
-            "基本的に持ち物は不要です。着物や小物はすべてスタジオでご用意しております。",
+            "下着のみご用意ください。着物や小物はすべてスタジオでご用意しております。",
         },
         {
           question: "撮影時間はどのくらいですか？",
@@ -49,7 +49,7 @@ export default function FaqSection() {
         {
           question: "What should I bring?",
           answer:
-            "No items are required. All ceremonial kimonos and accessories are provided at the studio.",
+            "Please bring only undergarments. All ceremonial kimonos and accessories are provided at the studio.",
         },
         {
           question: "How long does a session take?",
