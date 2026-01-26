@@ -1,8 +1,5 @@
-// path: app/[locale]/service/camu/page.tsx
-
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
@@ -55,8 +52,7 @@ type LocaleBundle = {
 /* ========= End Types ========= */
 
 export default function CamuDetail() {
-  // 既存の仕組みは維持するが、このページは英語固定で表示
-  useLocale(); // 使わないがフック構成は維持
+  useLocale();
   const currentLocale = "en" as const;
 
   const content: Record<"en", LocaleBundle> = {
@@ -190,22 +186,10 @@ export default function CamuDetail() {
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="px-6 text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="mb-4 font-serif text-5xl font-bold text-white md:text-6xl lg:text-7xl"
-            >
+            <h1 className="mb-4 font-serif text-5xl font-bold text-white md:text-6xl lg:text-7xl">
               {t.title}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-lg text-white/90 md:text-xl"
-            >
-              {t.subtitle}
-            </motion.p>
+            </h1>
+            <p className="text-lg text-white/90 md:text-xl">{t.subtitle}</p>
           </div>
         </div>
       </section>
@@ -213,44 +197,28 @@ export default function CamuDetail() {
       {/* Intro */}
       <section className="border-b border-gray-200 bg-[#F5F3F0] py-20">
         <div className="container mx-auto px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15, margin: "0px 0px -10% 0px" }}
-            transition={{ duration: 0.8 }}
-            className="mx-auto max-w-4xl text-center"
-          >
+          <div className="mx-auto max-w-4xl text-center">
             <h2 className="mb-6 font-serif text-3xl font-bold text-gray-900 md:text-4xl">
               {t.intro.title}
             </h2>
             <p className="leading-relaxed text-gray-700">
               {t.intro.description}
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Locations */}
       <section className="border-b border-gray-200 py-20">
         <div className="container mx-auto px-6 lg:px-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-16 text-center font-serif text-3xl font-bold text-gray-900 md:text-4xl"
-          >
+          <h2 className="mb-16 text-center font-serif text-3xl font-bold text-gray-900 md:text-4xl">
             {t.locations.title}
-          </motion.h2>
+          </h2>
 
           <div className="space-y-20">
             {t.locations.items.map((location: LocationItem, index: number) => (
-              <motion.div
+              <div
                 key={`${location.name}-${index}`}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
                 className={`grid gap-8 xl:grid-cols-2 xl:gap-12 ${
                   index % 2 === 1 ? "xl:grid-flow-dense" : ""
                 }`}
@@ -278,7 +246,7 @@ export default function CamuDetail() {
                     {location.description}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -287,29 +255,19 @@ export default function CamuDetail() {
       {/* Support */}
       <section className="border-b border-gray-200 bg-[#F5F3F0] py-20">
         <div className="container mx-auto px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-16 text-center"
-          >
+          <div className="mb-16 text-center">
             <h2 className="mb-6 font-serif text-3xl font-bold text-gray-900 md:text-4xl">
               {t.support.title}
             </h2>
             <p className="mx-auto max-w-3xl leading-relaxed text-gray-700">
               {t.support.description}
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid gap-8 md:grid-cols-2">
             {t.support.items.map((item: SupportItem, index: number) => (
-              <motion.div
+              <div
                 key={`${item.title}-${index}`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="border-l-4 border-[#8B7355] bg-white p-6"
               >
                 <h3 className="mb-3 text-xl font-bold text-gray-900">
@@ -318,24 +276,18 @@ export default function CamuDetail() {
                 <p className="leading-relaxed text-gray-700">
                   {item.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pricing (International only) */}
+      {/* Pricing */}
       <section className="border-b border-gray-200 py-20">
         <div className="container mx-auto px-6 lg:px-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-16 text-center font-serif text-3xl font-bold text-gray-900 md:text-4xl"
-          >
+          <h2 className="mb-16 text-center font-serif text-3xl font-bold text-gray-900 md:text-4xl">
             {t.pricing.title}
-          </motion.h2>
+          </h2>
 
           <div>
             <h3 className="mb-8 text-center text-2xl font-bold text-gray-900">
@@ -344,13 +296,9 @@ export default function CamuDetail() {
             <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
               {t.pricing.international.plans.map(
                 (plan: Plan, index: number) => (
-                  <motion.div
+                  <div
                     key={`${plan.name}-${index}`}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.2 }}
-                    className="border-2 border-gray-200 bg-white p-8"
+                    className="border border-gray-200 bg-white p-8"
                   >
                     <div className="mb-6 border-b border-gray-200 pb-6">
                       <h4 className="mb-2 text-xl font-bold text-gray-900">
@@ -376,8 +324,8 @@ export default function CamuDetail() {
                         </li>
                       ))}
                     </ul>
-                  </motion.div>
-                )
+                  </div>
+                ),
               )}
             </div>
           </div>
@@ -387,13 +335,7 @@ export default function CamuDetail() {
       {/* Notes */}
       <section className="bg-[#F5F3F0] py-20">
         <div className="container mx-auto px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mx-auto max-w-4xl"
-          >
+          <div className="mx-auto max-w-4xl">
             <h2 className="mb-8 text-center font-serif text-3xl font-bold text-gray-900 md:text-4xl">
               {t.notes.title}
             </h2>
@@ -407,7 +349,7 @@ export default function CamuDetail() {
                 </p>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -415,13 +357,9 @@ export default function CamuDetail() {
       <section className="border-t border-gray-200 py-16">
         <div className="container mx-auto px-6 text-center lg:px-12">
           <Link href="https://dmcfuji0823.wixsite.com/reservation/en">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="border-2 border-[#2C2C2C] bg-[#2C2C2C] px-12 py-4 font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C]"
-            >
+            <button className="border-2 border-[#2C2C2C] bg-[#2C2C2C] px-12 py-4 font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C]">
               Book Now
-            </motion.button>
+            </button>
           </Link>
         </div>
       </section>

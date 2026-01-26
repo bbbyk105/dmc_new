@@ -1,16 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
-import { MapPin, Clock, Coffee, Camera } from "lucide-react";
+import { MapPin, Clock, Coffee } from "lucide-react";
 
 export default function ServiceList() {
   const locale = useLocale();
-
-  // 早めに発火する共通 viewport（見た目は変えず遅延体感だけ解消）
-  const vp = { once: true, amount: 0.15, margin: "0px 0px -10% 0px" } as const;
 
   const content = {
     ja: {
@@ -128,22 +124,12 @@ export default function ServiceList() {
   return (
     <div className="container mx-auto px-6 py-20 lg:px-12">
       {/* CAMU */}
-      <motion.section
-        initial={{ opacity: 0, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={vp}
-        transition={{ duration: 0.8 }}
-        className="mb-32"
-      >
+      <section className="mb-32">
         <div className="grid items-stretch gap-12 xl:grid-cols-2 xl:gap-16">
           {/* 画像 */}
-          <motion.div
-            initial={{ opacity: 0, x: -100 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.8 }}
+          <div
             className="
-              group relative overflow-hidden rounded-2xl shadow-2xl
+              relative overflow-hidden rounded-lg
               h-80
               max-[360px]:h-[260px]
               max-[390px]:h-[300px]
@@ -152,27 +138,18 @@ export default function ServiceList() {
               lg:h-[600px]
             "
           >
-            <div className="absolute inset-0 z-10 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-            <div className="absolute inset-0 z-10 bg-linear-to-br from-white/20 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-30" />
             <Image
               src="/images/camu.webp"
               alt="CAMU Kimono Photo"
               fill
-              className="object-cover transition-all duration-1000 ease-out group-hover:scale-110 group-hover:brightness-110 object-[50%_30%]"
+              className="object-cover object-[50%_30%]"
               sizes="(max-width: 390px) 100vw, (max-width: 768px) 100vw, 50vw"
               priority
             />
-            <div className="absolute inset-0 z-20 border-4 border-white/0 transition-all duration-700 group-hover:border-white/30" />
-          </motion.div>
+          </div>
 
           {/* コンテンツ */}
-          <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col justify-center space-y-6"
-          >
+          <div className="flex flex-col justify-center space-y-6">
             <div>
               <h2 className="mb-2 font-['Crimson_Text'] text-5xl font-black text-[#2C2C2C]">
                 {t.camu.title}
@@ -180,19 +157,16 @@ export default function ServiceList() {
               <p className="text-lg text-[#8B7355]">{t.camu.subtitle}</p>
             </div>
 
-            <p className="text-[#5A5A5A]">{t.camu.description}</p>
+            <p className="text-[#5A5A5A] leading-relaxed">
+              {t.camu.description}
+            </p>
 
             {/* プラン */}
             <div className="space-y-4">
               {t.camu.plans.map((plan, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={vp}
-                  transition={{ duration: 0.5 }}
-                  whileHover={{ scale: 1.02, x: 10 }}
-                  className="rounded-xl border-2 border-[#2C2C2C]/10 bg-white p-6 shadow-lg transition-all hover:border-[#8B7355] hover:shadow-xl"
+                  className="rounded-lg border border-[#2C2C2C]/10 bg-white p-6 hover:border-[#8B7355] transition-colors"
                 >
                   <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                     <h3 className="text-xl font-bold text-[#2C2C2C]">
@@ -214,120 +188,73 @@ export default function ServiceList() {
                       </li>
                     ))}
                   </ul>
-                </motion.div>
+                </div>
               ))}
             </div>
 
             {/* ロケーション */}
             <div className="space-y-2">
               {t.camu.locations.map((location, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={vp}
-                  transition={{ duration: 0.5 }}
                   className="flex items-center text-sm text-[#5A5A5A]"
                 >
                   <MapPin className="mr-2 h-4 w-4 text-[#8B7355]" />
                   {location}
-                </motion.div>
+                </div>
               ))}
             </div>
 
-            {/* CTA（英語のみ「詳細を見る」を表示／日本語は非表示） */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={vp}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col gap-3 sm:flex-row"
-            >
+            {/* CTA */}
+            <div className="flex flex-col gap-3 sm:flex-row pt-4">
               {locale !== "ja" && (
                 <Link href={`/${locale}/service/camu`}>
-                  <motion.button
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full border-2 border-[#8B7355] bg-transparent px-8 py-4 font-bold uppercase tracking-wider text-[#8B7355] transition-all hover:bg-[#8B7355] hover:text-white sm:w-auto"
-                  >
+                  <button className="w-full border-2 border-[#8B7355] bg-transparent px-8 py-4 font-bold uppercase tracking-wider text-[#8B7355] transition-colors hover:bg-[#8B7355] hover:text-white sm:w-auto">
                     View Details
-                  </motion.button>
+                  </button>
                 </Link>
               )}
               <Link href="https://dmcfuji0823.wixsite.com/reservation/en">
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full border-2 border-[#2C2C2C] bg-[#2C2C2C] px-8 py-4 font-bold uppercase tracking-wider text-white transition-all hover:bg-transparent hover:text-[#2C2C2C] sm:w-auto"
-                >
+                <button className="w-full border-2 border-[#2C2C2C] bg-[#2C2C2C] px-8 py-4 font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C] sm:w-auto">
                   {locale === "ja" ? "予約する" : "Book Now"}
-                </motion.button>
+                </button>
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
-      </motion.section>
+      </section>
 
-      {/* Chloe（レンタルスタジオ） & カフェ（2カラム） */}
+      {/* Chloe & カフェ */}
       <div className="grid items-stretch gap-12 lg:grid-cols-2">
         {/* Chloe レンタルスタジオ */}
-        <motion.section
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={vp}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            whileHover={{ y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="h-full overflow-hidden rounded-2xl bg-white shadow-xl flex flex-col"
-          >
+        <section>
+          <div className="h-full overflow-hidden rounded-lg bg-white border border-gray-200 flex flex-col">
             {/* 画像 */}
-            <div className="group relative h-64 overflow-hidden md:h-80 lg:h-96">
-              <div className="absolute inset-0 z-10 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-              <div className="absolute inset-0 z-10 bg-linear-to-br from-white/20 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-30" />
+            <div className="relative h-64 overflow-hidden md:h-80 lg:h-96">
               <Image
                 src="/images/chloe.webp"
                 alt="Chloe Rental Studio"
                 fill
-                className="object-cover transition-all duration-1000 ease-out group-hover:scale-110 group-hover:brightness-110"
+                className="object-cover"
               />
-              <div className="absolute inset-0 z-20 border-4 border-white/0 transition-all duration-700 group-hover:border-white/30" />
             </div>
 
             {/* コンテンツ */}
             <div className="p-8 flex-1 flex flex-col">
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={vp}
-                transition={{ duration: 0.5 }}
-                className="mb-4 inline-block rounded-full bg-[#8B7355]/10 px-4 py-2"
-              >
-                <Camera className="inline h-5 w-5 text-[#8B7355]" />
-                <span className="ml-2 text-sm font-bold uppercase tracking-wider text-[#8B7355]">
-                  Studio
-                </span>
-              </motion.div>
-
               <h3 className="mb-2 font-['Crimson_Text'] text-3xl font-black text-[#2C2C2C]">
                 {t.chloe.title}
               </h3>
               <p className="mb-4 text-sm text-[#8B7355]">{t.chloe.subtitle}</p>
 
-              <p className="mb-6 text-sm text-[#5A5A5A]">
+              <p className="mb-6 text-sm text-[#5A5A5A] leading-relaxed">
                 {t.chloe.description}
               </p>
 
               {/* 料金 */}
               <div className="mb-6 space-y-3">
                 {t.chloe.pricing.map((price, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={vp}
-                    transition={{ duration: 0.3 }}
                     className="flex items-center justify-between rounded-lg bg-[#F5F3F0] p-4"
                   >
                     <span className="font-medium text-[#2C2C2C]">
@@ -337,7 +264,7 @@ export default function ServiceList() {
                     <span className="text-xl font-bold text-[#8B7355]">
                       {price.price}
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
@@ -356,87 +283,47 @@ export default function ServiceList() {
 
               <p className="mb-6 text-sm italic text-[#999]">{t.chloe.note}</p>
 
-              {/* CTA（詳細ボタンは削除、予約のみ） */}
-              <div className="mt-auto flex flex-col gap-3">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={vp}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Link href="https://dmcfuji0823.wixsite.com/reservation">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-full border-2 border-[#2C2C2C] bg-[#2C2C2C] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-transparent hover:text-[#2C2C2C]"
-                    >
-                      {locale === "ja" ? "予約する" : "Book Now"}
-                    </motion.button>
-                  </Link>
-                </motion.div>
+              {/* CTA */}
+              <div className="mt-auto">
+                <Link href="https://dmcfuji0823.wixsite.com/reservation">
+                  <button className="w-full border-2 border-[#2C2C2C] bg-[#2C2C2C] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C]">
+                    {locale === "ja" ? "予約する" : "Book Now"}
+                  </button>
+                </Link>
               </div>
             </div>
-          </motion.div>
-        </motion.section>
+          </div>
+        </section>
 
         {/* アンティークカフェ */}
-        <motion.section
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={vp}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            whileHover={{ y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="h-full overflow-hidden rounded-2xl bg-white shadow-xl flex flex-col"
-          >
+        <section>
+          <div className="h-full overflow-hidden rounded-lg bg-white border border-gray-200 flex flex-col">
             {/* 画像 */}
-            <div className="group relative h-64 overflow-hidden md:h-80 lg:h-96">
-              <div className="absolute inset-0 z-10 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-              <div className="absolute inset-0 z-10 bg-linear-to-br from-white/20 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-30" />
+            <div className="relative h-64 overflow-hidden md:h-80 lg:h-96">
               <Image
                 src="/images/cafe.webp"
                 alt="Antique Cafe"
                 fill
-                className="object-cover transition-all duration-1000 ease-out group-hover:scale-110 group-hover:brightness-110"
+                className="object-cover"
               />
-              <div className="absolute inset-0 z-20 border-4 border-white/0 transition-all duration-700 group-hover:border-white/30" />
             </div>
 
             {/* コンテンツ */}
             <div className="p-8 flex-1 flex flex-col">
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={vp}
-                transition={{ duration: 0.5 }}
-                className="mb-4 inline-block rounded-full bg-[#8B7355]/10 px-4 py-2"
-              >
-                <Coffee className="inline h-5 w-5 text-[#8B7355]" />
-                <span className="ml-2 text-sm font-bold uppercase tracking-wider text-[#8B7355]">
-                  Cafe
-                </span>
-              </motion.div>
-
               <h3 className="mb-2 font-['Crimson_Text'] text-3xl font-black text-[#2C2C2C]">
                 {t.cafe.title}
               </h3>
               <p className="mb-4 text-sm text-[#8B7355]">{t.cafe.subtitle}</p>
 
-              <p className="mb-6 text-sm text-[#5A5A5A]">
+              <p className="mb-6 text-sm text-[#5A5A5A] leading-relaxed">
                 {t.cafe.description}
               </p>
 
               {/* メニュー */}
               <div className="mb-6 space-y-3">
                 {t.cafe.menu.map((item, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={vp}
-                    transition={{ duration: 0.3 }}
                     className="flex items-center justify-between rounded-lg bg-[#F5F3F0] p-4"
                   >
                     <span className="font-medium text-[#2C2C2C]">
@@ -446,29 +333,22 @@ export default function ServiceList() {
                     <span className="text-xl font-bold text-[#8B7355]">
                       {item.price}
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
-              {/* 下寄せボックス（下の余白を消す） */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={vp}
-                transition={{ duration: 0.5 }}
-                className="mt-auto rounded-lg bg-[#8B7355]/10 p-4 text-center"
-              >
+              {/* 下寄せボックス */}
+              <div className="mt-auto rounded-lg bg-[#8B7355]/10 p-4 text-center">
                 <p className="text-sm text-[#5A5A5A]">
                   {locale === "ja"
                     ? "撮影の合間に、ゆっくりとおくつろぎください"
                     : "Relax and enjoy during your photo session"}
                 </p>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
-        </motion.section>
+          </div>
+        </section>
       </div>
-      {/* 末尾の余白は既存のセクション間隔を維持（CTA削除に伴う崩れ対策） */}
       <div className="mt-24" />
     </div>
   );
