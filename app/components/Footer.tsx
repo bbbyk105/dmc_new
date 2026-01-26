@@ -85,7 +85,7 @@ export default function Footer() {
               {t("contact.info.title")}
             </h3>
             <ul className="space-y-3 font-['Noto_Sans_JP'] text-sm text-white/80">
-              <li className="flex items-start gap-2">
+              <li className="flex items-start gap-2 mt-6">
                 <MapPin className="mt-1 h-4 w-4 shrink-0" />
                 <span>
                   {locale === "ja"

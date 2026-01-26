@@ -261,7 +261,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="space-y-1 text-xs text-[#999]"
+            className="mt-8 space-y-1 text-xs text-[#999]"
           >
             <div>{t.address}</div>
             <div>{t.phone}</div>

@@ -7,11 +7,9 @@ export default async function GalleryPage() {
   const initialImages = await getAllGalleryImages();
 
   return (
-    <div className="min-h-screen bg-[#F5F3F0]">
+    <div className="min-h-screen bg-white">
       <GalleryHero />
-      <div className="container mx-auto px-6 py-16 lg:px-12">
-        <ClientGallery initialImages={initialImages} />
-      </div>
+      <ClientGallery initialImages={initialImages} />
     </div>
   );
 }
