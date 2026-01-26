@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "静岡県富士市のDMC FUJIへのお問い合わせページ。着物撮影「花夢(CAMU)」、レンタルスタジオ「Chloe」、アンティークカフェ併設スタジオへのご予約・ご相談はこちらから。",
   keywords: [
     "DMC FUJI",
-    "kimono fuji",
+    "ceremonial kimono fuji",
     "富士市 着物撮影",
     "レンタルスタジオ 富士",
     "花夢 CAMU",

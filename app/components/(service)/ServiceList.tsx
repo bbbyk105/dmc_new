@@ -38,7 +38,7 @@ export default function ServiceList() {
           { duration: "1時間", price: "¥2,000" },
           { duration: "4時間", price: "¥5,000" },
         ],
-        features: ["照明機材完備", "背景セット各種"],
+        features: ["背景セット各種"],
         note: "※カメラマン・メイクは含まれません",
       },
       cafe: {
@@ -47,21 +47,21 @@ export default function ServiceList() {
         description:
           "アンティーク家具に囲まれた落ち着いた空間で、こだわりのコーヒーや日本茶をお楽しみいただけます。撮影の合間のひとときに。",
         menu: [
-          { item: "コーヒー", price: "¥200" },
-          { item: "紅茶", price: "¥200" },
-          { item: "和紅茶", price: "¥200" },
-          { item: "黒ほうじ茶", price: "¥200" },
-          { item: "白ほうじ茶", price: "¥200" },
-          { item: "玉露茶", price: "¥200" },
+          { item: "珈琲 Hot/Ice", price: "¥400" },
+          { item: "紅茶 Hot/Ice", price: "¥400" },
+          { item: "和紅茶 Hot/Ice", price: "¥400" },
+          { item: "玉露抹茶 Hot/Ice", price: "¥400" },
+          { item: "ほうじ茶ラテ Ice", price: "¥700" },
+          { item: "抹茶ラテ Ice（抹茶はお客様自身点てて仕上げる体験型）", price: "¥700" },
         ],
       },
     },
     en: {
       camu: {
         title: "CAMU",
-        subtitle: "Kimono Photo Shoot — Mt. Fuji & Tea Fields",
+        subtitle: "Ceremonial Kimono Photo Shoot — Mt. Fuji & Tea Fields",
         description:
-          "A professional kimono photo experience that combines outdoor views of Mt. Fuji and tea fields with a studio session under elegant lighting. Photo data are delivered online. Advance reservation required.",
+          "A professional ceremonial kimono photo experience that combines outdoor views of Mt. Fuji and tea fields with a studio session under elegant lighting. Photo data are delivered online. Advance reservation required.",
         plans: [
           {
             name: "Premium Plan",
@@ -69,7 +69,7 @@ export default function ServiceList() {
             features: [
               "Location or Studio session",
               "Studio rental (60 min)",
-              "Kimono rental",
+              "Ceremonial Kimono rental",
               "Dressing",
               "Professional photo shoot",
               "10 photo data files (online delivery)",
@@ -79,7 +79,7 @@ export default function ServiceList() {
             name: "Light Plan",
             price: "¥40,000 / person (tax included)",
             features: [
-              "Kimono rental",
+              "Ceremonial Kimono rental",
               "Self-shoot allowed (use your own device)",
             ],
           },
@@ -99,7 +99,7 @@ export default function ServiceList() {
           { duration: "1 hour", price: "¥2,000" },
           { duration: "4 hours", price: "¥5,000" },
         ],
-        features: ["Lighting equipment", "Various backgrounds"],
+        features: ["Various backgrounds"],
         note: "※Photographer and makeup not included",
       },
       cafe: {
@@ -108,12 +108,12 @@ export default function ServiceList() {
         description:
           "A calm, antique-inspired space offering specialty coffee and Japanese tea selections. Perfect for a relaxing break between photo sessions.",
         menu: [
-          { item: "Coffee", price: "¥200" },
-          { item: "Black Tea", price: "¥200" },
-          { item: "Japanese Black Tea (Wakoucha)", price: "¥200" },
-          { item: "Dark Roasted Hojicha", price: "¥200" },
-          { item: "White Hojicha", price: "¥200" },
-          { item: "Gyokuro Green Tea", price: "¥200" },
+          { item: "Coffee Hot/Ice", price: "¥400" },
+          { item: "Black Tea Hot/Ice", price: "¥400" },
+          { item: "Japanese Black Tea Hot/Ice", price: "¥400" },
+          { item: "Gyokuro Matcha Hot/Ice", price: "¥400" },
+          { item: "Hojicha Latte Ice", price: "¥700" },
+          { item: "Matcha Latte Ice (Experience: You whisk the matcha yourself to finish)", price: "¥700" },
         ],
       },
     },
@@ -140,7 +140,7 @@ export default function ServiceList() {
           >
             <Image
               src="/images/camu.webp"
-              alt="CAMU Kimono Photo"
+              alt="CAMU Ceremonial Kimono Photo"
               fill
               className="object-cover object-[50%_30%]"
               sizes="(max-width: 390px) 100vw, (max-width: 768px) 100vw, 50vw"

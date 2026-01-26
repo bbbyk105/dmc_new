@@ -91,7 +91,7 @@ export default function ContactForm() {
       },
       services: [
         { value: "", label: "Select a service" },
-        { value: "camu", label: "CAMU - Kimono Photography" },
+        { value: "camu", label: "CAMU - Ceremonial Kimono Photography" },
         { value: "chloe", label: "Chloe - Rental Studio" },
         { value: "cafe", label: "Antique Cafe" },
         { value: "other", label: "Other" },

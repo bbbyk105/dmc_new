@@ -58,11 +58,11 @@ export default function CamuDetail() {
   const content: Record<"en", LocaleBundle> = {
     en: {
       title: "CAMU",
-      subtitle: "Kimono Photo Shoot — Mt. Fuji & Tea Fields",
+      subtitle: "Ceremonial Kimono Photo Shoot — Mt. Fuji & Tea Fields",
       intro: {
         title: "Traditional Beauty with Mt. Fuji and Tea Fields",
         description:
-          "A professional kimono photo experience that combines outdoor views of Mt. Fuji and tea fields with an elegant studio session. Photo data are delivered online. Advance reservation required.",
+          "A professional ceremonial kimono photo experience that combines outdoor views of Mt. Fuji and tea fields with an elegant studio session. Photo data are delivered online. Advance reservation required.",
       },
       locations: {
         title: "Photography Locations",
@@ -70,13 +70,13 @@ export default function CamuDetail() {
           {
             name: "Mt. Fuji Viewpoint",
             description:
-              "Capture unforgettable photos with Mt. Fuji as your backdrop. Seasonal scenery enhances the contrast with your kimono, creating a timeless image.",
+              "Capture unforgettable photos with Mt. Fuji as your backdrop. Seasonal scenery enhances the contrast with your ceremonial kimono, creating a timeless image.",
             image: "/images/fuji.webp",
           },
           {
             name: "Tea Field",
             description:
-              "Shoot among iconic tea fields in Fuji City. The vivid green landscape beautifully complements the colors and textures of your kimono.",
+              "Shoot among iconic tea fields in Fuji City. The vivid green landscape beautifully complements the colors and textures of your ceremonial kimono.",
             image: "/images/cha.webp",
           },
           {
@@ -99,14 +99,14 @@ export default function CamuDetail() {
               "We capture flattering compositions and natural expressions in a relaxed atmosphere.",
           },
           {
-            title: "Kimono Dresser",
+            title: "Ceremonial Kimono Dresser",
             description:
               "Secure, beautiful dressing that resists dishevelment during longer sessions.",
           },
           {
             title: "Hair & Makeup Stylist",
             description:
-              "Traditional to modern looks coordinated to your preferences and kimono.",
+              "Traditional to modern looks coordinated to your preferences and ceremonial kimono.",
           },
           {
             title: "Photography Assistant",
@@ -127,7 +127,7 @@ export default function CamuDetail() {
               features: [
                 "Location or Studio session",
                 "Studio rental (60 min)",
-                "Kimono rental",
+                "Ceremonial Kimono rental",
                 "Dressing",
                 "Professional photo shoot",
                 "10 photo data files (online delivery)",
@@ -138,7 +138,7 @@ export default function CamuDetail() {
               price: "¥40,000",
               tax: "(per person, tax included)",
               features: [
-                "Kimono rental",
+                "Ceremonial Kimono rental",
                 "Self-shoot allowed (use your own device)",
               ],
             },
@@ -178,7 +178,7 @@ export default function CamuDetail() {
       <section className="relative overflow-hidden bg-gray-900 h-[42vh] max-[360px]:h-[36vh] md:h-[55vh]">
         <Image
           src="/images/camu.webp"
-          alt="CAMU Kimono Photography"
+          alt="CAMU Ceremonial Kimono Photography"
           fill
           className="object-cover opacity-70 object-[50%_35%]"
           priority

@@ -49,7 +49,7 @@ export default function FaqSection() {
         {
           question: "What should I bring?",
           answer:
-            "No items are required. All kimonos and accessories are provided at the studio.",
+            "No items are required. All ceremonial kimonos and accessories are provided at the studio.",
         },
         {
           question: "How long does a session take?",

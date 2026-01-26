@@ -29,9 +29,9 @@ export default function FeaturedSection() {
     },
     en: {
       title: "CAMU",
-      subtitle: "Kimono Photo Shoot — Mt. Fuji & Tea Fields",
+      subtitle: "Ceremonial Kimono Photo Shoot — Mt. Fuji & Tea Fields",
       description:
-        "A professional kimono photo experience that combines outdoor views of Mt. Fuji and tea fields with a studio session under elegant lighting. Photo data are delivered online. Advance reservation required.",
+        "A professional ceremonial kimono photo experience that combines outdoor views of Mt. Fuji and tea fields with a studio session under elegant lighting. Photo data are delivered online. Advance reservation required.",
       plans: [
         {
           name: "Premium Plan",
@@ -39,7 +39,7 @@ export default function FeaturedSection() {
           features: [
             "Location or Studio session",
             "Studio rental (60 min)",
-            "Kimono rental",
+            "Ceremonial Kimono rental",
             "Dressing",
             "Professional photo shoot",
             "10 photo data files (online delivery)",
@@ -48,7 +48,7 @@ export default function FeaturedSection() {
         {
           name: "Light Plan",
           price: "¥40,000",
-          features: ["Kimono rental", "Self-shoot allowed (use your own device)"],
+          features: ["Ceremonial Kimono rental", "Self-shoot allowed (use your own device)"],
         },
       ],
       cta: "Book Now",

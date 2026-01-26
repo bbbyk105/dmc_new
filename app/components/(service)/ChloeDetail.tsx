@@ -43,11 +43,6 @@ export default function ChloeDetail() {
             description: "七五三、成人式、ドレス、着物撮影など幅広く対応",
           },
           {
-            icon: "light",
-            title: "プロ仕様の照明機材",
-            description: "高品質なライティング機材を完備",
-          },
-          {
             icon: "background",
             title: "豊富な背景セット",
             description: "シーンに合わせた各種背景をご用意",
@@ -84,7 +79,6 @@ export default function ChloeDetail() {
       equipment: {
         title: "設備・機材",
         items: [
-          "プロ仕様照明機材",
           "各種背景セット",
           "撮影用小道具",
           "衣装レンタル",
@@ -140,7 +134,7 @@ export default function ChloeDetail() {
       hero: {
         title: "Professional Photography Studio\nat Affordable Rates",
         description:
-          "Perfect for Shichi-Go-San, coming-of-age ceremonies, dress and kimono photography. Self-service studio for creative freedom.",
+          "Perfect for Shichi-Go-San, coming-of-age ceremonies, dress and ceremonial kimono photography. Self-service studio for creative freedom.",
       },
       pricing: {
         title: "Pricing Plans",
@@ -165,12 +159,7 @@ export default function ChloeDetail() {
             icon: "camera",
             title: "Versatile Photography",
             description:
-              "Suitable for Shichi-Go-San, ceremonies, dress and kimono shoots",
-          },
-          {
-            icon: "light",
-            title: "Professional Lighting",
-            description: "High-quality lighting equipment available",
+              "Suitable for Shichi-Go-San, ceremonies, dress and ceremonial kimono shoots",
           },
           {
             icon: "background",
@@ -195,7 +184,7 @@ export default function ChloeDetail() {
           {
             name: "Coming-of-Age Ceremony",
             description:
-              "Beautiful kimono photography for life's special moments.",
+              "Beautiful ceremonial kimono photography for life's special moments.",
           },
           {
             name: "Dress Photography",
@@ -210,7 +199,6 @@ export default function ChloeDetail() {
       equipment: {
         title: "Equipment & Facilities",
         items: [
-          "Professional lighting equipment",
           "Various background sets",
           "Photography props",
           "Costume rental",

@@ -40,9 +40,9 @@ export default function Hero() {
     en: {
       subtitle: "DMC - Dressman Code",
       description:
-        "Capture your special moments in traditional kimono with Mt. Fuji and tea fields.",
+        "Capture your special moments in traditional ceremonial kimono with Mt. Fuji and tea fields.",
       descriptionLong:
-        "Capture your special moments in traditional kimono with Mt. Fuji and tea fields as your backdrop. Professional lighting and styling to beautifully preserve your precious memories.",
+        "Capture your special moments in traditional ceremonial kimono with Mt. Fuji and tea fields as your backdrop. Professional lighting and styling to beautifully preserve your precious memories.",
       address: "1-13 Aratajimacho, Fuji-shi, Shizuoka",
       phone: "TEL: +81-545-55-4550",
       hours: "Hours: 11:00-17:00 / Closed: Wednesday",
@@ -89,7 +89,7 @@ export default function Hero() {
           {/* タイトル */}
           <div className="space-y-0">
             <h1 className="font-['Crimson_Text'] text-[3.5rem] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]">
-              KIMONO
+              CEREMONIAL KIMONO
             </h1>
             <h1 className="font-['Crimson_Text'] text-[3.5rem] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]">
               PHOTO
@@ -180,7 +180,7 @@ export default function Hero() {
               transition={{ duration: 0.8 }}
               className="font-['Crimson_Text'] text-[clamp(4rem,12vw,8rem)] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]"
             >
-              KIMONO
+              CEREMONIAL KIMONO
             </motion.h1>
             <motion.h1
               initial={{ opacity: 0, x: -50 }}

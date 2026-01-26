@@ -24,7 +24,7 @@ export default function GalleryFilter({
     ],
     en: [
       { id: "all", label: "All" },
-      { id: "kimono", label: "Kimono" },
+      { id: "kimono", label: "Ceremonial Kimono" },
       { id: "studio", label: "Studio" },
       { id: "chloe", label: "Chloe" },
       { id: "gallery", label: "Gallery" },

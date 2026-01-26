@@ -21,7 +21,7 @@ export const createContactEmailTemplate = (data: {
   locale: string;
 }) => {
   const serviceLabels: Record<string, { ja: string; en: string }> = {
-    camu: { ja: "花夢 (CAMU) - 着物撮影", en: "CAMU - Kimono Photography" },
+    camu: { ja: "花夢 (CAMU) - 着物撮影", en: "CAMU - Ceremonial Kimono Photography" },
     chloe: { ja: "Chloe - レンタルスタジオ", en: "Chloe - Rental Studio" },
     cafe: { ja: "アンティークカフェ", en: "Antique Cafe" },
     other: { ja: "その他", en: "Other" },

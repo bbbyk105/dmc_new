@@ -26,7 +26,7 @@ export default function ValueSection() {
       items: [
         {
           title: "Costumes",
-          description: "From traditional kimonos to modern styles, we offer a wide selection of costumes",
+          description: "From traditional ceremonial kimonos to modern styles, we offer a wide selection of costumes",
         },
         {
           title: "Photography",
