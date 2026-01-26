@@ -18,7 +18,7 @@ export default function ServiceList() {
         plans: [
           {
             name: "花夢プラン",
-            price: "",
+            price: "¥5,000",
             features: ["打掛着物レンタル", "ドレスレンタル", "スタジオ（1時間）"],
           },
         ],

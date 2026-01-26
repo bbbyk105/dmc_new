@@ -49,7 +49,7 @@ export default function Footer() {
             {/* Social Media */}
             <div className="flex gap-4">
               <a
-                href="https://www.instagram.com/dmc_fuji"
+                href="https://www.instagram.com/dmcfuji123/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full bg-white/10 p-2 transition-colors hover:bg-[#8B7355]"

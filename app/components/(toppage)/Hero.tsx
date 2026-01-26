@@ -55,8 +55,8 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-screen w-full overflow-hidden bg-[#F5F3F0]">
-      {/* モバイル: 縦並びレイアウト */}
-      <div className="flex w-full flex-col md:hidden">
+      {/* モバイル・タブレット: 縦並びレイアウト */}
+      <div className="flex w-full flex-col xl:hidden">
         {/* 画像エリア（モバイル） */}
         <div className="relative h-[50vh] w-full">
           <AnimatePresence mode="wait">
@@ -88,14 +88,11 @@ export default function Hero() {
         <div className="flex min-h-[50vh] flex-col justify-between bg-[#F5F3F0] px-6 py-12">
           {/* タイトル */}
           <div className="space-y-0">
-            <h1 className="font-['Crimson_Text'] text-[3.5rem] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]">
+            <h1 className="font-['Crimson_Text'] text-[2.5rem] font-black uppercase leading-[0.9] tracking-tighter text-[#2C2C2C]">
               CEREMONIAL KIMONO
             </h1>
-            <h1 className="font-['Crimson_Text'] text-[3.5rem] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]">
-              PHOTO
-            </h1>
-            <h1 className="font-['Crimson_Text'] text-[3.5rem] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]">
-              STUDIO
+            <h1 className="font-['Crimson_Text'] text-[2.5rem] font-black uppercase leading-[0.9] tracking-tighter text-[#2C2C2C]">
+              EXPERIENCE
             </h1>
           </div>
 
@@ -168,17 +165,17 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* タブレット・PC: 左右分割レイアウト */}
-      <div className="hidden min-h-screen w-full md:flex">
+      {/* PC: 左右分割レイアウト */}
+      <div className="hidden min-h-screen w-full xl:flex">
         {/* 左側コンテンツ */}
-        <div className="relative z-10 flex min-h-screen w-1/2 flex-col justify-between px-16 py-32 lg:w-2/5 lg:px-24">
+        <div className="relative z-10 flex min-h-screen w-3/5 flex-col justify-between px-16 py-32 lg:w-3/5 lg:px-24">
           {/* メインタイトル */}
           <div className="space-y-0">
             <motion.h1
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="font-['Crimson_Text'] text-[clamp(4rem,12vw,8rem)] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]"
+              className="font-['Crimson_Text'] text-[clamp(3rem,8vw,6rem)] font-black uppercase leading-[0.9] tracking-tighter text-[#2C2C2C]"
             >
               CEREMONIAL KIMONO
             </motion.h1>
@@ -186,17 +183,9 @@ export default function Hero() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="font-['Crimson_Text'] text-[clamp(4rem,12vw,8rem)] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]"
+              className="font-['Crimson_Text'] text-[clamp(3rem,8vw,6rem)] font-black uppercase leading-[0.9] tracking-tighter text-[#2C2C2C]"
             >
-              PHOTO
-            </motion.h1>
-            <motion.h1
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-['Crimson_Text'] text-[clamp(4rem,12vw,8rem)] font-black uppercase leading-[0.85] tracking-tighter text-[#2C2C2C]"
-            >
-              STUDIO
+              EXPERIENCE
             </motion.h1>
           </div>
 
@@ -270,7 +259,7 @@ export default function Hero() {
         </div>
 
         {/* 右側：画像 */}
-        <div className="relative h-screen w-1/2 lg:w-3/5">
+        <div className="relative h-screen w-2/5 lg:w-2/5">
           <AnimatePresence mode="wait">
             {images.map((image, index) =>
               currentImageIndex === index ? (
