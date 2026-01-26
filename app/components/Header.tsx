@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Menu, X } from "lucide-react";
@@ -48,23 +49,14 @@ export default function Header() {
       <nav className="container mx-auto flex items-center justify-between px-6 py-4 lg:px-12">
         {/* Logo */}
         <Link href={`/${locale}`} className="flex items-center gap-3">
-          <div className="flex flex-col">
-            <span
-              className={`font-['Crimson_Text'] text-xl font-bold transition-colors ${
-                isScrolled || isMobileMenuOpen ? "text-[#5A4A3A]" : "text-white"
-              }`}
-            >
-              DMC
-            </span>
-            <span
-              className={`font-['Noto_Sans_JP'] text-xs tracking-wider transition-colors ${
-                isScrolled || isMobileMenuOpen
-                  ? "text-[#8B7355]"
-                  : "text-white/90"
-              }`}
-            >
-              DressManCode
-            </span>
+          <div className="relative h-10 w-20 md:h-12 md:w-24">
+            <Image
+              src="/logo/logo.png"
+              alt="DMC Logo"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
         </Link>
 
@@ -141,14 +133,19 @@ export default function Header() {
         <div className="flex h-full flex-col">
           {/* Header with Close Button */}
           <div className="flex items-center justify-between border-b border-white/10 px-6 py-6">
-            <div className="flex flex-col">
-              <span className="font-['Crimson_Text'] text-2xl font-bold text-white">
-                DMC
-              </span>
-              <span className="font-['Noto_Sans_JP'] text-xs tracking-wider text-white/80">
-                DressManCode
-              </span>
-            </div>
+            <Link
+              href={`/${locale}`}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="relative h-10 w-20"
+            >
+              <Image
+                src="/logo/logo.png"
+                alt="DMC Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </Link>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="rounded-full p-2 transition-colors hover:bg-white/10"

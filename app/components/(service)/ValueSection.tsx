@@ -14,7 +14,7 @@ export default function ValueSection() {
         },
         {
           title: "撮影",
-          description: "プロフェッショナルな機材と照明で、最高の一枚を撮影できます",
+          description: "プロフェッショナルな照明とスタジオで、最高の一枚を撮影できます",
         },
         {
           title: "空間",
@@ -30,7 +30,7 @@ export default function ValueSection() {
         },
         {
           title: "Photography",
-          description: "Professional equipment and lighting to capture your perfect moment",
+          description: "Professional lighting and studio to capture your perfect moment",
         },
         {
           title: "Space",
