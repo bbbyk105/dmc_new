@@ -30,8 +30,8 @@ export default function Header() {
 
   const navItems = [
     { href: `/${locale}`, label: t("home") },
-    { href: `/${locale}/gallery`, label: t("gallery") },
     { href: `/${locale}/service`, label: t("service") },
+    { href: `/${locale}/gallery`, label: t("gallery") },
     { href: `/${locale}/contact`, label: t("contact") },
   ];
 

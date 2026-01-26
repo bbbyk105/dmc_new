@@ -107,18 +107,18 @@ export default function Hero() {
 
             <nav className="space-y-2 text-sm font-medium uppercase tracking-wider">
               <Link
-                href={`/${locale}/gallery`}
-                className="flex items-center gap-2 text-[#2C2C2C]"
-              >
-                <span className="text-[#8B7355]">▸</span>
-                <span>Gallery</span>
-              </Link>
-              <Link
                 href={`/${locale}/service`}
                 className="flex items-center gap-2 text-[#2C2C2C]"
               >
                 <span className="text-[#8B7355]">▸</span>
                 <span>Service</span>
+              </Link>
+              <Link
+                href={`/${locale}/gallery`}
+                className="flex items-center gap-2 text-[#2C2C2C]"
+              >
+                <span className="text-[#8B7355]">▸</span>
+                <span>Gallery</span>
               </Link>
               <Link
                 href={`/${locale}/contact`}
@@ -205,18 +205,18 @@ export default function Hero() {
 
             <nav className="space-y-3 text-sm font-medium uppercase tracking-wider">
               <Link
-                href={`/${locale}/gallery`}
-                className="flex items-center gap-2 text-[#2C2C2C] transition-colors hover:text-[#8B7355]"
-              >
-                <span className="text-[#8B7355]">▸</span>
-                <span>Gallery</span>
-              </Link>
-              <Link
                 href={`/${locale}/service`}
                 className="flex items-center gap-2 text-[#2C2C2C] transition-colors hover:text-[#8B7355]"
               >
                 <span className="text-[#8B7355]">▸</span>
                 <span>Service</span>
+              </Link>
+              <Link
+                href={`/${locale}/gallery`}
+                className="flex items-center gap-2 text-[#2C2C2C] transition-colors hover:text-[#8B7355]"
+              >
+                <span className="text-[#8B7355]">▸</span>
+                <span>Gallery</span>
               </Link>
               <Link
                 href={`/${locale}/contact`}

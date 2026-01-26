@@ -22,7 +22,7 @@ export default function FlowSection() {
         {
           number: "03",
           title: "撮影",
-          description: "プロフェッショナルな環境で撮影をお楽しみください",
+          description: "撮影をお楽しみください",
         },
         {
           number: "04",
@@ -47,7 +47,7 @@ export default function FlowSection() {
         {
           number: "03",
           title: "Shoot",
-          description: "Enjoy your session in a professional environment",
+          description: "Enjoy your session",
         },
         {
           number: "04",
