@@ -9,14 +9,12 @@ export default function IntroHeader() {
   const content = {
     ja: {
       title: "Service",
-      subtitle: "プロフェッショナルな撮影スタジオで、特別な瞬間を記録します",
-      cta: "予約する",
+      subtitle: "プロフェッショナルな撮影スタジオで、特別な瞬間を記録できます",
     },
     en: {
       title: "Services",
       subtitle:
         "Capture special moments in our professional photography studio",
-      cta: "Book Now",
     },
   };
 
@@ -37,13 +35,6 @@ export default function IntroHeader() {
             <p className="text-[15px] leading-7 text-[#5A5A5A] md:text-base">
               {t.subtitle}
             </p>
-          </div>
-          <div className="flex-shrink-0">
-            <Link href={reservationUrl}>
-              <button className="w-full min-h-[44px] rounded-2xl border-2 border-[#2C2C2C] bg-[#2C2C2C] px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-150 hover:bg-[#1a1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2C2C2C] focus-visible:ring-offset-2 md:w-auto">
-                {t.cta}
-              </button>
-            </Link>
           </div>
         </div>
       </div>

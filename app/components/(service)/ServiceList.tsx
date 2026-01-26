@@ -214,7 +214,7 @@ export default function ServiceList() {
                   </button>
                 </Link>
               )}
-              <Link href="https://dmcfuji0823.wixsite.com/reservation/en">
+              <Link href={locale === "ja" ? "https://dmcfuji0823.wixsite.com/reservation" : "https://dmcfuji0823.wixsite.com/reservation/en"}>
                 <button className="w-full border-2 border-[#2C2C2C] bg-[#2C2C2C] px-8 py-4 font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C] sm:w-auto">
                   {locale === "ja" ? "予約する" : "Book Now"}
                 </button>

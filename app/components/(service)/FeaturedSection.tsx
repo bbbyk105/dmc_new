@@ -123,7 +123,14 @@ export default function FeaturedSection() {
             </div>
 
             {/* CTA */}
-            <div className="pt-2">
+            <div className="pt-2 flex flex-col gap-3 sm:flex-row">
+              {locale !== "ja" && (
+                <Link href={`/${locale}/service/camu`}>
+                  <button className="w-full min-h-[44px] rounded-2xl border-2 border-[#8B7355] bg-transparent px-8 py-3 text-sm font-semibold uppercase tracking-wider text-[#8B7355] transition-all duration-150 hover:bg-[#8B7355] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B7355] focus-visible:ring-offset-2 md:w-auto">
+                    View Details
+                  </button>
+                </Link>
+              )}
               <Link href={reservationUrl}>
                 <button className="w-full min-h-[44px] rounded-2xl border-2 border-[#2C2C2C] bg-[#2C2C2C] px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-150 hover:bg-[#1a1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2C2C2C] focus-visible:ring-offset-2 md:w-auto">
                   {t.cta}
