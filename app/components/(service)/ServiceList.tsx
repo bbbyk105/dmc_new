@@ -333,7 +333,16 @@ export default function ServiceList() {
                   >
                     <span className="font-medium text-[#2C2C2C]">
                       <Coffee className="mr-2 inline h-4 w-4 text-[#8B7355]" />
-                      {item.item}
+                      {item.item.includes("（") ? (
+                        <>
+                          {item.item.split("（")[0]}
+                          <span className="text-xs font-normal text-[#5A5A5A]">
+                            （{item.item.split("（")[1]}
+                          </span>
+                        </>
+                      ) : (
+                        item.item
+                      )}
                     </span>
                     <span className="text-xl font-bold text-[#8B7355]">
                       {item.price}

@@ -175,7 +175,16 @@ export default function ServiceGrid() {
                     className="flex items-center justify-between border-b border-[rgba(0,0,0,0.08)] pb-3 last:border-b-0 last:pb-0"
                   >
                     <span className="text-[15px] text-[#2C2C2C]">
-                      {item.item}
+                      {item.item.includes("（") ? (
+                        <>
+                          {item.item.split("（")[0]}
+                          <span className="text-xs font-normal text-[#5A5A5A]">
+                            （{item.item.split("（")[1]}
+                          </span>
+                        </>
+                      ) : (
+                        item.item
+                      )}
                     </span>
                     <span className="text-lg font-semibold text-[#2C2C2C]">
                       {item.price}
