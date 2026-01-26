@@ -15,14 +15,9 @@ export default function FeaturedSection() {
         "伝統的な着物姿で特別な一枚を。プロ仕様の撮影スタジオと着物で、あなたの大切な瞬間を美しく残します。",
       plans: [
         {
-          name: "DMCクラブメンバー",
-          price: "¥1,000",
-          features: ["着物レンタル", "スタジオ(1時間)"],
-        },
-        {
-          name: "非メンバー",
-          price: "¥5,000",
-          features: ["着物レンタル", "スタジオ(1時間)"],
+          name: "花夢プラン",
+          price: "",
+          features: ["打掛着物レンタル", "ドレスレンタル", "スタジオ（1時間）"],
         },
       ],
       cta: "予約する",
@@ -49,6 +44,14 @@ export default function FeaturedSection() {
           name: "Light Plan",
           price: "¥40,000",
           features: ["Ceremonial Kimono rental", "Self-shoot allowed (use your own device)"],
+        },
+        {
+          name: "Ceremonial Kimono Experience (1 hour)",
+          price: "¥10,000",
+          features: [
+            "Ceremonial Kimono rental (1 hour)",
+            "Additional kimonos: ¥5,000 each (group bookings)",
+          ],
         },
       ],
       cta: "Book Now",
@@ -102,9 +105,11 @@ export default function FeaturedSection() {
                     <h3 className="font-['Noto_Sans_JP'] text-lg font-semibold text-[#2C2C2C] md:text-xl">
                       {plan.name}
                     </h3>
-                    <span className="text-2xl font-semibold text-[#2C2C2C] leading-tight sm:whitespace-nowrap">
-                      {plan.price}
-                    </span>
+                    {plan.price && (
+                      <span className="text-2xl font-semibold text-[#2C2C2C] leading-tight sm:whitespace-nowrap">
+                        {plan.price}
+                      </span>
+                    )}
                   </div>
 
                   <ul className="space-y-2">

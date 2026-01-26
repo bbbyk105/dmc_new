@@ -17,14 +17,9 @@ export default function ServiceList() {
           "伝統的な着物姿で特別な一枚を。プロ仕様の撮影スタジオと着物で、あなたの大切な瞬間を美しく残します。",
         plans: [
           {
-            name: "DMCクラブメンバー",
-            price: "¥1,000",
-            features: ["着物レンタル", "スタジオ(1時間)"],
-          },
-          {
-            name: "非メンバー",
-            price: "¥5,000",
-            features: ["着物レンタル", "スタジオ(1時間)"],
+            name: "花夢プラン",
+            price: "",
+            features: ["打掛着物レンタル", "ドレスレンタル", "スタジオ（1時間）"],
           },
         ],
         locations: ["スタジオ撮影"],
@@ -81,6 +76,14 @@ export default function ServiceList() {
             features: [
               "Ceremonial Kimono rental",
               "Self-shoot allowed (use your own device)",
+            ],
+          },
+          {
+            name: "Ceremonial Kimono Experience (1 hour)",
+            price: "¥10,000 (first kimono, tax included)",
+            features: [
+              "Ceremonial Kimono rental (1 hour)",
+              "Additional kimonos: ¥5,000 each (group bookings)",
             ],
           },
         ],
@@ -172,9 +175,11 @@ export default function ServiceList() {
                     <h3 className="text-xl font-bold text-[#2C2C2C]">
                       {plan.name}
                     </h3>
-                    <span className="text-2xl font-black text-[#8B7355] leading-tight sm:whitespace-nowrap">
-                      {plan.price}
-                    </span>
+                    {plan.price && (
+                      <span className="text-2xl font-black text-[#8B7355] leading-tight sm:whitespace-nowrap">
+                        {plan.price}
+                      </span>
+                    )}
                   </div>
 
                   <ul className="space-y-2">

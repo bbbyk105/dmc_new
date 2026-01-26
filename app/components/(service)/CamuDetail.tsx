@@ -142,6 +142,15 @@ export default function CamuDetail() {
                 "Self-shoot allowed (use your own device)",
               ],
             },
+            {
+              name: "Ceremonial Kimono Experience (1 hour)",
+              price: "¥10,000",
+              tax: "(first kimono, tax included)",
+              features: [
+                "Ceremonial Kimono rental (1 hour)",
+                "Additional kimonos: ¥5,000 each (group bookings)",
+              ],
+            },
           ],
         },
       },

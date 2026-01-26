@@ -169,11 +169,11 @@ export default function ContactForm() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="mb-6 font-serif text-5xl font-light tracking-wide text-[#2C2C2C] md:text-6xl">
+            <h1 className="mb-6 font-serif text-4xl font-light tracking-wide text-[#2C2C2C] md:text-5xl">
               {t.title}
             </h1>
             <div className="mx-auto mb-6 h-px w-16 bg-[#8B7355]" />
-            <p className="text-lg text-gray-600">{t.subtitle}</p>
+            <p className="text-base text-gray-600 md:text-lg">{t.subtitle}</p>
           </motion.div>
         </div>
       </section>
