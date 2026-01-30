@@ -135,7 +135,7 @@ export default function CamuDetail() {
             },
             {
               name: "Light Plan",
-              price: "¥40,000",
+              price: "¥20,000",
               tax: "(per person, tax included)",
               features: [
                 "Ceremonial Kimono rental",

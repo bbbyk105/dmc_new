@@ -42,8 +42,11 @@ export default function FeaturedSection() {
         },
         {
           name: "Light Plan",
-          price: "¥40,000",
-          features: ["Ceremonial Kimono rental", "Self-shoot allowed (use your own device)"],
+          price: "¥20,000",
+          features: [
+            "Ceremonial Kimono rental",
+            "Self-shoot allowed (use your own device)",
+          ],
         },
         {
           name: "Ceremonial Kimono Experience (1 hour)",

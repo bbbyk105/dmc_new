@@ -19,7 +19,7 @@ export default function FaqSection() {
         {
           question: "持ち物はありますか？",
           answer:
-            "下着のみご用意ください。着物や小物はすべてスタジオでご用意しております。",
+            "着物用肌着をご用意ください（DMCで ¥3,000で購入できます）。着物や小物はすべてスタジオでご用意しております。",
         },
         {
           question: "撮影時間はどのくらいですか？",
@@ -49,7 +49,7 @@ export default function FaqSection() {
         {
           question: "What should I bring?",
           answer:
-            "Please bring only undergarments. All ceremonial kimonos and accessories are provided at the studio.",
+            "Please bring kimono underwear (available for purchase at DMC for ¥3,000). All ceremonial kimonos and accessories are provided at the studio.",
         },
         {
           question: "How long does a session take?",
@@ -107,10 +107,7 @@ export default function FaqSection() {
                 </span>
               </button>
               {openIndex === index && (
-                <div
-                  id={`faq-answer-${index}`}
-                  className="pb-5 md:pb-6"
-                >
+                <div id={`faq-answer-${index}`} className="pb-5 md:pb-6">
                   <p className="text-[15px] leading-7 text-[#5A5A5A]">
                     {item.answer}
                   </p>

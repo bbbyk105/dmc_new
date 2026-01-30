@@ -19,7 +19,11 @@ export default function ServiceList() {
           {
             name: "花夢プラン",
             price: "¥5,000",
-            features: ["打掛着物レンタル", "ドレスレンタル", "スタジオ（1時間）"],
+            features: [
+              "打掛着物レンタル",
+              "ドレスレンタル",
+              "スタジオ（1時間）",
+            ],
           },
         ],
         locations: ["スタジオ撮影"],
@@ -47,7 +51,10 @@ export default function ServiceList() {
           { item: "和紅茶 Hot/Ice", price: "¥400" },
           { item: "玉露抹茶 Hot/Ice", price: "¥400" },
           { item: "ほうじ茶ラテ Ice", price: "¥700" },
-          { item: "抹茶ラテ Ice（抹茶はお客様自身点てて仕上げる体験型）", price: "¥700" },
+          {
+            item: "抹茶ラテ Ice（抹茶はお客様自身点てて仕上げる体験型）",
+            price: "¥700",
+          },
         ],
       },
     },
@@ -72,7 +79,7 @@ export default function ServiceList() {
           },
           {
             name: "Light Plan",
-            price: "¥40,000 / person (tax included)",
+            price: "¥20,000 / person (tax included)",
             features: [
               "Ceremonial Kimono rental",
               "Self-shoot allowed (use your own device)",
@@ -116,7 +123,10 @@ export default function ServiceList() {
           { item: "Japanese Black Tea Hot/Ice", price: "¥400" },
           { item: "Gyokuro Matcha Hot/Ice", price: "¥400" },
           { item: "Hojicha Latte Ice", price: "¥700" },
-          { item: "Matcha Latte Ice (Experience: You whisk the matcha yourself to finish)", price: "¥700" },
+          {
+            item: "Matcha Latte Ice (Experience: You whisk the matcha yourself to finish)",
+            price: "¥700",
+          },
         ],
       },
     },
@@ -219,7 +229,13 @@ export default function ServiceList() {
                   </button>
                 </Link>
               )}
-              <Link href={locale === "ja" ? "https://dmcfuji0823.wixsite.com/reservation" : "https://dmcfuji0823.wixsite.com/reservation/en"}>
+              <Link
+                href={
+                  locale === "ja"
+                    ? "https://dmcfuji0823.wixsite.com/reservation"
+                    : "https://dmcfuji0823.wixsite.com/reservation/en"
+                }
+              >
                 <button className="w-full border-2 border-[#2C2C2C] bg-[#2C2C2C] px-8 py-4 font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C] sm:w-auto">
                   {locale === "ja" ? "予約する" : "Book Now"}
                 </button>
