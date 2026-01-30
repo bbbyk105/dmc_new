@@ -5,6 +5,12 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Noto_Sans_JP, Crimson_Text } from "next/font/google";
 import { locales } from "@/i18n";
+import {
+  getSiteUrl,
+  SITE_NAME,
+  buildOrganizationOrLocalBusiness,
+  buildWebsiteSearchAction,
+} from "@/lib/seo";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import "../globals.css";
@@ -25,8 +31,6 @@ const crimsonText = Crimson_Text({
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
-
-const siteName = "DMC FUJI | Ceremonial Kimono Photo Studio & Rental";
 
 export async function generateMetadata({
   params,
@@ -69,17 +73,18 @@ export async function generateMetadata({
       ];
 
   const alternates = Object.fromEntries(
-    locales.map((localeCode) => [localeCode, `/${localeCode}`])
+    locales.map((localeCode) => [localeCode, `/${localeCode}`]),
   );
 
   return {
-    title: { default: baseTitle, template: `%s | ${siteName}` },
+    metadataBase: new URL(getSiteUrl()),
+    title: { default: baseTitle, template: `%s | ${SITE_NAME}` },
     description,
     keywords,
     openGraph: {
       title: baseTitle,
       description,
-      siteName,
+      siteName: SITE_NAME,
       locale,
       type: "website",
       url: `/${locale}`,
@@ -90,7 +95,6 @@ export async function generateMetadata({
       description,
     },
     alternates: {
-      canonical: `/${locale}`,
       languages: alternates,
     },
   };
@@ -110,6 +114,9 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
+  const siteUrl = getSiteUrl();
+  const jsonLdOrg = buildOrganizationOrLocalBusiness(siteUrl);
+  const jsonLdWeb = buildWebsiteSearchAction(siteUrl);
 
   return (
     <html
@@ -119,6 +126,14 @@ export default async function LocaleLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="theme-color" content="#F5F3F0" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWeb) }}
+        />
       </head>
       <body className="min-h-screen bg-[#F5F3F0] antialiased">
         <NextIntlClientProvider messages={messages}>
