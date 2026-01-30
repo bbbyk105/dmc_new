@@ -4,6 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { Instagram, Phone, MapPin, Clock } from "lucide-react";
+import {
+  ADDRESS_JA,
+  ADDRESS_EN,
+  TELEPHONE_DISPLAY,
+  TELEPHONE_E164,
+  HOURS_JA,
+  HOURS_EN,
+  CLOSED_JA,
+  CLOSED_EN,
+} from "@/lib/site-info";
 
 export default function Footer() {
   const t = useTranslations();
@@ -87,27 +97,23 @@ export default function Footer() {
             <ul className="space-y-3 font-['Noto_Sans_JP'] text-sm text-white/80">
               <li className="flex items-start gap-2 mt-6">
                 <MapPin className="mt-1 h-4 w-4 shrink-0" />
-                <span>
-                  {locale === "ja"
-                    ? "〒417-0001 静岡県富士市荒田島町1-13 ラシェット1"
-                    : "1-13 Aratajimacho, Fuji-shi, Shizuoka, 417-0001, Japan"}
-                </span>
+                <span>{locale === "ja" ? ADDRESS_JA : ADDRESS_EN}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 shrink-0" />
                 <a
-                  href="tel:0545-55-4550"
+                  href={`tel:${TELEPHONE_E164}`}
                   className="transition-colors hover:text-[#C9A97C]"
                 >
-                  +81-545-55-4550
+                  {TELEPHONE_DISPLAY}
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <Clock className="mt-1 h-4 w-4 shrink-0" />
                 <div>
-                  <div>{t("contact.info.hoursValue")}</div>
+                  <div>{locale === "ja" ? HOURS_JA : HOURS_EN}</div>
                   <div className="text-xs">
-                    {locale === "ja" ? "定休日: 水曜日" : "Closed: Wednesday"}
+                    {locale === "ja" ? CLOSED_JA : CLOSED_EN}
                   </div>
                 </div>
               </li>

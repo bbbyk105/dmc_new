@@ -7,5 +7,6 @@ export {
 } from "./meta";
 export {
   buildOrganizationOrLocalBusiness,
+  buildWebsite,
   buildWebsiteSearchAction,
 } from "./schema";

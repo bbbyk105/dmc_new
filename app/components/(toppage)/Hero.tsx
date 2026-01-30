@@ -75,11 +75,13 @@ export default function Hero() {
                     alt={`DMC 花夢 ${index + 1}`}
                     fill
                     priority={index === 0}
+                    loading={index === 0 ? undefined : "lazy"}
                     quality={90}
+                    sizes="100vw"
                     className="object-cover"
                   />
                 </motion.div>
-              ) : null
+              ) : null,
             )}
           </AnimatePresence>
         </div>
@@ -281,7 +283,7 @@ export default function Hero() {
                     className="object-cover"
                   />
                 </motion.div>
-              ) : null
+              ) : null,
             )}
           </AnimatePresence>
 

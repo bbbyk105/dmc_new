@@ -9,7 +9,7 @@ import {
   getSiteUrl,
   SITE_NAME,
   buildOrganizationOrLocalBusiness,
-  buildWebsiteSearchAction,
+  buildWebsite,
 } from "@/lib/seo";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
@@ -72,10 +72,6 @@ export async function generateMetadata({
         "antique cafe Fuji",
       ];
 
-  const alternates = Object.fromEntries(
-    locales.map((localeCode) => [localeCode, `/${localeCode}`]),
-  );
-
   return {
     metadataBase: new URL(getSiteUrl()),
     title: { default: baseTitle, template: `%s | ${SITE_NAME}` },
@@ -93,9 +89,6 @@ export async function generateMetadata({
       card: "summary",
       title: baseTitle,
       description,
-    },
-    alternates: {
-      languages: alternates,
     },
   };
 }
@@ -116,7 +109,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const siteUrl = getSiteUrl();
   const jsonLdOrg = buildOrganizationOrLocalBusiness(siteUrl);
-  const jsonLdWeb = buildWebsiteSearchAction(siteUrl);
+  const jsonLdWeb = buildWebsite(siteUrl);
 
   return (
     <html

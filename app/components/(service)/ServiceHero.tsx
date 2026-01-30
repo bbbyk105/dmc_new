@@ -30,6 +30,7 @@ export default function ServiceHero() {
           fill
           className="object-cover opacity-40"
           priority
+          sizes="100vw"
         />
       </div>
 

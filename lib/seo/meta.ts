@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { locales } from "@/i18n";
 import { getSiteUrl } from "./site-url";
 
 const SITE_NAME = "DMC FUJI | Ceremonial Kimono Photo Studio & Rental";
@@ -36,6 +37,11 @@ export function buildPageMeta({
   const canonical = buildCanonical(canonicalPath);
   const ogTitle = openGraph?.title ?? title;
   const ogDescription = openGraph?.description ?? description;
+  // hreflang: 同一パスの ja/en ペア（canonicalPath から locale を除いたパスで構築）
+  const pathWithoutLocale = canonicalPath.replace(/^\/(ja|en)/, "") || "";
+  const languages = Object.fromEntries(
+    locales.map((loc) => [loc, `/${loc}${pathWithoutLocale}`]),
+  );
 
   return {
     title: { default: title, template: `%s | ${SITE_NAME}` },
@@ -56,6 +62,7 @@ export function buildPageMeta({
     },
     alternates: {
       canonical,
+      languages,
     },
   };
 }
