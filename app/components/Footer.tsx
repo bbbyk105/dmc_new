@@ -37,14 +37,14 @@ export default function Footer() {
             <div className="flex items-center gap-3">
               <Image
                 src="/logo/logo.png"
-                alt="DMC Logo"
+                alt="DMC FUJI - 富士市の着物撮影スタジオ"
                 width={50}
                 height={50}
                 className="h-12 w-auto brightness-0 invert"
               />
               <div className="flex flex-col">
                 <span className="font-['Crimson_Text'] text-2xl font-bold">
-                  DMC
+                  DMC FUJI
                 </span>
                 <span className="font-['Noto_Sans_JP'] text-xs tracking-widest">
                   Dressman Code
@@ -53,8 +53,8 @@ export default function Footer() {
             </div>
             <p className="font-['Noto_Sans_JP'] text-sm leading-relaxed text-white/80">
               {locale === "ja"
-                ? "富士山と茶畑を背景に、あなたの特別な瞬間を美しく残します。"
-                : "Capture your special moments with Mt. Fuji and tea fields as your backdrop."}
+                ? "DMC FUJIは静岡県富士市の着物撮影・レンタルスタジオ。富士山と茶畑を背景に、あなたの特別な瞬間を美しく残します。"
+                : "DMC FUJI is a kimono photography & rental studio in Fuji City, Shizuoka. Capture your special moments with Mt. Fuji and tea fields as your backdrop."}
             </p>
             {/* Social Media */}
             <div className="flex gap-4">

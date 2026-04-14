@@ -42,11 +42,11 @@ export async function generateMetadata({
 
   const baseTitle = isJa
     ? "DMC FUJI | 富士市の着物撮影・レンタルスタジオ"
-    : "DMC FUJI | Ceremonial Kimono Photography & Rental Studio in Fuji";
+    : "DMC FUJI | Kimono Experience in Fuji – Mt. Fuji & Tea Fields";
 
   const description = isJa
     ? "静岡県富士市のフォトスタジオDMC FUJI。着物撮影「花夢(CAMU)」やレンタルスタジオ「Chloe」、アンティークカフェ併設で記念日撮影や成人式・七五三・ブライダルまで対応。"
-    : "DMC FUJI is a ceremonial kimono photography and rental studio in Fuji City, Shizuoka. We offer CAMU ceremonial kimono shoots, Chloe rental studio, and an antique cafe for portraits, weddings, and family milestones.";
+    : "Kimono experience in Fuji City, Shizuoka. Photo sessions with Mt. Fuji and tea fields. Ceremonial kimono (CAMU), studio rental (Chloe), and matcha experience.";
 
   const keywords = isJa
     ? [
@@ -72,8 +72,9 @@ export async function generateMetadata({
         "antique cafe Fuji",
       ];
 
+  const siteUrl = getSiteUrl();
   return {
-    metadataBase: new URL(getSiteUrl()),
+    metadataBase: new URL(siteUrl),
     title: { default: baseTitle, template: `%s | ${SITE_NAME}` },
     description,
     keywords,
@@ -83,12 +84,21 @@ export async function generateMetadata({
       siteName: SITE_NAME,
       locale,
       type: "website",
-      url: `/${locale}`,
+      url: `${siteUrl}/${locale}`,
+      images: [
+        {
+          url: "/images/hero.jpg",
+          width: 1200,
+          height: 630,
+          alt: baseTitle,
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: baseTitle,
       description,
+      images: ["/images/hero.jpg"],
     },
   };
 }

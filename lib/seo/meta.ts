@@ -4,6 +4,9 @@ import { getSiteUrl } from "./site-url";
 
 const SITE_NAME = "DMC FUJI | Ceremonial Kimono Photo Studio & Rental";
 
+/** デフォルト OG 画像パス（public/ 配下） */
+const DEFAULT_OG_IMAGE = "/images/hero.jpg";
+
 /**
  * 正規URLを組み立てる（getSiteUrl() + pathname）
  */
@@ -19,7 +22,12 @@ export interface PageMetaInput {
   locale: string;
   canonicalPath: string;
   keywords?: string[];
-  openGraph?: { title?: string; description?: string; type?: "website" };
+  openGraph?: {
+    title?: string;
+    description?: string;
+    type?: "website";
+    image?: string;
+  };
 }
 
 /**
@@ -34,13 +42,15 @@ export function buildPageMeta({
   keywords,
   openGraph,
 }: PageMetaInput): Metadata {
+  const baseUrl = getSiteUrl();
   const canonical = buildCanonical(canonicalPath);
   const ogTitle = openGraph?.title ?? title;
   const ogDescription = openGraph?.description ?? description;
-  // hreflang: 同一パスの ja/en ペア（canonicalPath から locale を除いたパスで構築）
+  const ogImage = openGraph?.image ?? DEFAULT_OG_IMAGE;
+  // hreflang: 同一パスの ja/en ペアを絶対URLで構築（本番 view-source で絶対URLになる）
   const pathWithoutLocale = canonicalPath.replace(/^\/(ja|en)/, "") || "";
   const languages = Object.fromEntries(
-    locales.map((loc) => [loc, `/${loc}${pathWithoutLocale}`]),
+    locales.map((loc) => [loc, `${baseUrl}/${loc}${pathWithoutLocale}`]),
   );
 
   return {
@@ -54,11 +64,20 @@ export function buildPageMeta({
       locale,
       type: openGraph?.type ?? "website",
       url: canonical,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: ogTitle,
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: ogTitle,
       description: ogDescription,
+      images: [ogImage],
     },
     alternates: {
       canonical,

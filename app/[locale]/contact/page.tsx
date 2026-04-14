@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ContactForm from "@/app/components/(contact)/ContactForm";
-import { buildPageMeta } from "@/lib/seo";
+import JsonLd from "@/app/components/JsonLd";
+import { buildPageMeta, buildBreadcrumbSchema, getSiteUrl } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -44,6 +45,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default function ContactPage() {
-  return <ContactForm />;
+export default async function ContactPage({ params }: Props) {
+  const { locale } = await params;
+  const isJa = locale === "ja";
+  const siteUrl = getSiteUrl();
+
+  const breadcrumb = buildBreadcrumbSchema([
+    { name: isJa ? "ホーム" : "Home", url: `${siteUrl}/${locale}` },
+    {
+      name: isJa ? "お問い合わせ" : "Contact",
+      url: `${siteUrl}/${locale}/contact`,
+    },
+  ]);
+
+  return (
+    <>
+      <JsonLd data={breadcrumb} />
+      <ContactForm />
+    </>
+  );
 }

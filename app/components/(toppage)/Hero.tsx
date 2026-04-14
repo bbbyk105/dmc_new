@@ -28,9 +28,10 @@ export default function Hero() {
   const content = {
     ja: {
       subtitle: "DMC - Dressman Code",
-      description: "富士山と茶畑を背景に、伝統的な着物姿で特別な一枚を。",
+      description:
+        "DMC FUJIは静岡県富士市の着物撮影スタジオ。富士山と茶畑を背景に、伝統的な着物姿で特別な一枚を。",
       descriptionLong:
-        "富士山と茶畑を背景に、伝統的な着物姿で特別な一枚を。プロのライティングとスタイリングで、あなたの大切な瞬間を美しく残します。",
+        "DMC FUJIは静岡県富士市の着物撮影スタジオ。富士山と茶畑を背景に、伝統的な着物姿で特別な一枚を。プロのライティングとスタイリングで、あなたの大切な瞬間を美しく残します。",
       address: "静岡県富士市荒田島町1-13 ラシェット1",
       phone: "TEL: 0545-55-4550",
       hours: "営業時間: 11:00-17:00 / 定休日: 水曜日",
@@ -40,9 +41,9 @@ export default function Hero() {
     en: {
       subtitle: "DMC - Dressman Code",
       description:
-        "Capture your special moments in traditional ceremonial kimono with Mt. Fuji and tea fields.",
+        "DMC FUJI is a kimono photography studio in Fuji City, Shizuoka. Capture your special moments in traditional ceremonial kimono with Mt. Fuji and tea fields.",
       descriptionLong:
-        "Capture your special moments in traditional ceremonial kimono with Mt. Fuji and tea fields as your backdrop. Professional lighting and styling to beautifully preserve your precious memories.",
+        "DMC FUJI is a kimono photography studio in Fuji City, Shizuoka. Capture your special moments in traditional ceremonial kimono with Mt. Fuji and tea fields as your backdrop. Professional lighting and styling to beautifully preserve your precious memories.",
       address: "1-13 Aratajimacho, Fuji-shi, Shizuoka",
       phone: "TEL: +81-545-55-4550",
       hours: "Hours: 11:00-17:00 / Closed: Wednesday",
@@ -72,7 +73,7 @@ export default function Hero() {
                 >
                   <Image
                     src={image}
-                    alt={`DMC 花夢 ${index + 1}`}
+                    alt={`DMC FUJI 着物撮影 花夢 ${index + 1}`}
                     fill
                     priority={index === 0}
                     loading={index === 0 ? undefined : "lazy"}
@@ -91,10 +92,11 @@ export default function Hero() {
           {/* タイトル */}
           <div className="space-y-0">
             <h1 className="font-['Crimson_Text'] text-[2.5rem] font-black uppercase leading-[0.9] tracking-tighter text-[#2C2C2C]">
+              <span className="block text-xs font-bold tracking-[0.3em] text-[#8B7355]">
+                DMC FUJI
+              </span>
               CEREMONIAL KIMONO
-            </h1>
-            <h1 className="font-['Crimson_Text'] text-[2.5rem] font-black uppercase leading-[0.9] tracking-tighter text-[#2C2C2C]">
-              EXPERIENCE
+              <span className="block">EXPERIENCE</span>
             </h1>
           </div>
 
@@ -172,24 +174,24 @@ export default function Hero() {
         {/* 左側コンテンツ */}
         <div className="relative z-10 flex min-h-screen w-3/5 flex-col justify-between px-16 py-32 lg:w-3/5 lg:px-24">
           {/* メインタイトル */}
-          <div className="space-y-0">
-            <motion.h1
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="font-['Crimson_Text'] text-[clamp(3rem,8vw,6rem)] font-black uppercase leading-[0.9] tracking-tighter text-[#2C2C2C]"
-            >
-              CEREMONIAL KIMONO
-            </motion.h1>
-            <motion.h1
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="font-['Crimson_Text'] text-[clamp(3rem,8vw,6rem)] font-black uppercase leading-[0.9] tracking-tighter text-[#2C2C2C]"
-            >
-              EXPERIENCE
-            </motion.h1>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-0"
+          >
+            <h1 className="font-['Crimson_Text'] font-black uppercase tracking-tighter text-[#2C2C2C]">
+              <span className="block text-sm font-bold tracking-[0.3em] text-[#8B7355]">
+                DMC FUJI
+              </span>
+              <span className="block text-[clamp(3rem,8vw,6rem)] leading-[0.9]">
+                CEREMONIAL KIMONO
+              </span>
+              <span className="block text-[clamp(3rem,8vw,6rem)] leading-[0.9]">
+                EXPERIENCE
+              </span>
+            </h1>
+          </motion.div>
 
           {/* サブコンテンツ */}
           <motion.div
@@ -275,7 +277,7 @@ export default function Hero() {
                 >
                   <Image
                     src={image}
-                    alt={`DMC 花夢 ${index + 1}`}
+                    alt={`DMC FUJI 着物撮影 花夢 ${index + 1}`}
                     fill
                     priority={index === 0}
                     quality={90}

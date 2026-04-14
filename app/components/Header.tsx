@@ -52,7 +52,7 @@ export default function Header() {
           <div className="relative h-10 w-20 md:h-12 md:w-24">
             <Image
               src="/logo/logo.png"
-              alt="DMC Logo"
+              alt="DMC FUJI - 富士市の着物撮影スタジオ"
               fill
               className="object-contain"
               priority
@@ -140,7 +140,7 @@ export default function Header() {
             >
               <Image
                 src="/logo/logo.png"
-                alt="DMC Logo"
+                alt="DMC FUJI - 富士市の着物撮影スタジオ"
                 fill
                 className="object-contain"
                 priority

@@ -9,4 +9,7 @@ export {
   buildOrganizationOrLocalBusiness,
   buildWebsite,
   buildWebsiteSearchAction,
+  buildFaqSchema,
+  buildBreadcrumbSchema,
+  buildServiceSchema,
 } from "./schema";
