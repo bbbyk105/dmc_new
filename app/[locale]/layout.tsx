@@ -125,6 +125,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       className={`${notoSansJP.variable} ${crimsonText.variable}`}
+      suppressHydrationWarning
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />

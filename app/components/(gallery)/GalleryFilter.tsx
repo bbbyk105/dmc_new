@@ -17,16 +17,16 @@ export default function GalleryFilter({
     ja: [
       { id: "all", label: "すべて" },
       { id: "kimono", label: "着物撮影" },
-      { id: "studio", label: "スタジオ" },
-      { id: "chloe", label: "Chloe" },
-      { id: "gallery", label: "ギャラリー" },
+      { id: "mtfuji", label: "富士山" },
+      { id: "objects", label: "オブジェ" },
+      { id: "shoots", label: "撮影" },
     ],
     en: [
       { id: "all", label: "All" },
-      { id: "kimono", label: "Ceremonial Kimono" },
-      { id: "studio", label: "Studio" },
-      { id: "chloe", label: "Chloe" },
-      { id: "gallery", label: "Gallery" },
+      { id: "kimono", label: "Kimono" },
+      { id: "mtfuji", label: "Mt. Fuji" },
+      { id: "objects", label: "Objects" },
+      { id: "shoots", label: "Shoots" },
     ],
   };
 

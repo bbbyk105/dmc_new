@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import Lightbox from "./Lightbox";
@@ -146,67 +146,60 @@ export default function GalleryGrid({
         </div>
       )}
 
-      {/* グリッド本体 */}
+      {/* グリッド本体 (masonry: 画像本来のアスペクト比を維持) */}
       <div className="mx-auto max-w-[1200px] px-5 md:px-6 pt-0">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: readyToShow ? 1 : 0 }}
           transition={{ duration: 0.25 }}
-          className={`grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 md:gap-8 ${
+          className={`columns-1 gap-6 sm:columns-2 lg:columns-3 md:gap-8 ${
             readyToShow ? "pointer-events-auto" : "pointer-events-none"
           }`}
           aria-busy={!readyToShow}
         >
-          <AnimatePresence mode="popLayout">
-            {currentImages.map((image, idxOnPage) => {
-              const globalIndex = startIndex + idxOnPage;
-              const isEager = idxOnPage < targetEager; // 先頭N枚だけ eager
+          {currentImages.map((image, idxOnPage) => {
+            const globalIndex = startIndex + idxOnPage;
+            const isEager = idxOnPage < targetEager; // 先頭N枚だけ eager
 
-              return (
-                <motion.div
-                  key={image.id}
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="group cursor-pointer"
-                  onClick={() => setSelectedImage(globalIndex)}
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-white">
-                    {!imageLoadErrors.has(image.id) ? (
-                      <Image
-                        src={image.publicUrl}
-                        alt={image.name}
-                        fill
-                        className="object-cover transition-opacity duration-300 group-hover:opacity-90 bg-white"
-                        sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
-                        priority={isEager}
-                        loading={isEager ? "eager" : "lazy"}
-                        quality={85}
-                        onError={() => handleImageError(image.id, idxOnPage)}
-                        onLoad={() => handleImageLoaded(idxOnPage)}
-                        placeholder="blur"
-                        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
-                        decoding="async"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-white">
-                        <p className="text-sm text-[#5A5A5A]">
-                          画像を読み込めません
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="mt-3">
-                    <p className="text-xs uppercase tracking-wide text-[#5A5A5A]">
-                      {image.category}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+            return (
+              <div
+                key={image.id}
+                className="group mb-6 break-inside-avoid cursor-pointer md:mb-8"
+                onClick={() => setSelectedImage(globalIndex)}
+              >
+                <div className="relative overflow-hidden rounded-xl bg-white">
+                  {!imageLoadErrors.has(image.id) ? (
+                    <Image
+                      src={image.publicUrl}
+                      alt={image.name}
+                      width={0}
+                      height={0}
+                      sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+                      style={{ width: "100%", height: "auto" }}
+                      className="block transition-opacity duration-300 group-hover:opacity-90"
+                      priority={isEager}
+                      loading={isEager ? "eager" : "lazy"}
+                      quality={85}
+                      onError={() => handleImageError(image.id, idxOnPage)}
+                      onLoad={() => handleImageLoaded(idxOnPage)}
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className="flex aspect-[4/5] w-full items-center justify-center bg-white">
+                      <p className="text-sm text-[#5A5A5A]">
+                        画像を読み込めません
+                      </p>
+                    </div>
+                  )}
+                </div>
+                <div className="mt-3">
+                  <p className="text-xs uppercase tracking-wide text-[#5A5A5A]">
+                    {image.category}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </motion.div>
       </div>
 

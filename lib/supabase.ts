@@ -55,16 +55,21 @@ export async function getImagesFromFolder(
     const images: GalleryImage[] = imageFiles.map((file) => {
       const filePath = `${folderPath}/${file.name}`;
 
-      // 直の公開URL（デバッグ/リンク確認用）
+      // Supabase 側の画像変換APIを利用してリサイズした URL を返す。
+      // width だけ指定すると EXIF orientation が正しく処理されず縦横比が壊れるため、
+      // resize: "contain" + 両軸指定で必ず正しいアスペクト比に収める。
       const { data: urlData } = supabase.storage
         .from(bucketName)
-        .getPublicUrl(filePath);
+        .getPublicUrl(filePath, {
+          transform: {
+            width: 1600,
+            height: 1600,
+            resize: "contain",
+            quality: 80,
+          },
+        });
 
-      // ★ Next 側の画像プロキシAPIを通す（private IP ブロック回避）
-      //    例: /api/img/DMC/kimono/DSC_0001.JPG
-      const proxiedUrl = `/api/img/${encodeURI(bucketName)}/${encodeURI(
-        filePath
-      )}`;
+      const proxiedUrl = urlData.publicUrl;
 
       return {
         id: `${category}-${file.name}`,
@@ -90,10 +95,10 @@ export async function getAllGalleryImages(): Promise<GalleryImage[]> {
   const bucketName = "DMC";
 
   const categories = [
-    { folder: "kimono", category: "kimono" },
-    { folder: "dmc", category: "studio" },
-    { folder: "chloe", category: "chloe" },
-    { folder: "gallery", category: "gallery" },
+    { folder: "Kimono", category: "kimono" },
+    { folder: "Mt.Fuji", category: "mtfuji" },
+    { folder: "Objects", category: "objects" },
+    { folder: "Shoots", category: "shoots" },
   ];
 
   const allImages = await Promise.all(
