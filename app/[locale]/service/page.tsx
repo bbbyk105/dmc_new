@@ -23,15 +23,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const isJa = locale === "ja";
   return buildPageMeta({
-    title: isJa ? "サービス | DMC FUJI" : "Service | DMC FUJI",
+    title: isJa
+      ? "サービス（着物レンタル・着物撮影） | DMC FUJI"
+      : "Service | DMC FUJI",
     description: isJa
-      ? "静岡県富士市のDMC FUJI。着物撮影「花夢(CAMU)」、レンタルスタジオ「Chloe」、アンティークカフェのご紹介。"
+      ? "静岡県富士市のDMC FUJI。着物レンタル・着物撮影「花夢(CAMU)」、レンタルスタジオ「Chloe」、アンティークカフェのご紹介。"
       : "Kimono experience (Mt. Fuji & tea fields), photo studio rental, and matcha experience in Fuji City. CAMU, Chloe, and antique cafe.",
     locale,
     canonicalPath: `/${locale}/service`,
     keywords: isJa
       ? [
           "DMC FUJI",
+          "着物レンタル 富士",
+          "富士市 着物レンタル",
           "着物撮影 富士市",
           "花夢 CAMU",
           "レンタルスタジオ Chloe",

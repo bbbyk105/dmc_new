@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { locales } from "@/i18n";
+import { defaultLocale, locales } from "@/i18n";
 import { getSiteUrl } from "./site-url";
 
 const SITE_NAME = "DMC FUJI | Ceremonial Kimono Photo Studio & Rental";
@@ -51,7 +51,9 @@ export function buildPageMeta({
   const pathWithoutLocale = canonicalPath.replace(/^\/(ja|en)/, "") || "";
   const languages = Object.fromEntries(
     locales.map((loc) => [loc, `${baseUrl}/${loc}${pathWithoutLocale}`]),
-  );
+  ) as Record<string, string>;
+  // x-default: 検索エンジン向けの既定言語（このサイトでは ja）を明示する
+  languages["x-default"] = `${baseUrl}/${defaultLocale}${pathWithoutLocale}`;
 
   return {
     title: { default: title, template: `%s | ${SITE_NAME}` },

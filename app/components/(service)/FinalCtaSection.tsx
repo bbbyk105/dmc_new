@@ -10,16 +10,15 @@ export default function FinalCtaSection() {
     ja: {
       primaryCta: "予約する",
       secondaryCta: "お問い合わせ",
-      contactUrl: "/contact",
     },
     en: {
       primaryCta: "Book Now",
       secondaryCta: "Contact Us",
-      contactUrl: "/en/contact",
     },
   };
 
   const t = content[locale as keyof typeof content] || content.ja;
+  const contactUrl = `/${locale}/contact`;
   const reservationUrl =
     locale === "ja"
       ? "https://dmcfuji0823.wixsite.com/reservation"
@@ -34,7 +33,7 @@ export default function FinalCtaSection() {
               {t.primaryCta}
             </button>
           </Link>
-          <Link href={t.contactUrl}>
+          <Link href={contactUrl}>
             <button className="w-full min-h-[44px] rounded-2xl border-2 border-white bg-transparent px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-150 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#2C2C2C] md:w-auto">
               {t.secondaryCta}
             </button>
