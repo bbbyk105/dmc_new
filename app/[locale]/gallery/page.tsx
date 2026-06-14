@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import GalleryHero from "@/app/components/(gallery)/GalleryHero";
 import ClientGallery from "@/app/components/(gallery)/ClientGallery";
 import JsonLd from "@/app/components/JsonLd";
+import Breadcrumb from "@/app/components/Breadcrumb";
 import { getAllGalleryImages } from "@/lib/supabase";
 import { buildPageMeta, buildBreadcrumbSchema, getSiteUrl } from "@/lib/seo";
 
@@ -52,6 +53,12 @@ export default async function GalleryPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-white">
       <JsonLd data={breadcrumb} />
+      <Breadcrumb
+        items={[
+          { name: isJa ? "ホーム" : "Home", href: `/${locale}` },
+          { name: isJa ? "ギャラリー" : "Gallery" },
+        ]}
+      />
       <GalleryHero />
       <ClientGallery initialImages={initialImages} />
     </div>

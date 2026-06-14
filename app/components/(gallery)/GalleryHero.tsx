@@ -8,10 +8,12 @@ export default function GalleryHero() {
   const content = {
     ja: {
       title: "Gallery",
+      srTitle: "富士市の着物撮影ギャラリー｜DMC FUJI 作品集",
       subtitle: "私たちが撮影した特別な瞬間をご覧ください",
     },
     en: {
       title: "Gallery",
+      srTitle: "Kimono Photography Gallery in Fuji｜DMC FUJI Portfolio",
       subtitle: "Explore the special moments we've captured",
     },
   };
@@ -23,7 +25,8 @@ export default function GalleryHero() {
       <div className="mx-auto max-w-[1200px] px-5 md:px-6">
         <div className="space-y-3">
           <h1 className="font-['Noto_Sans_JP'] text-3xl font-semibold tracking-tight text-[#111] md:text-5xl">
-            {t.title}
+            <span className="sr-only">{t.srTitle}</span>
+            <span aria-hidden="true">{t.title}</span>
           </h1>
           <p className="text-[15px] leading-7 text-[#5A5A5A] md:text-base">
             {t.subtitle}

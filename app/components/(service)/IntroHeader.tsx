@@ -8,10 +8,12 @@ export default function IntroHeader() {
   const content = {
     ja: {
       title: "Service",
+      srTitle: "富士市の着物レンタル・着物撮影サービス｜DMC FUJI",
       subtitle: "プロフェッショナルな撮影スタジオで、特別な瞬間を記録できます",
     },
     en: {
       title: "Services",
+      srTitle: "Kimono Rental & Photography Services in Fuji｜DMC FUJI",
       subtitle:
         "Capture special moments in our professional photography studio",
     },
@@ -29,7 +31,8 @@ export default function IntroHeader() {
         <div className="flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
           <div className="space-y-4">
             <h1 className="font-['Noto_Sans_JP'] text-3xl font-semibold tracking-tight text-[#2C2C2C] md:text-5xl">
-              {t.title}
+              <span className="sr-only">{t.srTitle}</span>
+              <span aria-hidden="true">{t.title}</span>
             </h1>
             <p className="text-[15px] leading-7 text-[#5A5A5A] md:text-base">
               {t.subtitle}

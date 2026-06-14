@@ -16,8 +16,13 @@ export function buildOrganizationOrLocalBusiness(siteUrl: string): object {
     "@type": "LocalBusiness",
     name: SITE_NAME,
     url: siteUrl,
+    image: `${siteUrl}/images/hero.jpg`,
+    priceRange: "¥10,000–¥100,000",
     address: ADDRESS_SCHEMA,
     telephone: TELEPHONE_E164,
+    hasMap:
+      "https://www.google.com/maps/search/?api=1&query=" +
+      encodeURIComponent("1-13 Aratajimacho, Fuji-shi, Shizuoka, 417-0001"),
     openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
     areaServed: [
       {

@@ -7,6 +7,7 @@ import FlowSection from "@/app/components/(service)/FlowSection";
 import FaqSection from "@/app/components/(service)/FaqSection";
 import FinalCtaSection from "@/app/components/(service)/FinalCtaSection";
 import JsonLd from "@/app/components/JsonLd";
+import Breadcrumb from "@/app/components/Breadcrumb";
 import {
   buildPageMeta,
   buildFaqSchema,
@@ -113,6 +114,12 @@ export default async function ServicePage({ params }: Props) {
       {services.map((s, i) => (
         <JsonLd key={i} data={s} />
       ))}
+      <Breadcrumb
+        items={[
+          { name: isJa ? "ホーム" : "Home", href: `/${locale}` },
+          { name: isJa ? "サービス" : "Service" },
+        ]}
+      />
       <IntroHeader />
       <ValueSection />
       <FeaturedSection />
