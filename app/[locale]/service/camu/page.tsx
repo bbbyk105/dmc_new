@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CamuDetail from "@/app/components/(service)/CamuDetail";
 import JsonLd from "@/app/components/JsonLd";
+import Breadcrumb from "@/app/components/Breadcrumb";
 import {
   buildPageMeta,
   buildBreadcrumbSchema,
@@ -16,8 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isJa = locale === "ja";
   return buildPageMeta({
     title: isJa
-      ? "花夢 (CAMU) - 着物撮影 | DMC"
-      : "Kimono Experience in Fuji (CAMU) | Mt. Fuji & Tea Fields | DMC FUJI",
+      ? "花夢 (CAMU) 着物撮影・着物体験 | DMC FUJI"
+      : "Kimono Experience in Fuji (CAMU) | DMC FUJI",
     description: isJa
       ? "富士山と茶畑を背景に、伝統的な着物姿で特別な一枚を撮影します。成人式前撮り・七五三・ブライダルにも対応。"
       : "Kimono photo session with Mt. Fuji and tea fields. Traditional ceremonial kimono experience (CAMU) in Fuji City. Coming-of-age, Shichi-Go-San, and bridal shoots.",
@@ -85,6 +86,13 @@ export default async function CamuPage({ params }: Props) {
     <>
       <JsonLd data={breadcrumb} />
       <JsonLd data={service} />
+      <Breadcrumb
+        items={[
+          { name: isJa ? "ホーム" : "Home", href: `/${locale}` },
+          { name: isJa ? "サービス" : "Service", href: `/${locale}/service` },
+          { name: isJa ? "花夢 (CAMU)" : "CAMU" },
+        ]}
+      />
       <CamuDetail />
     </>
   );

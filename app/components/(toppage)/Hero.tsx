@@ -24,6 +24,12 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [images.length]);
 
+  // h1 に含める検索キーワード（視覚デザインは英語のまま、SEO/a11y 用に併記）
+  const h1Keyword =
+    locale === "ja"
+      ? "富士市の着物撮影・着物体験スタジオ DMC FUJI"
+      : "Ceremonial Kimono Experience & Photography in Fuji, Shizuoka";
+
   // 多言語コンテンツ
   const content = {
     ja: {
@@ -92,6 +98,7 @@ export default function Hero() {
           {/* タイトル */}
           <div className="space-y-0">
             <h1 className="font-['Crimson_Text'] text-[2.5rem] font-black uppercase leading-[0.9] tracking-tighter text-[#2C2C2C]">
+              <span className="sr-only">{h1Keyword}</span>
               <span className="block text-xs font-bold tracking-[0.3em] text-[#8B7355]">
                 DMC FUJI
               </span>
@@ -181,6 +188,7 @@ export default function Hero() {
             className="space-y-0"
           >
             <h1 className="font-['Crimson_Text'] font-black uppercase tracking-tighter text-[#2C2C2C]">
+              <span className="sr-only">{h1Keyword}</span>
               <span className="block text-sm font-bold tracking-[0.3em] text-[#8B7355]">
                 DMC FUJI
               </span>

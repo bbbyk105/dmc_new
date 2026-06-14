@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ContactForm from "@/app/components/(contact)/ContactForm";
 import JsonLd from "@/app/components/JsonLd";
+import Breadcrumb from "@/app/components/Breadcrumb";
 import { buildPageMeta, buildBreadcrumbSchema, getSiteUrl } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -61,6 +62,12 @@ export default async function ContactPage({ params }: Props) {
   return (
     <>
       <JsonLd data={breadcrumb} />
+      <Breadcrumb
+        items={[
+          { name: isJa ? "ホーム" : "Home", href: `/${locale}` },
+          { name: isJa ? "お問い合わせ" : "Contact" },
+        ]}
+      />
       <ContactForm />
     </>
   );

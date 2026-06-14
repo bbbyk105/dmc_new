@@ -171,7 +171,11 @@ export default function GalleryGrid({
                   {!imageLoadErrors.has(image.id) ? (
                     <Image
                       src={image.publicUrl}
-                      alt={image.name}
+                      alt={`DMC FUJI 富士市の着物撮影${
+                        image.category && image.category !== "all"
+                          ? `（${image.category}）`
+                          : ""
+                      }`}
                       width={0}
                       height={0}
                       sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
