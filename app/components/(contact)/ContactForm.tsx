@@ -32,6 +32,7 @@ export default function ContactForm() {
     ja: {
       title: "お問い合わせ",
       subtitle: "ご予約・ご質問はこちらから",
+      formHeading: "お問い合わせフォーム",
       form: {
         name: "お名前",
         email: "メールアドレス",
@@ -76,6 +77,7 @@ export default function ContactForm() {
     en: {
       title: "Contact Us",
       subtitle: "Get in touch for reservations and inquiries",
+      formHeading: "Inquiry Form",
       form: {
         name: "Name",
         email: "Email",
@@ -190,6 +192,13 @@ export default function ContactForm() {
                 onSubmit={handleSubmit}
                 className="space-y-6 border border-[#E5E3DC] bg-white p-8 shadow-lg md:p-10"
               >
+                <div className="mb-2">
+                  <h2 className="font-serif text-2xl font-light tracking-wide text-[#2C2C2C] md:text-3xl">
+                    {t.formHeading}
+                  </h2>
+                  <div className="mt-3 h-px w-12 bg-[#8B7355]" />
+                </div>
+
                 <div>
                   <label
                     htmlFor="name"
