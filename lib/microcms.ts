@@ -38,8 +38,11 @@ export type BlogItem = {
   title: string;
   /** 一覧・meta description 用の抜粋（任意フィールド） */
   excerpt?: string;
-  /** 文字列(セレクト)・コンテンツ参照(オブジェクト)・配列(複数参照)のいずれにも対応 */
-  category?: string | BlogCategoryRef | BlogCategoryRef[];
+  /**
+   * セレクトフィールド（microCMS は単一選択でも string[] で返す）・
+   * コンテンツ参照（オブジェクト / 複数参照の配列）のいずれにも対応
+   */
+  category?: string | string[] | BlogCategoryRef | BlogCategoryRef[];
   eyecatch?: BlogThumbnail;
   /** 旧フィールド名 / 別運用との互換 */
   thumbnail?: BlogThumbnail;
@@ -70,7 +73,7 @@ export function getCategoryName(
   if (Array.isArray(category)) {
     return (
       category
-        .map((c) => c.name)
+        .map((c) => (typeof c === "string" ? c : c.name))
         .filter(Boolean)
         .join(" / ") || undefined
     );
