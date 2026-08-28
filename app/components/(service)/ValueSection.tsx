@@ -55,7 +55,7 @@ export default function ValueSection() {
                   : ""
               }`}
             >
-              <h3 className="font-['Noto_Sans_JP'] text-xl font-semibold text-[#2C2C2C] md:text-2xl">
+              <h3 className="font-mincho text-xl font-semibold text-[#2C2C2C] md:text-2xl">
                 {item.title}
               </h3>
               <p className="text-[15px] leading-7 text-[#5A5A5A]">

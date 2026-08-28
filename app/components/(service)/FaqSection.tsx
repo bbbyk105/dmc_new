@@ -17,7 +17,7 @@ export default function FaqSection() {
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="mx-auto max-w-[1120px] px-6 md:px-8">
-        <h2 className="mb-16 text-center font-['Noto_Sans_JP'] text-2xl font-semibold text-[#2C2C2C] md:text-3xl">
+        <h2 className="mb-16 text-center font-mincho text-2xl font-semibold text-[#2C2C2C] md:text-3xl">
           {t.title}
         </h2>
         <div className="mx-auto max-w-3xl space-y-1">

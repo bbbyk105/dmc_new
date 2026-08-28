@@ -11,5 +11,6 @@ export {
   buildWebsiteSearchAction,
   buildFaqSchema,
   buildBreadcrumbSchema,
+  buildBlogPostingSchema,
   buildServiceSchema,
 } from "./schema";

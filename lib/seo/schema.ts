@@ -110,6 +110,47 @@ export function buildFaqSchema(
 }
 
 /**
+ * BlogPosting JSON-LD（ブログ記事ページ用）
+ */
+export function buildBlogPostingSchema(post: {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  datePublished: string;
+  dateModified: string;
+  inLanguage: string;
+}): object {
+  const siteUrl = getSiteUrl();
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    url: post.url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": post.url },
+    ...(post.image && { image: post.image }),
+    datePublished: post.datePublished,
+    dateModified: post.dateModified,
+    inLanguage: post.inLanguage,
+    author: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: siteUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/logo/logo.png`,
+      },
+    },
+  };
+}
+
+/**
  * BreadcrumbList JSON-LD
  */
 export function buildBreadcrumbSchema(

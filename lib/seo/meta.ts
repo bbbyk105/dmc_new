@@ -25,8 +25,11 @@ export interface PageMetaInput {
   openGraph?: {
     title?: string;
     description?: string;
-    type?: "website";
+    type?: "website" | "article";
     image?: string;
+    /** type: "article" のときのみ有効 */
+    publishedTime?: string;
+    modifiedTime?: string;
   };
 }
 
@@ -65,6 +68,10 @@ export function buildPageMeta({
       siteName: SITE_NAME,
       locale,
       type: openGraph?.type ?? "website",
+      ...(openGraph?.type === "article" && {
+        publishedTime: openGraph.publishedTime,
+        modifiedTime: openGraph.modifiedTime,
+      }),
       url: canonical,
       images: [
         {

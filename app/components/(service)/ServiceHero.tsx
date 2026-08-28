@@ -35,7 +35,7 @@ export default function ServiceHero() {
       </div>
 
       <div className="relative z-10 text-center space-y-4">
-        <h1 className="font-['Crimson_Text'] text-6xl font-black uppercase tracking-tighter text-white md:text-7xl lg:text-8xl">
+        <h1 className="font-mincho text-6xl font-black uppercase tracking-tighter text-white md:text-7xl lg:text-8xl">
           {t.title}
         </h1>
         <div className="mx-auto h-0.5 w-24 bg-[#8B7355]" />

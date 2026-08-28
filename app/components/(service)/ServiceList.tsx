@@ -164,7 +164,7 @@ export default function ServiceList() {
           {/* コンテンツ */}
           <div className="flex flex-col justify-center space-y-6">
             <div>
-              <h2 className="mb-2 font-['Crimson_Text'] text-5xl font-black text-[#2C2C2C]">
+              <h2 className="mb-2 font-mincho text-5xl font-black text-[#2C2C2C]">
                 {t.camu.title}
               </h2>
               <p className="text-lg text-[#8B7355]">{t.camu.subtitle}</p>
@@ -262,7 +262,7 @@ export default function ServiceList() {
 
             {/* コンテンツ */}
             <div className="p-8 flex-1 flex flex-col">
-              <h3 className="mb-2 font-['Crimson_Text'] text-3xl font-black text-[#2C2C2C]">
+              <h3 className="mb-2 font-mincho text-3xl font-black text-[#2C2C2C]">
                 {t.chloe.title}
               </h3>
               <p className="mb-4 text-sm text-[#8B7355]">{t.chloe.subtitle}</p>
@@ -331,7 +331,7 @@ export default function ServiceList() {
 
             {/* コンテンツ */}
             <div className="p-8 flex-1 flex flex-col">
-              <h3 className="mb-2 font-['Crimson_Text'] text-3xl font-black text-[#2C2C2C]">
+              <h3 className="mb-2 font-mincho text-3xl font-black text-[#2C2C2C]">
                 {t.cafe.title}
               </h3>
               <p className="mb-4 text-sm text-[#8B7355]">{t.cafe.subtitle}</p>

@@ -4,6 +4,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { Menu, X } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -11,8 +12,14 @@ import LanguageSwitcher from "./LanguageSwitcher";
 export default function Header() {
   const t = useTranslations("nav");
   const locale = useLocale();
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // 透明ヘッダー（白文字）はダークヒーローのあるトップページだけ。
+  // 他ページは白背景に重なるため、最初からソリッド表示にする。
+  const isHome = pathname === `/${locale}` || pathname === `/${locale}/`;
+  const solid = isScrolled || !isHome;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -32,13 +39,14 @@ export default function Header() {
     { href: `/${locale}`, label: t("home") },
     { href: `/${locale}/service`, label: t("service") },
     { href: `/${locale}/gallery`, label: t("gallery") },
+    { href: `/${locale}/blog`, label: t("blog") },
     { href: `/${locale}/contact`, label: t("contact") },
   ];
 
   // ヘッダーの見た目（メニュー展開中はブラー無効＆完全不透明）
   const headerSkin = isMobileMenuOpen
     ? "bg-white shadow-md"
-    : isScrolled
+    : solid
     ? "bg-white/95 shadow-md backdrop-blur-sm"
     : "bg-transparent";
 
@@ -54,7 +62,9 @@ export default function Header() {
               src="/logo/logo.png"
               alt="DMC FUJI - 富士市の着物撮影スタジオ"
               fill
-              className="object-contain"
+              className={`object-contain transition-all duration-300 ${
+                solid ? "" : "brightness-0 invert"
+              }`}
               priority
             />
           </div>
@@ -67,7 +77,7 @@ export default function Header() {
               key={item.href}
               href={item.href}
               className={`font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider transition-colors ${
-                isScrolled
+                solid
                   ? "text-[#5A4A3A] hover:text-[#8B7355]"
                   : "text-white hover:text-[#C9A97C]"
               }`}
@@ -82,7 +92,7 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
             className={`rounded border-2 px-6 py-2 font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider transition-all ${
-              isScrolled
+              solid
                 ? "border-[#8B7355] bg-[#8B7355] text-white hover:border-[#5A4A3A] hover:bg-[#5A4A3A]"
                 : "border-white bg-white/10 text-white hover:bg-white hover:text-[#5A4A3A]"
             }`}
@@ -91,7 +101,7 @@ export default function Header() {
           </a>
 
           {/* Language Switcher */}
-          <LanguageSwitcher isScrolled={isScrolled} />
+          <LanguageSwitcher isScrolled={solid} />
         </div>
 
         {/* Mobile Menu Button */}
@@ -104,9 +114,7 @@ export default function Header() {
             <X className="h-6 w-6 text-[#5A4A3A]" />
           ) : (
             <Menu
-              className={`h-6 w-6 ${
-                isScrolled ? "text-[#5A4A3A]" : "text-white"
-              }`}
+              className={`h-6 w-6 ${solid ? "text-[#5A4A3A]" : "text-white"}`}
             />
           )}
         </button>

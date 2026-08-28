@@ -20,17 +20,12 @@
   --color-background-alt: #f5f1ed;
   --color-foreground: #333333;
 
-  /* フォント（next/font の CSS 変数を使うのが理想。未設定時はフォールバック） */
-  --font-serif: var(
-    --font-crimson-text,
-    "Crimson Text",
-    ui-serif,
-    Georgia,
-    Cambria,
-    "Times New Roman",
-    Times,
-    serif
-  );
+  /* フォント（next/font の CSS 変数を使うのが理想。未設定時はフォールバック）
+     サイト全体で「見出し＝しっぽり明朝 / 本文＝Noto Sans JP」の2役に統一 */
+  --font-serif: var(--font-shippori-mincho, "Shippori Mincho"),
+    "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  --font-mincho: var(--font-shippori-mincho, "Shippori Mincho"),
+    "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
   --font-sans: var(
     --font-noto-sans-jp,
     "Noto Sans JP",
@@ -81,6 +76,12 @@
     padding: 0;
   }
 
+  /* アニメーション途中の要素などがページ幅を広げて
+     横スクロールを生まないようにする保険 */
+  body {
+    overflow-x: clip;
+  }
+
   /* ベースの本文スタイル */
   body {
     background: var(--background);
@@ -127,6 +128,131 @@
     text-align: center;
     margin-bottom: 3rem; /* 48px */
   }
+
+  /* microCMS リッチエディタのHTML本文（ブログ記事） */
+  .blog-body {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem; /* 15px */
+    line-height: 1.9;
+    color: #3d3d3d;
+  }
+
+  .blog-body h2 {
+    font-family: var(--font-mincho);
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(201, 169, 124, 0.4);
+  }
+
+  .blog-body h3 {
+    font-family: var(--font-mincho);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    margin: 2rem 0 0.75rem;
+  }
+
+  .blog-body p {
+    margin: 1rem 0;
+  }
+
+  .blog-body a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .blog-body a:hover {
+    color: var(--color-primary-dark);
+  }
+
+  .blog-body strong {
+    font-weight: 600;
+    color: #2c2c2c;
+  }
+
+  .blog-body ul,
+  .blog-body ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .blog-body ul {
+    list-style: disc;
+  }
+
+  .blog-body ol {
+    list-style: decimal;
+  }
+
+  .blog-body li {
+    margin: 0.375rem 0;
+  }
+
+  .blog-body blockquote {
+    margin: 1.5rem 0;
+    padding: 0.5rem 1.25rem;
+    border-left: 3px solid var(--color-accent);
+    background: var(--color-background-alt);
+    color: #5a5a5a;
+  }
+
+  .blog-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .blog-body figure {
+    margin: 1.5rem 0;
+  }
+
+  .blog-body figcaption {
+    font-size: 0.8125rem;
+    color: #8b8b8b;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .blog-body hr {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    margin: 2.5rem 0;
+  }
+
+  .blog-body pre {
+    overflow-x: auto;
+    background: #2c2c2c;
+    color: #ededed;
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    font-size: 0.8125rem;
+    margin: 1.5rem 0;
+  }
+
+  .blog-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+  }
+
+  .blog-body th,
+  .blog-body td {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+  }
+
+  .blog-body th {
+    background: var(--color-background-alt);
+    font-weight: 600;
+    color: var(--color-primary-dark);
+  }
 }
 
 /* ------------------------------
@@ -135,5 +261,76 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/* ------------------------------
+   ヒーロー写真ウォールのドリフト
+   （列を2回重ねて -50% まで動かすとシームレスにループする）
+   ホバー中はその列の流れを止めて、写真をじっくり見られるようにする
+   ------------------------------ */
+@keyframes hero-drift-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes hero-drift-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.hero-drift-slow {
+  animation: hero-drift-up 125s linear infinite;
+}
+
+.hero-drift-mid {
+  animation: hero-drift-down 115s linear infinite;
+}
+
+.hero-drift-fast {
+  animation: hero-drift-up 82s linear infinite;
+}
+
+@media (hover: hover) {
+  .hero-drift:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* ------------------------------
+   ヒーローのスクロールキュー
+   ------------------------------ */
+@keyframes hero-scroll-pulse {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+    transform-origin: top;
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+    opacity: 1;
+  }
+}
+
+.hero-scroll-line {
+  animation: hero-scroll-pulse 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-drift-slow,
+  .hero-drift-mid,
+  .hero-drift-fast,
+  .hero-scroll-line {
+    animation: none;
   }
 }

@@ -162,32 +162,46 @@ export default function GalleryGrid({
             const isEager = idxOnPage < targetEager; // 先頭N枚だけ eager
 
             return (
-              <div
+              <motion.div
                 key={image.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6, delay: (idxOnPage % 3) * 0.08 }}
                 className="group mb-6 break-inside-avoid cursor-pointer md:mb-8"
                 onClick={() => setSelectedImage(globalIndex)}
               >
-                <div className="relative overflow-hidden rounded-xl bg-white">
+                <div className="relative overflow-hidden bg-[#F5F1E8]">
                   {!imageLoadErrors.has(image.id) ? (
-                    <Image
-                      src={image.publicUrl}
-                      alt={`DMC FUJI 富士市の着物撮影${
-                        image.category && image.category !== "all"
-                          ? `（${image.category}）`
-                          : ""
-                      }`}
-                      width={0}
-                      height={0}
-                      sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
-                      style={{ width: "100%", height: "auto" }}
-                      className="block transition-opacity duration-300 group-hover:opacity-90"
-                      priority={isEager}
-                      loading={isEager ? "eager" : "lazy"}
-                      quality={85}
-                      onError={() => handleImageError(image.id, idxOnPage)}
-                      onLoad={() => handleImageLoaded(idxOnPage)}
-                      decoding="async"
-                    />
+                    <>
+                      <Image
+                        src={image.publicUrl}
+                        alt={`DMC FUJI 富士市の着物撮影${
+                          image.category && image.category !== "all"
+                            ? `（${image.category}）`
+                            : ""
+                        }`}
+                        width={0}
+                        height={0}
+                        sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+                        style={{ width: "100%", height: "auto" }}
+                        className="block transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        priority={isEager}
+                        loading={isEager ? "eager" : "lazy"}
+                        quality={85}
+                        onError={() => handleImageError(image.id, idxOnPage)}
+                        onLoad={() => handleImageLoaded(idxOnPage)}
+                        decoding="async"
+                      />
+                      {/* ホバー時のみ沈み込むグラデーションとカテゴリ表示 */}
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1D1812]/55 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      />
+                      <p className="pointer-events-none absolute bottom-4 left-4 translate-y-2 font-['Noto_Sans_JP'] text-[11px] font-medium uppercase tracking-[0.26em] text-[#F5F1E8] opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                        {image.category}
+                      </p>
+                    </>
                   ) : (
                     <div className="flex aspect-[4/5] w-full items-center justify-center bg-white">
                       <p className="text-sm text-[#5A5A5A]">
@@ -196,12 +210,7 @@ export default function GalleryGrid({
                     </div>
                   )}
                 </div>
-                <div className="mt-3">
-                  <p className="text-xs uppercase tracking-wide text-[#5A5A5A]">
-                    {image.category}
-                  </p>
-                </div>
-              </div>
+              </motion.div>
             );
           })}
         </motion.div>
@@ -210,33 +219,53 @@ export default function GalleryGrid({
       {/* ページネーション */}
       {totalPages > 1 && (
         <div className="mx-auto mt-16 max-w-[1200px] px-5 md:px-6">
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex items-center justify-center gap-10">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className={`rounded-md border border-black/10 px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-black/10 focus:ring-offset-2 ${
+              className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A97C] focus-visible:ring-offset-2 ${
                 currentPage === 1
-                  ? "cursor-not-allowed border-black/5 text-[#5A5A5A]"
-                  : "text-[#111] hover:border-black/20 hover:bg-black/5"
+                  ? "cursor-not-allowed text-[#C9C0B0]"
+                  : "text-[#8B7355] hover:text-[#2C2418]"
               }`}
               aria-label="前のページ"
             >
+              <span
+                aria-hidden="true"
+                className={`transition-transform duration-300 ${
+                  currentPage === 1 ? "" : "group-hover:-translate-x-1"
+                }`}
+              >
+                ←
+              </span>
               Prev
             </button>
-            <span className="select-none text-sm text-[#5A5A5A]">
-              {currentPage} / {totalPages}
+            <span className="select-none font-mincho text-lg tracking-[0.2em] text-[#2C2418]">
+              {String(currentPage).padStart(2, "0")}
+              <span className="mx-2 text-[#C9A97C]">/</span>
+              <span className="text-[#8B7355]">
+                {String(totalPages).padStart(2, "0")}
+              </span>
             </span>
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className={`rounded-md border border-black/10 px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-black/10 focus:ring-offset-2 ${
+              className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A97C] focus-visible:ring-offset-2 ${
                 currentPage === totalPages
-                  ? "cursor-not-allowed border-black/5 text-[#5A5A5A]"
-                  : "text-[#111] hover:border-black/20 hover:bg-black/5"
+                  ? "cursor-not-allowed text-[#C9C0B0]"
+                  : "text-[#8B7355] hover:text-[#2C2418]"
               }`}
               aria-label="次のページ"
             >
               Next
+              <span
+                aria-hidden="true"
+                className={`transition-transform duration-300 ${
+                  currentPage === totalPages ? "" : "group-hover:translate-x-1"
+                }`}
+              >
+                →
+              </span>
             </button>
           </div>
         </div>

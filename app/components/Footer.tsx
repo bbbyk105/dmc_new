@@ -23,6 +23,7 @@ export default function Footer() {
     { href: `/${locale}`, label: t("nav.home") },
     { href: `/${locale}/gallery`, label: t("nav.gallery") },
     { href: `/${locale}/service`, label: t("nav.service") },
+    { href: `/${locale}/blog`, label: t("nav.blog") },
     { href: `/${locale}/contact`, label: t("nav.contact") },
   ];
 
@@ -43,7 +44,7 @@ export default function Footer() {
                 className="h-12 w-auto brightness-0 invert"
               />
               <div className="flex flex-col">
-                <span className="font-['Crimson_Text'] text-2xl font-bold">
+                <span className="font-mincho text-2xl font-bold">
                   DMC FUJI
                 </span>
                 <span className="font-['Noto_Sans_JP'] text-xs tracking-widest">
@@ -72,7 +73,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="font-['Crimson_Text'] text-lg font-bold">
+            <h3 className="font-mincho text-lg font-bold">
               {locale === "ja" ? "メニュー" : "Menu"}
             </h3>
             <ul className="space-y-2">
@@ -91,7 +92,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h3 className="font-['Crimson_Text'] text-lg font-bold">
+            <h3 className="font-mincho text-lg font-bold">
               {t("contact.info.title")}
             </h3>
             <ul className="space-y-3 font-['Noto_Sans_JP'] text-sm text-white/80">

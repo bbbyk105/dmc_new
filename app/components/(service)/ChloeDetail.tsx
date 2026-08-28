@@ -292,7 +292,7 @@ export default function ChloeDetail() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-6 whitespace-pre-line font-['Crimson_Text'] text-4xl font-black leading-tight text-white md:text-6xl lg:text-7xl"
+            className="mb-6 whitespace-pre-line font-mincho text-4xl font-black leading-tight text-white md:text-6xl lg:text-7xl"
           >
             {t.hero.title}
           </motion.h1>
@@ -318,7 +318,7 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-32"
         >
-          <h2 className="mb-12 text-center font-['Crimson_Text'] text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
             {t.pricing.title}
           </h2>
 
@@ -370,7 +370,7 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-32"
         >
-          <h2 className="mb-12 text-center font-['Crimson_Text'] text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
             {t.features.title}
           </h2>
 
@@ -443,7 +443,7 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-32"
         >
-          <h2 className="mb-12 text-center font-['Crimson_Text'] text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
             {t.scenes.title}
           </h2>
 
@@ -474,7 +474,7 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-32"
         >
-          <h2 className="mb-12 text-center font-['Crimson_Text'] text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
             {t.equipment.title}
           </h2>
 
@@ -505,7 +505,7 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-32"
         >
-          <h2 className="mb-12 text-center font-['Crimson_Text'] text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
             {t.usage.title}
           </h2>
 
@@ -541,7 +541,7 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <h2 className="mb-8 text-center font-['Crimson_Text'] text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-8 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
             {t.notes.title}
           </h2>
 

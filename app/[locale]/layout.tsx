@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Noto_Sans_JP, Crimson_Text } from "next/font/google";
+import { Noto_Sans_JP, Shippori_Mincho } from "next/font/google";
 import { locales } from "@/i18n";
 import {
   getSiteUrl,
@@ -21,11 +21,13 @@ const notoSansJP = Noto_Sans_JP({
   display: "swap",
 });
 
-const crimsonText = Crimson_Text({
-  weight: ["400", "600", "700"],
+// サイト全体の見出し用明朝体（本文は Noto Sans JP に統一）
+const shipporiMincho = Shippori_Mincho({
+  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
-  variable: "--font-crimson-text",
+  variable: "--font-shippori-mincho",
   display: "swap",
+  preload: false,
 });
 
 export function generateStaticParams() {
@@ -124,7 +126,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${notoSansJP.variable} ${crimsonText.variable}`}
+      className={`${notoSansJP.variable} ${shipporiMincho.variable}`}
       suppressHydrationWarning
     >
       <head>

@@ -85,7 +85,7 @@ export default function FeaturedSection() {
           {/* コンテンツ */}
           <div className="space-y-10">
             <div>
-              <h2 className="mb-2 font-['Noto_Sans_JP'] text-2xl font-semibold text-[#2C2C2C] md:text-3xl">
+              <h2 className="mb-2 font-mincho text-2xl font-semibold text-[#2C2C2C] md:text-3xl">
                 {t.title}
               </h2>
               <p className="text-[15px] text-[#8B7355] md:text-base">
@@ -105,7 +105,7 @@ export default function FeaturedSection() {
                   className="border-b border-[rgba(0,0,0,0.08)] pb-6 last:border-b-0 last:pb-0"
                 >
                   <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
-                    <h3 className="font-['Noto_Sans_JP'] text-lg font-semibold text-[#2C2C2C] md:text-xl">
+                    <h3 className="font-mincho text-lg font-semibold text-[#2C2C2C] md:text-xl">
                       {plan.name}
                     </h3>
                     {plan.price && (
