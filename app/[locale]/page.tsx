@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Hero from "@/app/components/(toppage)/Hero";
 import StatementSection from "@/app/components/(toppage)/StatementSection";
+import OurStorySection from "@/app/components/(toppage)/OurStorySection";
 import ServicesShowcase from "@/app/components/(toppage)/ServicesShowcase";
 import GalleryShowcase, {
   type ShowcaseImage,
@@ -92,6 +93,7 @@ export default async function HomePage({ params }: Props) {
       <JsonLd data={breadcrumb} />
       <Hero />
       <StatementSection />
+      <OurStorySection />
       <ServicesShowcase />
       <GalleryShowcase images={showcaseImages} />
       <CtaSection />

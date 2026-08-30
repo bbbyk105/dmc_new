@@ -57,7 +57,7 @@ export default function ContactForm() {
         title: "店舗情報",
         address: {
           label: "住所",
-          value: "〒417-0001\n静岡県富士市荒田島町1-13 ラシェット1",
+          value: "〒417-0043\n静岡県富士市荒田島町1-13 ラシェット1",
         },
         phone: { label: "電話番号", value: "+81-545-55-4550" },
         email: { label: "メール", value: "dmc.fuji0823@gmail.com" },
@@ -102,7 +102,7 @@ export default function ContactForm() {
         title: "Studio Information",
         address: {
           label: "Address",
-          value: "1-13 Aratajima-cho, Fuji City, Shizuoka 417-0001, Japan",
+          value: "1-13 Aratajima-cho, Fuji City, Shizuoka 417-0043, Japan",
         },
         phone: { label: "Phone", value: "+81-545-55-4550" },
         email: { label: "Email", value: "dmc.fuji0823@gmail.com" },

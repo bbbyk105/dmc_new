@@ -37,6 +37,7 @@ export default function Header() {
 
   const navItems = [
     { href: `/${locale}`, label: t("home") },
+    { href: `/${locale}/about`, label: t("about") },
     { href: `/${locale}/service`, label: t("service") },
     { href: `/${locale}/gallery`, label: t("gallery") },
     { href: `/${locale}/blog`, label: t("blog") },
@@ -71,7 +72,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center gap-8 lg:flex">
+        <div className="hidden items-center gap-6 lg:flex xl:gap-8">
           {navItems.map((item) => (
             <Link
               key={item.href}

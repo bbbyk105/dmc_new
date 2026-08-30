@@ -26,8 +26,8 @@ export default function CtaSection() {
         </p>
         <h2 className="mt-7 font-mincho text-[clamp(1.4rem,3.2vw,2rem)] font-medium leading-[1.8] tracking-[0.08em] text-[#2C2418]">
           {isJa
-            ? "その日の光は、その日だけのもの。"
-            : "The light of that day belongs to that day alone."}
+            ? "撮影日が決まったら、まずはご相談ください。"
+            : "Have a date in mind? Let's start there."}
         </h2>
         <p className="mt-5 font-['Noto_Sans_JP'] text-sm leading-8 tracking-[0.02em] text-[#5A5245]">
           {isJa

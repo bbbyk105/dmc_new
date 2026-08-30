@@ -22,7 +22,7 @@ export function buildOrganizationOrLocalBusiness(siteUrl: string): object {
     telephone: TELEPHONE_E164,
     hasMap:
       "https://www.google.com/maps/search/?api=1&query=" +
-      encodeURIComponent("1-13 Aratajimacho, Fuji-shi, Shizuoka, 417-0001"),
+      encodeURIComponent("1-13 Aratajimacho, Fuji-shi, Shizuoka, 417-0043"),
     openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
     areaServed: [
       {

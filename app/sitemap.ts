@@ -5,6 +5,7 @@ import { fetchBlogList } from "@/lib/microcms";
 
 const routes = [
   { path: "", changeFrequency: "weekly" as const, priority: 1 },
+  { path: "/about", changeFrequency: "monthly" as const, priority: 0.7 },
   { path: "/service", changeFrequency: "monthly" as const, priority: 0.9 },
   {
     path: "/service/camu",

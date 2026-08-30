@@ -6,10 +6,10 @@
 export const SITE_NAME = "DMC FUJI | Ceremonial Kimono Photo Studio & Rental";
 
 /** 住所（表示用・日本語） */
-export const ADDRESS_JA = "〒417-0001 静岡県富士市荒田島町1-13 ラシェット1";
+export const ADDRESS_JA = "〒417-0043 静岡県富士市荒田島町1-13 ラシェット1";
 /** 住所（表示用・英語） */
 export const ADDRESS_EN =
-  "1-13 Aratajimacho, Fuji-shi, Shizuoka, 417-0001, Japan";
+  "1-13 Aratajimacho, Fuji-shi, Shizuoka, 417-0043, Japan";
 
 /** 電話番号（表示・tel:リンク用） */
 export const TELEPHONE_DISPLAY = "+81-545-55-4550";
@@ -31,7 +31,7 @@ export const ADDRESS_SCHEMA = {
   streetAddress: "1-13 Aratajimacho, Rashette 1",
   addressLocality: "Fuji-shi",
   addressRegion: "Shizuoka",
-  postalCode: "417-0001",
+  postalCode: "417-0043",
   addressCountry: "JP",
 };
 
@@ -47,6 +47,13 @@ export const OPENING_HOURS_SPECIFICATION = [
     closes: "17:00",
   },
 ];
+
+/** 駐車場（表示用） */
+export const PARKING_JA = "駐車場あり（無料）";
+export const PARKING_EN = "Free parking available";
+
+/** ブランドの由来：DMC = Dad · Mom · Child */
+export const BRAND_MEANING = "Dad · Mom · Child";
 
 /** Instagram（sameAs 用） */
 export const SAME_AS_INSTAGRAM = "https://www.instagram.com/dmcfuji123/";
