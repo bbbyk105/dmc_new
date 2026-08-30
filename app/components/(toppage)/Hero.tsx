@@ -207,7 +207,7 @@ export default function Hero() {
 
   const t = content[lang];
 
-  const inkShadow = "0 2px 28px rgba(29,24,18,0.6), 0 1px 3px rgba(29,24,18,0.5)";
+  const inkShadow = "0 2px 36px rgba(29,24,18,0.85), 0 1px 4px rgba(29,24,18,0.75)";
 
   return (
     <section className="relative min-h-svh overflow-hidden bg-[#1D1812]">
@@ -252,7 +252,7 @@ export default function Hero() {
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(ellipse 40% 38% at 50% 54%, rgba(29,24,18,0.58) 0%, rgba(29,24,18,0.3) 50%, rgba(29,24,18,0) 80%)",
+            "radial-gradient(ellipse 42% 40% at 50% 54%, rgba(29,24,18,0.66) 0%, rgba(29,24,18,0.36) 50%, rgba(29,24,18,0) 80%)",
         }}
       />
 
@@ -270,6 +270,17 @@ export default function Hero() {
 
       {/* コンテンツ（ラッパーはクリックを透過し、写真のホバーを邪魔しない） */}
       <div className="pointer-events-none relative z-10 flex min-h-svh flex-col items-center justify-center px-6 py-28 text-center">
+        {/* 文字ブロックの背後だけ：写真をぼかして墨を薄く重ねる。縁は radial マスクでフェード */}
+        <div
+          aria-hidden="true"
+          className="absolute left-1/2 top-1/2 h-[min(78svh,640px)] w-[min(96vw,1040px)] -translate-x-1/2 -translate-y-1/2 bg-[#1D1812]/45 backdrop-blur-[10px]"
+          style={{
+            WebkitMaskImage:
+              "radial-gradient(ellipse 50% 50% at 50% 50%, #000 38%, rgba(0,0,0,0.6) 60%, transparent 78%)",
+            maskImage:
+              "radial-gradient(ellipse 50% 50% at 50% 50%, #000 38%, rgba(0,0,0,0.6) 60%, transparent 78%)",
+          }}
+        />
         {/*
           日本語ページ: 見える H1 は日本語のキーワード行（英字の大見出しは装飾）。
           英語ページ: 英字の大見出しがそのまま H1。
@@ -280,7 +291,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="font-mincho text-xs font-normal tracking-[0.34em] text-[#E2C48F] md:text-sm"
+            className="relative font-mincho text-xs font-normal tracking-[0.34em] text-[#EBD6A6] md:text-sm"
             style={{ textShadow: inkShadow }}
           >
             {h1Keyword}
@@ -290,7 +301,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="font-mincho text-[11px] tracking-[0.4em] text-[#E2C48F] md:text-xs"
+            className="relative font-mincho text-[11px] tracking-[0.4em] text-[#EBD6A6] md:text-xs"
             style={{ textShadow: inkShadow }}
           >
             {t.eyebrow}
@@ -303,7 +314,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3 }}
             aria-hidden="true"
-            className="mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.12] tracking-[0.03em] text-[#F5F1E8]"
+            className="relative mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.12] tracking-[0.03em] text-[#F5F1E8]"
             style={{ textShadow: inkShadow }}
           >
             Ceremonial
@@ -315,7 +326,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3 }}
-            className="mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.12] tracking-[0.03em] text-[#F5F1E8]"
+            className="relative mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.12] tracking-[0.03em] text-[#F5F1E8]"
             style={{ textShadow: inkShadow }}
           >
             <span className="sr-only">{h1Keyword}</span>
@@ -331,7 +342,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55 }}
-          className="mt-8 max-w-xl font-mincho text-[13px] leading-9 tracking-[0.08em] text-[#F5F1E8]/92 md:text-[15px]"
+          className="relative mt-8 max-w-xl font-mincho text-[13px] leading-9 tracking-[0.08em] text-[#F5F1E8]/92 md:text-[15px]"
           style={{ textShadow: inkShadow }}
         >
           {t.lead}
@@ -341,7 +352,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.75 }}
-          className="pointer-events-auto mt-11 flex flex-col items-center gap-5 sm:flex-row sm:gap-8"
+          className="pointer-events-auto relative mt-11 flex flex-col items-center gap-5 sm:flex-row sm:gap-8"
         >
           <a
             href="https://dmcfuji0823.wixsite.com/reservation/en"
