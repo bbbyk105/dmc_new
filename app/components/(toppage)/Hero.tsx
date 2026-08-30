@@ -207,7 +207,10 @@ export default function Hero() {
 
   const t = content[lang];
 
-  const inkShadow = "0 2px 36px rgba(29,24,18,0.85), 0 1px 4px rgba(29,24,18,0.75)";
+  const inkShadow = "0 1px 3px rgba(29,24,18,0.6)";
+  // 文字の行の裏にだけ敷く墨の帯（行ごとに分割される）
+  const band =
+    "inline box-decoration-clone bg-[#1D1812]/85 px-[0.35em] py-[0.12em]";
 
   return (
     <section className="relative min-h-svh overflow-hidden bg-[#1D1812]">
@@ -235,27 +238,9 @@ export default function Hero() {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(29,24,18,0.42) 0%, rgba(29,24,18,0.08) 26%, rgba(29,24,18,0.08) 70%, rgba(29,24,18,0.6) 100%)",
+            "linear-gradient(to bottom, rgba(29,24,18,0.42) 0%, rgba(29,24,18,0.04) 24%, rgba(29,24,18,0.04) 74%, rgba(29,24,18,0.5) 100%)",
         }}
       />
-      {/* 見出しの背後だけに落とす陰。外周には掛けない（モバイルは文字が幅いっぱいなので横に広げる） */}
-      <div
-        className="pointer-events-none absolute inset-0 md:hidden"
-        aria-hidden="true"
-        style={{
-          background:
-            "radial-gradient(ellipse 72% 40% at 50% 52%, rgba(29,24,18,0.62) 0%, rgba(29,24,18,0.32) 55%, rgba(29,24,18,0) 82%)",
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 hidden md:block"
-        aria-hidden="true"
-        style={{
-          background:
-            "radial-gradient(ellipse 42% 40% at 50% 54%, rgba(29,24,18,0.66) 0%, rgba(29,24,18,0.36) 50%, rgba(29,24,18,0) 80%)",
-        }}
-      />
-
       {/* 縦書きタグライン（右端） */}
       <motion.p
         initial={{ opacity: 0 }}
@@ -270,17 +255,6 @@ export default function Hero() {
 
       {/* コンテンツ（ラッパーはクリックを透過し、写真のホバーを邪魔しない） */}
       <div className="pointer-events-none relative z-10 flex min-h-svh flex-col items-center justify-center px-6 py-28 text-center">
-        {/* 文字ブロックの背後だけ：写真をぼかして墨を薄く重ねる。縁は radial マスクでフェード */}
-        <div
-          aria-hidden="true"
-          className="absolute left-1/2 top-1/2 h-[min(78svh,640px)] w-[min(96vw,1040px)] -translate-x-1/2 -translate-y-1/2 bg-[#1D1812]/45 backdrop-blur-[10px]"
-          style={{
-            WebkitMaskImage:
-              "radial-gradient(ellipse 50% 50% at 50% 50%, #000 38%, rgba(0,0,0,0.6) 60%, transparent 78%)",
-            maskImage:
-              "radial-gradient(ellipse 50% 50% at 50% 50%, #000 38%, rgba(0,0,0,0.6) 60%, transparent 78%)",
-          }}
-        />
         {/*
           日本語ページ: 見える H1 は日本語のキーワード行（英字の大見出しは装飾）。
           英語ページ: 英字の大見出しがそのまま H1。
@@ -292,9 +266,8 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
             className="relative font-mincho text-xs font-normal tracking-[0.34em] text-[#EBD6A6] md:text-sm"
-            style={{ textShadow: inkShadow }}
           >
-            {h1Keyword}
+            <span className={band}>{h1Keyword}</span>
           </motion.h1>
         ) : (
           <motion.p
@@ -302,9 +275,8 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
             className="relative font-mincho text-[11px] tracking-[0.4em] text-[#EBD6A6] md:text-xs"
-            style={{ textShadow: inkShadow }}
           >
-            {t.eyebrow}
+            <span className={band}>{t.eyebrow}</span>
           </motion.p>
         )}
 
@@ -314,23 +286,23 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3 }}
             aria-hidden="true"
-            className="relative mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.12] tracking-[0.03em] text-[#F5F1E8]"
-            style={{ textShadow: inkShadow }}
+            className="relative mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.28] tracking-[0.03em] text-[#F5F1E8]"
           >
-            Ceremonial
-            <br />
-            Kimono Experience
+            <span className={band}>
+              Ceremonial
+              <br />
+              Kimono Experience
+            </span>
           </motion.p>
         ) : (
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3 }}
-            className="relative mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.12] tracking-[0.03em] text-[#F5F1E8]"
-            style={{ textShadow: inkShadow }}
+            className="relative mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.28] tracking-[0.03em] text-[#F5F1E8]"
           >
             <span className="sr-only">{h1Keyword}</span>
-            <span aria-hidden="true">
+            <span aria-hidden="true" className={band}>
               Ceremonial
               <br />
               Kimono Experience
@@ -342,10 +314,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55 }}
-          className="relative mt-8 max-w-xl font-mincho text-[13px] leading-9 tracking-[0.08em] text-[#F5F1E8]/92 md:text-[15px]"
-          style={{ textShadow: inkShadow }}
+          className="relative mt-8 max-w-xl font-mincho text-[13px] leading-[2.6] tracking-[0.08em] text-[#F5F1E8] md:text-[15px]"
         >
-          {t.lead}
+          <span className={band}>{t.lead}</span>
         </motion.p>
 
         <motion.div
@@ -364,10 +335,9 @@ export default function Hero() {
           </a>
           <Link
             href={`/${locale}/gallery`}
-            className="inline-block border-b border-[#C9A97C]/70 pb-1.5 font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-[#F5F1E8] transition-colors duration-300 hover:border-[#F5F1E8]"
-            style={{ textShadow: inkShadow }}
+            className="inline-block bg-[#1D1812]/85 px-4 py-2 font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-[#F5F1E8] transition-colors duration-300 hover:text-[#C9A97C]"
           >
-            {t.gallery}
+            <span className="border-b border-[#C9A97C]/70 pb-0.5">{t.gallery}</span>
           </Link>
         </motion.div>
       </div>
