@@ -6,11 +6,13 @@ import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 
 /**
- * 写真ウォール・ヒーロー。
- * 着物写真の3カラムがゆっくり縦に流れ、その上にセリフ見出しと縦書きの和文タグラインを重ねる。
- * ドリフトは CSS keyframes（globals.css の .hero-drift-*）で駆動。
+ * 写真ウォール・ヒーロー（編集誌的レイアウト）。
  *
- * 写真を沈める全面の墨オーバーレイは使わず、見出しの背後にだけ薄い陰を落とす。
+ * 写真には一切手を入れない（暗幕・ぼかし・帯・プレートなし）。
+ * 代わりに、着物写真の3カラムが流れるウォールを右 2/3（モバイルは上半分）に寄せ、
+ * -4° の回転でできる斜めの縁をそのまま見せる。文字は左側の墨の地に左揃えで置き、
+ * 大見出しの端だけが写真に食い込むコリジョンで一枚の構図にする。
+ * ドリフトは CSS keyframes（globals.css の .hero-drift-*）で駆動。
  * ホバーするとそのカラムの流れが止まり、写真が少し拡大して完全な明るさになり、キャプションが出る。
  */
 
@@ -108,13 +110,16 @@ const TILES = {
 } satisfies Record<string, Tile>;
 
 /**
- * 各列の先頭2枚が初期表示に入るので、富士山×着物・白無垢・神社の強い写真をそこに集める。
- * 3列目はモバイルでは非表示。列の長さはドリフト時間（globals.css）と釣り合わせてある。
+ * 各列の先頭2枚が初期表示に入る。3列目はモバイルでは非表示。
+ * 列の長さはドリフト時間（globals.css）と釣り合わせてある。
  */
 const WALL_COLUMNS: Tile[][] = [
-  [TILES.camu, TILES.shiromuku, TILES.standing, TILES.cafe, TILES.fujiDuo, TILES.dresses],
-  [TILES.cha, TILES.shrine, TILES.uchikake, TILES.fuji, TILES.rack],
-  [TILES.studio, TILES.fujiCouple, TILES.counter, TILES.chloe, TILES.entrance],
+  // 左列: 大見出しの端が触れるので、左端が静かなカット（風景・空間・被写体が中央）
+  [TILES.fuji, TILES.studio, TILES.rack, TILES.chloe, TILES.entrance, TILES.counter],
+  // 中央列: 看板写真（茶畑×富士×着物）と神社・白無垢
+  [TILES.camu, TILES.shrine, TILES.uchikake, TILES.shiromuku, TILES.cafe],
+  // 右列: 富士山×人物
+  [TILES.cha, TILES.fujiCouple, TILES.standing, TILES.fujiDuo, TILES.dresses],
 ];
 
 function WallColumn({
@@ -142,7 +147,7 @@ function WallColumn({
               src={tile.src}
               alt=""
               fill
-              sizes="(min-width: 768px) 32vw, 48vw"
+              sizes="(min-width: 768px) 24vw, 58vw"
               quality={85}
               priority={i < 2}
               className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
@@ -207,18 +212,49 @@ export default function Hero() {
 
   const t = content[lang];
 
-  const inkShadow = "0 1px 3px rgba(29,24,18,0.6)";
-  // 文字の行の裏にだけ敷く墨の帯（行ごとに分割される）
-  const band =
-    "inline box-decoration-clone bg-[#1D1812]/85 px-[0.35em] py-[0.12em]";
+  // 見出しの端が写真に食い込む部分のための、ごく柔らかい影（面としては見えない）
+  const headlineShadow =
+    "0 2px 32px rgba(29,24,18,0.55), 0 1px 2px rgba(29,24,18,0.35)";
+  const reveal = [0.22, 1, 0.36, 1] as const;
+
+  const headlineLines = ["Ceremonial", "Kimono", "Experience"];
+  const headlineClass =
+    "mt-5 w-max max-w-none font-serif text-[clamp(3rem,7.2vw,7rem)] font-normal leading-[0.98] text-[#F5F1E8] md:mt-6";
+
+  // 一行ずつ下から立ち上がる見出し（ディセンダが切れないよう少し下に余白）
+  const Headline = (
+    <>
+      {headlineLines.map((line, i) => (
+        <span
+          key={line}
+          className="-mb-[0.14em] block overflow-hidden pb-[0.14em] whitespace-nowrap"
+        >
+          <motion.span
+            initial={{ y: "110%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1.1, delay: 0.25 + i * 0.1, ease: reveal }}
+            className="block"
+            style={{ textShadow: headlineShadow }}
+          >
+            {line}
+          </motion.span>
+        </span>
+      ))}
+    </>
+  );
 
   return (
     <section className="relative min-h-svh overflow-hidden bg-[#1D1812]">
-      {/* 写真ウォール（背景・ホバー可能） */}
+      {/*
+        写真ウォール（背景・ホバー可能）。
+        モバイル: 上 50svh。md 以上: 右 68vw。どちらも -4° 回転させ、
+        回転で生まれる斜めの縁（左／下）をそのまま構図の一部として見せる。
+        外にはみ出す分は section の overflow-hidden で切る。
+      */}
       <div
-        className="absolute inset-0 select-none"
+        className="absolute inset-x-[-8vw] top-[-6%] h-[52svh] select-none md:inset-x-auto md:inset-y-[-8%] md:right-[-7vw] md:h-auto md:w-[68vw]"
         aria-hidden="true"
-        style={{ transform: "rotate(-4deg) scale(1.22)" }}
+        style={{ transform: "rotate(-4deg)" }}
       >
         <div className="flex h-full gap-4 md:gap-6">
           <WallColumn tiles={WALL_COLUMNS[0]} drift="slow" lang={lang} />
@@ -232,128 +268,114 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* 上端（透明ヘッダー用）と下端（次セクションへの繋ぎ）だけ薄く、中央は写真の明るさを残す */}
+      {/* 上端（透明ヘッダー用）だけ薄く。写真の中央は明るいまま */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40"
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(29,24,18,0.42) 0%, rgba(29,24,18,0.04) 24%, rgba(29,24,18,0.04) 74%, rgba(29,24,18,0.5) 100%)",
+            "linear-gradient(to bottom, rgba(29,24,18,0.45) 0%, rgba(29,24,18,0) 100%)",
         }}
       />
-      {/* 縦書きタグライン（右端） */}
+
+      {/* 縦書きタグライン（左端・墨の地の上） */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, delay: 1.0 }}
+        transition={{ duration: 1.2, delay: 1.1 }}
         aria-hidden="true"
-        className="pointer-events-none absolute right-5 top-1/2 z-10 hidden -translate-y-1/2 select-none font-mincho text-sm tracking-[0.5em] text-[#F5F1E8]/85 md:right-10 md:block"
-        style={{ writingMode: "vertical-rl", textShadow: inkShadow }}
+        className="pointer-events-none absolute left-7 top-1/2 z-10 hidden -translate-y-1/2 select-none font-mincho text-[13px] tracking-[0.5em] text-[#F5F1E8]/55 md:block lg:left-10"
+        style={{ writingMode: "vertical-rl" }}
       >
         {t.tagline}
       </motion.p>
 
       {/* コンテンツ（ラッパーはクリックを透過し、写真のホバーを邪魔しない） */}
-      <div className="pointer-events-none relative z-10 flex min-h-svh flex-col items-center justify-center px-6 py-28 text-center">
-        {/*
-          日本語ページ: 見える H1 は日本語のキーワード行（英字の大見出しは装飾）。
-          英語ページ: 英字の大見出しがそのまま H1。
-          同じ見た目のまま、ja/en で H1 の中身を言語ごとに分ける（重複コンテンツ対策）。
-        */}
-        {lang === "ja" ? (
-          <motion.h1
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="relative font-mincho text-xs font-normal tracking-[0.34em] text-[#EBD6A6] md:text-sm"
-          >
-            <span className={band}>{h1Keyword}</span>
-          </motion.h1>
-        ) : (
+      <div className="pointer-events-none relative z-10 flex min-h-svh flex-col justify-start px-6 pb-12 pt-[48svh] md:justify-center md:py-28 md:pl-[clamp(5rem,8vw,8.5rem)] md:pr-0">
+        <div className="w-full md:w-[29vw] md:min-w-[14rem] md:max-w-[40rem]">
+          {/*
+            日本語ページ: 見える H1 は日本語のキーワード行（英字の大見出しは装飾）。
+            英語ページ: 英字の大見出しがそのまま H1。
+            同じ見た目のまま、ja/en で H1 の中身を言語ごとに分ける（重複コンテンツ対策）。
+          */}
+          {lang === "ja" ? (
+            <motion.h1
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: reveal }}
+              className="flex items-start gap-3 font-mincho text-[11px] font-normal leading-[1.5] tracking-[0.2em] text-[#EBD6A6] md:gap-4 md:tracking-[0.24em] xl:text-[12px] xl:tracking-[0.3em]"
+            >
+              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-[#C9A97C]/80 md:w-8" />
+              <span>{h1Keyword}</span>
+            </motion.h1>
+          ) : (
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: reveal }}
+              className="flex items-start gap-3 font-mincho text-[11px] leading-[1.5] tracking-[0.26em] text-[#EBD6A6] md:gap-4 md:tracking-[0.3em] xl:text-[12px] xl:tracking-[0.36em]"
+            >
+              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-[#C9A97C]/80 md:w-8" />
+              <span>{t.eyebrow}</span>
+            </motion.p>
+          )}
+
+          {lang === "ja" ? (
+            <p aria-hidden="true" className={headlineClass}>
+              {Headline}
+            </p>
+          ) : (
+            <h1 className={headlineClass}>
+              <span className="sr-only">{h1Keyword}</span>
+              <span aria-hidden="true">{Headline}</span>
+            </h1>
+          )}
+
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="relative font-mincho text-[11px] tracking-[0.4em] text-[#EBD6A6] md:text-xs"
+            transition={{ duration: 0.9, delay: 0.75, ease: reveal }}
+            className="mt-7 max-w-[24rem] font-mincho text-[13px] leading-[2.1] tracking-[0.06em] text-[#F5F1E8]/85 md:mt-10 md:text-[14px] md:leading-[2.2]"
           >
-            <span className={band}>{t.eyebrow}</span>
+            {t.lead}
           </motion.p>
-        )}
 
-        {lang === "ja" ? (
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3 }}
-            aria-hidden="true"
-            className="relative mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.28] tracking-[0.03em] text-[#F5F1E8]"
+            transition={{ duration: 0.9, delay: 0.9, ease: reveal }}
+            className="pointer-events-auto mt-8 flex flex-wrap items-center gap-x-6 gap-y-5 md:mt-11 lg:gap-x-8"
           >
-            <span className={band}>
-              Ceremonial
-              <br />
-              Kimono Experience
-            </span>
-          </motion.p>
-        ) : (
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3 }}
-            className="relative mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.28] tracking-[0.03em] text-[#F5F1E8]"
-          >
-            <span className="sr-only">{h1Keyword}</span>
-            <span aria-hidden="true" className={band}>
-              Ceremonial
-              <br />
-              Kimono Experience
-            </span>
-          </motion.h1>
-        )}
-
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.55 }}
-          className="relative mt-8 max-w-xl font-mincho text-[13px] leading-[2.6] tracking-[0.08em] text-[#F5F1E8] md:text-[15px]"
-        >
-          <span className={band}>{t.lead}</span>
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.75 }}
-          className="pointer-events-auto relative mt-11 flex flex-col items-center gap-5 sm:flex-row sm:gap-8"
-        >
-          <a
-            href="https://dmcfuji0823.wixsite.com/reservation/en"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-[#F5F1E8] px-11 py-4 font-['Noto_Sans_JP'] text-[13px] font-medium tracking-[0.22em] text-[#1D1812] shadow-[0_12px_40px_rgba(29,24,18,0.35)] transition-colors duration-300 hover:bg-[#C9A97C]"
-          >
-            {t.reserve}
-          </a>
-          <Link
-            href={`/${locale}/gallery`}
-            className="inline-block bg-[#1D1812]/85 px-4 py-2 font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-[#F5F1E8] transition-colors duration-300 hover:text-[#C9A97C]"
-          >
-            <span className="border-b border-[#C9A97C]/70 pb-0.5">{t.gallery}</span>
-          </Link>
-        </motion.div>
+            <a
+              href="https://dmcfuji0823.wixsite.com/reservation/en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-[#F5F1E8] px-9 py-4 font-['Noto_Sans_JP'] text-[13px] font-medium tracking-[0.22em] text-[#1D1812] transition-colors duration-300 hover:bg-[#C9A97C] lg:px-10"
+            >
+              {t.reserve}
+            </a>
+            <Link
+              href={`/${locale}/gallery`}
+              className="inline-block font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-[#F5F1E8] transition-colors duration-300 hover:text-[#C9A97C]"
+            >
+              <span className="border-b border-[#C9A97C]/70 pb-1">{t.gallery}</span>
+            </Link>
+          </motion.div>
+        </div>
       </div>
 
-      {/* スクロールキュー */}
+      {/* スクロールキュー（左下・文字列と同じ左端） */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.4 }}
-        className="pointer-events-none absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2"
+        transition={{ duration: 1, delay: 1.5 }}
+        className="pointer-events-none absolute bottom-8 left-[clamp(5rem,8vw,8.5rem)] z-10 hidden items-center gap-4 md:flex"
         aria-hidden="true"
       >
-        <span className="font-['Noto_Sans_JP'] text-[10px] uppercase tracking-[0.3em] text-[#E8DFD0]/70">
+        <span className="hero-scroll-line block h-10 w-px bg-gradient-to-b from-[#C9A97C] to-transparent" />
+        <span className="font-['Noto_Sans_JP'] text-[10px] uppercase tracking-[0.3em] text-[#E8DFD0]/60">
           {t.scroll}
         </span>
-        <span className="hero-scroll-line block h-10 w-px bg-gradient-to-b from-[#C9A97C] to-transparent" />
       </motion.div>
     </section>
   );
