@@ -3,6 +3,8 @@ import { defaultLocale, locales } from "@/i18n";
 import { getSiteUrl } from "./site-url";
 
 const SITE_NAME = "DMC FUJI | Ceremonial Kimono Photo Studio & Rental";
+/** <title> の接尾辞に使う短いブランド名 */
+const BRAND_SHORT = "DMC FUJI";
 
 /** デフォルト OG 画像パス（public/ 配下） */
 const DEFAULT_OG_IMAGE = "/images/hero.jpg";
@@ -59,7 +61,11 @@ export function buildPageMeta({
   languages["x-default"] = `${baseUrl}/${defaultLocale}${pathWithoutLocale}`;
 
   return {
-    title: { default: title, template: `%s | ${SITE_NAME}` },
+    // ページ側の title に既にブランド名が含まれていれば付け足さない。
+    // 付ける場合も短い "| DMC FUJI" のみ（旧テンプレートはサイト名が長く二重になっていた）。
+    title: {
+      absolute: /DMC FUJI/i.test(title) ? title : `${title} | ${BRAND_SHORT}`,
+    },
     description,
     ...(keywords && keywords.length > 0 && { keywords }),
     openGraph: {

@@ -52,10 +52,121 @@ type LocaleBundle = {
 /* ========= End Types ========= */
 
 export default function CamuDetail() {
-  useLocale();
-  const currentLocale = "en" as const;
+  const locale = useLocale();
+  const currentLocale: "ja" | "en" = locale === "en" ? "en" : "ja";
+  const isJa = currentLocale === "ja";
 
-  const content: Record<"en", LocaleBundle> = {
+  // ja / en で本文を分ける（以前は両言語とも英語を出していたため、/ja と /en が重複扱いになっていた）
+  const content: Record<"ja" | "en", LocaleBundle> = {
+    ja: {
+      title: "花夢（CAMU）",
+      subtitle: "富士山と茶畑を背景にした、打掛の着物撮影",
+      intro: {
+        title: "富士山と茶畑を背景に、伝統の装いを",
+        description:
+          "富士山と茶畑を望むロケーションと、ライティングの整ったスタジオで撮影する、プロによる打掛の撮影体験です。写真データはオンラインでお届けします。事前予約制です。",
+      },
+      locations: {
+        title: "撮影ロケーション",
+        items: [
+          {
+            name: "富士山ビューポイント",
+            description:
+              "富士山を背にした一枚を。季節ごとの風景が打掛の色を引き立て、時が経っても色あせない写真になります。",
+            image: "/images/fuji.webp",
+          },
+          {
+            name: "茶畑",
+            description:
+              "富士市らしい茶畑の中で撮影します。鮮やかな緑が、打掛の色と生地の質感を美しく際立たせます。",
+            image: "/images/cha.webp",
+          },
+          {
+            name: "スタジオ撮影",
+            description:
+              "天候に左右されないスタジオ撮影。プロ仕様のライティングで、刺繍や色、生地の質感まで細やかに写し取ります。",
+            image: "/images/studio.webp",
+            isStudio: true,
+          },
+        ],
+      },
+      support: {
+        title: "プロによるトータルサポート",
+        description:
+          "着付けから撮影まで、経験豊富なスタッフが一つひとつの工程をサポートします。",
+        items: [
+          {
+            title: "プロカメラマン",
+            description:
+              "リラックスした雰囲気の中で、自然な表情と映える構図を引き出します。",
+          },
+          {
+            title: "着付け師",
+            description:
+              "長時間の撮影でも着崩れしにくい、美しい着付けを行います。",
+          },
+          {
+            title: "ヘアメイク",
+            description:
+              "古典から現代風まで、ご希望と打掛に合わせてコーディネートします。",
+          },
+          {
+            title: "撮影アシスタント",
+            description:
+              "小物の準備や進行管理など、当日の撮影を円滑にサポートします。",
+          },
+        ],
+      },
+      pricing: {
+        title: "料金プラン",
+        international: {
+          title: "海外からのお客様向けプラン",
+          plans: [
+            {
+              name: "プレミアムプラン",
+              price: "¥100,000",
+              tax: "（お一人様・税込）",
+              features: [
+                "ロケーションまたはスタジオでの撮影",
+                "スタジオ利用（60分）",
+                "打掛レンタル",
+                "着付け",
+                "プロカメラマンによる撮影",
+                "写真データ10枚（オンライン納品）",
+              ],
+            },
+            {
+              name: "ライトプラン",
+              price: "¥20,000",
+              tax: "（お一人様・税込）",
+              features: [
+                "打掛レンタル",
+                "ご自身のカメラ・スマートフォンでの撮影OK",
+              ],
+            },
+            {
+              name: "打掛着物体験（1時間）",
+              price: "¥10,000",
+              tax: "（1着目・税込）",
+              features: [
+                "打掛レンタル（1時間）",
+                "2着目以降：1着 ¥5,000（グループ予約）",
+              ],
+            },
+          ],
+        },
+      },
+      notes: {
+        title: "ご予約・ご注意事項",
+        items: [
+          "事前のご予約が必要です。",
+          "ロケーション撮影は天候により変更になる場合があります。",
+          "写真データはオンラインでお届けします。",
+          "キャンセルは撮影日の2日前までにご連絡ください。",
+          "日本のお客様向けの「花夢プラン ¥5,000（打掛・ドレスレンタル、スタジオ1時間）」はサービス一覧をご覧ください。",
+        ],
+      },
+    },
     en: {
       title: "CAMU",
       subtitle: "Ceremonial Kimono Photo Shoot — Mt. Fuji & Tea Fields",
@@ -166,7 +277,7 @@ export default function CamuDetail() {
     },
   };
 
-  const t: LocaleBundle = content.en;
+  const t: LocaleBundle = content[currentLocale];
 
   return (
     <div className="min-h-screen bg-white">
@@ -178,7 +289,7 @@ export default function CamuDetail() {
             className="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-[#8B7355]"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Services
+            {isJa ? "サービス一覧へ戻る" : "Back to Services"}
           </Link>
         </div>
       </div>
@@ -187,7 +298,7 @@ export default function CamuDetail() {
       <section className="relative overflow-hidden bg-gray-900 h-[42vh] max-[360px]:h-[36vh] md:h-[55vh]">
         <Image
           src="/images/camu.webp"
-          alt="CAMU Ceremonial Kimono Photography"
+          alt={isJa ? "花夢（CAMU）富士山と茶畑を背景にした打掛の着物撮影" : "CAMU Ceremonial Kimono Photography"}
           fill
           className="object-cover opacity-70 object-[50%_35%]"
           priority
@@ -367,7 +478,7 @@ export default function CamuDetail() {
         <div className="container mx-auto px-6 text-center lg:px-12">
           <Link href="https://dmcfuji0823.wixsite.com/reservation/en">
             <button className="border-2 border-[#2C2C2C] bg-[#2C2C2C] px-12 py-4 font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C]">
-              Book Now
+              {isJa ? "予約する" : "Book Now"}
             </button>
           </Link>
         </div>

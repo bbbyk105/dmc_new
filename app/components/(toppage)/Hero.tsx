@@ -270,30 +270,62 @@ export default function Hero() {
 
       {/* コンテンツ（ラッパーはクリックを透過し、写真のホバーを邪魔しない） */}
       <div className="pointer-events-none relative z-10 flex min-h-svh flex-col items-center justify-center px-6 py-28 text-center">
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="font-mincho text-[11px] tracking-[0.4em] text-[#E2C48F] md:text-xs"
-          style={{ textShadow: inkShadow }}
-        >
-          {t.eyebrow}
-        </motion.p>
+        {/*
+          日本語ページ: 見える H1 は日本語のキーワード行（英字の大見出しは装飾）。
+          英語ページ: 英字の大見出しがそのまま H1。
+          同じ見た目のまま、ja/en で H1 の中身を言語ごとに分ける（重複コンテンツ対策）。
+        */}
+        {lang === "ja" ? (
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="font-mincho text-xs font-normal tracking-[0.34em] text-[#E2C48F] md:text-sm"
+            style={{ textShadow: inkShadow }}
+          >
+            {h1Keyword}
+          </motion.h1>
+        ) : (
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="font-mincho text-[11px] tracking-[0.4em] text-[#E2C48F] md:text-xs"
+            style={{ textShadow: inkShadow }}
+          >
+            {t.eyebrow}
+          </motion.p>
+        )}
 
-        <motion.h1
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3 }}
-          className="mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.12] tracking-[0.03em] text-[#F5F1E8]"
-          style={{ textShadow: inkShadow }}
-        >
-          <span className="sr-only">{h1Keyword}</span>
-          <span aria-hidden="true">
+        {lang === "ja" ? (
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3 }}
+            aria-hidden="true"
+            className="mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.12] tracking-[0.03em] text-[#F5F1E8]"
+            style={{ textShadow: inkShadow }}
+          >
             Ceremonial
             <br />
             Kimono Experience
-          </span>
-        </motion.h1>
+          </motion.p>
+        ) : (
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3 }}
+            className="mt-7 font-serif text-[clamp(2.4rem,7vw,5rem)] font-normal leading-[1.12] tracking-[0.03em] text-[#F5F1E8]"
+            style={{ textShadow: inkShadow }}
+          >
+            <span className="sr-only">{h1Keyword}</span>
+            <span aria-hidden="true">
+              Ceremonial
+              <br />
+              Kimono Experience
+            </span>
+          </motion.h1>
+        )}
 
         <motion.p
           initial={{ opacity: 0, y: 14 }}

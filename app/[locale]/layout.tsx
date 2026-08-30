@@ -77,7 +77,7 @@ export async function generateMetadata({
   const siteUrl = getSiteUrl();
   return {
     metadataBase: new URL(siteUrl),
-    title: { default: baseTitle, template: `%s | ${SITE_NAME}` },
+    title: { default: baseTitle, template: "%s | DMC FUJI" },
     description,
     keywords,
     openGraph: {
