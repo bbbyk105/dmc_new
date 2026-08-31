@@ -30,7 +30,7 @@ export default function GalleryHero() {
     <section className="bg-white py-12 md:py-16">
       <div className="mx-auto max-w-[1200px] px-5 md:px-6">
         <div className="space-y-3">
-          <h1 className="font-['Noto_Sans_JP'] text-3xl font-semibold tracking-tight text-[#111] md:text-5xl">
+          <h1 className="font-mincho text-3xl font-semibold tracking-tight text-[#111] md:text-5xl">
             <span className="sr-only">{t.srTitle}</span>
             <span aria-hidden="true">{t.title}</span>
           </h1>
@@ -40,7 +40,7 @@ export default function GalleryHero() {
         </div>
 
         <div className="mt-8 max-w-3xl space-y-3 border-t border-black/5 pt-8">
-          <h2 className="font-['Noto_Sans_JP'] text-xl font-semibold tracking-tight text-[#2C2C2C] md:text-2xl">
+          <h2 className="font-mincho text-xl font-semibold tracking-tight text-[#2C2C2C] md:text-2xl">
             {t.introHeading}
           </h2>
           <p className="text-sm leading-7 text-[#5A5A5A] md:text-[15px]">

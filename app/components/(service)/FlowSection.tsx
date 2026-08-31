@@ -63,7 +63,7 @@ export default function FlowSection() {
   return (
     <section className="bg-[#faf8f4] py-12 md:py-16">
       <div className="mx-auto max-w-[1120px] px-6 md:px-8">
-        <h2 className="mb-16 text-center font-['Noto_Sans_JP'] text-2xl font-semibold text-[#2C2C2C] md:text-3xl">
+        <h2 className="mb-16 text-center font-mincho text-2xl font-semibold text-[#2C2C2C] md:text-3xl">
           {t.title}
         </h2>
         <div className="grid gap-12 md:grid-cols-4 md:gap-8">
@@ -72,7 +72,7 @@ export default function FlowSection() {
               <div className="mb-6 text-4xl font-semibold text-[#2C2C2C] opacity-20">
                 {step.number}
               </div>
-              <h3 className="mb-3 font-['Noto_Sans_JP'] text-lg font-semibold text-[#2C2C2C]">
+              <h3 className="mb-3 font-mincho text-lg font-semibold text-[#2C2C2C]">
                 {step.title}
               </h3>
               <p className="text-[15px] leading-7 text-[#5A5A5A]">

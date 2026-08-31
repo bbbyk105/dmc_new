@@ -4,7 +4,7 @@
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import { useState } from "react";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Car } from "lucide-react";
 
 type FormData = {
   name: string;
@@ -32,6 +32,7 @@ export default function ContactForm() {
     ja: {
       title: "お問い合わせ",
       subtitle: "ご予約・ご質問はこちらから",
+      note: "ご希望日・人数・ご希望のプラン（花夢／Chloe／カフェ）を添えてお送りいただくと、ご案内がスムーズです。お電話でも受け付けています（11:00〜17:00、水曜定休）。お車でお越しの方は無料駐車場をご利用ください。",
       formHeading: "お問い合わせフォーム",
       form: {
         name: "お名前",
@@ -57,8 +58,9 @@ export default function ContactForm() {
         title: "店舗情報",
         address: {
           label: "住所",
-          value: "〒417-0001\n静岡県富士市荒田島町1-13 ラシェット1",
+          value: "〒417-0043\n静岡県富士市荒田島町1-13 ラシェット1",
         },
+        parking: { label: "駐車場", value: "駐車場あり（無料）" },
         phone: { label: "電話番号", value: "+81-545-55-4550" },
         email: { label: "メール", value: "dmc.fuji0823@gmail.com" },
         hours: { label: "営業時間", value: "11:00〜17:00\n定休日: 水曜日" },
@@ -77,6 +79,7 @@ export default function ContactForm() {
     en: {
       title: "Contact Us",
       subtitle: "Get in touch for reservations and inquiries",
+      note: "Include your preferred date, number of guests, and plan (CAMU / Chloe / Café) so we can reply with details. Phone inquiries are welcome during opening hours (11:00–17:00, closed Wednesdays). Free parking is available if you come by car.",
       formHeading: "Inquiry Form",
       form: {
         name: "Name",
@@ -102,8 +105,9 @@ export default function ContactForm() {
         title: "Studio Information",
         address: {
           label: "Address",
-          value: "1-13 Aratajima-cho, Fuji City, Shizuoka 417-0001, Japan",
+          value: "1-13 Aratajima-cho, Fuji City, Shizuoka 417-0043, Japan",
         },
+        parking: { label: "Parking", value: "Free parking available" },
         phone: { label: "Phone", value: "+81-545-55-4550" },
         email: { label: "Email", value: "dmc.fuji0823@gmail.com" },
         hours: {
@@ -176,6 +180,9 @@ export default function ContactForm() {
             </h1>
             <div className="mx-auto mb-6 h-px w-16 bg-[#8B7355]" />
             <p className="text-base text-gray-600 md:text-lg">{t.subtitle}</p>
+            <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-gray-600">
+              {t.note}
+            </p>
           </motion.div>
         </div>
       </section>
@@ -364,6 +371,18 @@ export default function ContactForm() {
                     </p>
                     <p className="whitespace-pre-line text-sm leading-relaxed text-gray-600">
                       {t.info.address.value}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 border-t border-[#E5E3DC] pt-8">
+                  <Car className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
+                  <div>
+                    <p className="mb-2 font-light tracking-wide text-gray-900">
+                      {t.info.parking.label}
+                    </p>
+                    <p className="text-sm leading-relaxed text-gray-600">
+                      {t.info.parking.value}
                     </p>
                   </div>
                 </div>

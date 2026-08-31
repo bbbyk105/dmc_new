@@ -1,8 +1,10 @@
 {
     "nav": {
         "home": "ホーム",
+        "about": "私たちについて",
         "gallery": "ギャラリー",
         "service": "サービス",
+        "blog": "ブログ",
         "contact": "お問い合わせ",
         "reserve": "ご予約"
     },

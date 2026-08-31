@@ -30,7 +30,7 @@ export default function IntroHeader() {
       <div className="mx-auto max-w-[1120px] px-6 md:px-8">
         <div className="flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
           <div className="space-y-4">
-            <h1 className="font-['Noto_Sans_JP'] text-3xl font-semibold tracking-tight text-[#2C2C2C] md:text-5xl">
+            <h1 className="font-mincho text-3xl font-semibold tracking-tight text-[#2C2C2C] md:text-5xl">
               <span className="sr-only">{t.srTitle}</span>
               <span aria-hidden="true">{t.title}</span>
             </h1>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
-import { Instagram, Phone, MapPin, Clock } from "lucide-react";
+import { Instagram, Phone, MapPin, Clock, Car } from "lucide-react";
 import {
   ADDRESS_JA,
   ADDRESS_EN,
@@ -13,6 +13,9 @@ import {
   HOURS_EN,
   CLOSED_JA,
   CLOSED_EN,
+  PARKING_JA,
+  PARKING_EN,
+  BRAND_MEANING,
 } from "@/lib/site-info";
 
 export default function Footer() {
@@ -21,8 +24,10 @@ export default function Footer() {
 
   const navItems = [
     { href: `/${locale}`, label: t("nav.home") },
+    { href: `/${locale}/about`, label: t("nav.about") },
     { href: `/${locale}/gallery`, label: t("nav.gallery") },
     { href: `/${locale}/service`, label: t("nav.service") },
+    { href: `/${locale}/blog`, label: t("nav.blog") },
     { href: `/${locale}/contact`, label: t("nav.contact") },
   ];
 
@@ -43,11 +48,11 @@ export default function Footer() {
                 className="h-12 w-auto brightness-0 invert"
               />
               <div className="flex flex-col">
-                <span className="font-['Crimson_Text'] text-2xl font-bold">
+                <span className="font-mincho text-2xl font-bold">
                   DMC FUJI
                 </span>
                 <span className="font-['Noto_Sans_JP'] text-xs tracking-widest">
-                  Dressman Code
+                  {BRAND_MEANING}
                 </span>
               </div>
             </div>
@@ -72,7 +77,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="font-['Crimson_Text'] text-lg font-bold">
+            <h3 className="font-mincho text-lg font-bold">
               {locale === "ja" ? "メニュー" : "Menu"}
             </h3>
             <ul className="space-y-2">
@@ -91,13 +96,17 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h3 className="font-['Crimson_Text'] text-lg font-bold">
+            <h3 className="font-mincho text-lg font-bold">
               {t("contact.info.title")}
             </h3>
             <ul className="space-y-3 font-['Noto_Sans_JP'] text-sm text-white/80">
               <li className="flex items-start gap-2 mt-6">
                 <MapPin className="mt-1 h-4 w-4 shrink-0" />
                 <span>{locale === "ja" ? ADDRESS_JA : ADDRESS_EN}</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Car className="h-4 w-4 shrink-0" />
+                <span>{locale === "ja" ? PARKING_JA : PARKING_EN}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 shrink-0" />

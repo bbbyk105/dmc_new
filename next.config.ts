@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
       { source: "/service", destination: "/ja/service", permanent: true },
       { source: "/service/camu", destination: "/ja/service/camu", permanent: true },
       { source: "/gallery", destination: "/ja/gallery", permanent: true },
+      { source: "/blog", destination: "/ja/blog", permanent: true },
+      { source: "/blog/:id", destination: "/ja/blog/:id", permanent: true },
       { source: "/contact", destination: "/ja/contact", permanent: true },
     ];
   },
@@ -26,6 +28,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "plus.unsplash.com",
+      },
+      {
+        // microCMS のアイキャッチ・本文画像
+        protocol: "https",
+        hostname: "images.microcms-assets.io",
       },
       {
         protocol: "https",

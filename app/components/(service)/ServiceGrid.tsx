@@ -93,7 +93,7 @@ export default function ServiceGrid() {
             </div>
 
             <div className="flex flex-1 flex-col">
-              <h3 className="mb-2 font-['Noto_Sans_JP'] text-xl font-semibold text-[#2C2C2C] md:text-2xl">
+              <h3 className="mb-2 font-mincho text-xl font-semibold text-[#2C2C2C] md:text-2xl">
                 {t.chloe.title}
               </h3>
               <p className="mb-4 text-sm text-[#8B7355]">{t.chloe.subtitle}</p>
@@ -158,7 +158,7 @@ export default function ServiceGrid() {
             </div>
 
             <div className="flex flex-1 flex-col">
-              <h3 className="mb-2 font-['Noto_Sans_JP'] text-xl font-semibold text-[#2C2C2C] md:text-2xl">
+              <h3 className="mb-2 font-mincho text-xl font-semibold text-[#2C2C2C] md:text-2xl">
                 {t.cafe.title}
               </h3>
               <p className="mb-4 text-sm text-[#8B7355]">{t.cafe.subtitle}</p>

@@ -36,15 +36,16 @@ export default function GalleryFilter({
     <div className="mt-8 md:mt-12 mb-8 md:mb-12">
       <div className="mx-auto max-w-[1200px] px-5 md:px-6">
         <div className="overflow-x-auto scroll-smooth">
-          <div className="flex gap-8 border-b border-black/5 snap-x snap-mandatory">
+          <div className="flex gap-2 snap-x snap-mandatory md:gap-3">
             {items.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`snap-start whitespace-nowrap border-b-2 px-4 py-3 mb-[-1px] text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-black/10 focus:ring-offset-2 ${
+                aria-pressed={activeCategory === category.id}
+                className={`snap-start whitespace-nowrap border px-5 py-2 font-['Noto_Sans_JP'] text-[13px] tracking-[0.12em] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A97C] focus-visible:ring-offset-2 ${
                   activeCategory === category.id
-                    ? "border-[#111] font-medium text-[#111]"
-                    : "border-transparent text-[#5A5A5A] hover:text-[#111]"
+                    ? "border-[#2C2418] bg-[#2C2418] font-medium text-[#F5F1E8]"
+                    : "border-[#2C2418]/15 bg-transparent text-[#5A5245] hover:border-[#8B7355]/50 hover:text-[#2C2418]"
                 }`}
               >
                 {category.label}
