@@ -68,7 +68,7 @@ export default function FeaturedSection() {
       : "https://dmcfuji0823.wixsite.com/reservation/en";
 
   return (
-    <section className="bg-[#faf8f4] py-12 md:py-16">
+    <section className="bg-surface py-12 md:py-16">
       <div className="mx-auto max-w-[1120px] px-6 md:px-8">
         <div className="grid gap-12 md:grid-cols-2 md:items-center md:gap-16">
           {/* 画像 */}
@@ -85,15 +85,15 @@ export default function FeaturedSection() {
           {/* コンテンツ */}
           <div className="space-y-10">
             <div>
-              <h2 className="mb-2 font-mincho text-2xl font-semibold text-[#2C2C2C] md:text-3xl">
+              <h2 className="mb-2 font-mincho text-2xl font-semibold text-text md:text-3xl">
                 {t.title}
               </h2>
-              <p className="text-[15px] text-[#8B7355] md:text-base">
+              <p className="text-[15px] text-brand md:text-base">
                 {t.subtitle}
               </p>
             </div>
 
-            <p className="text-[15px] leading-7 text-[#5A5A5A] md:text-base">
+            <p className="text-[15px] leading-7 text-text-muted md:text-base">
               {t.description}
             </p>
 
@@ -102,14 +102,14 @@ export default function FeaturedSection() {
               {t.plans.map((plan, index) => (
                 <div
                   key={index}
-                  className="border-b border-[rgba(0,0,0,0.08)] pb-6 last:border-b-0 last:pb-0"
+                  className="border-b border-border pb-6 last:border-b-0 last:pb-0"
                 >
                   <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
-                    <h3 className="font-mincho text-lg font-semibold text-[#2C2C2C] md:text-xl">
+                    <h3 className="font-mincho text-lg font-semibold text-text md:text-xl">
                       {plan.name}
                     </h3>
                     {plan.price && (
-                      <span className="text-2xl font-semibold text-[#2C2C2C] leading-tight sm:whitespace-nowrap">
+                      <span className="text-2xl font-semibold text-text leading-tight sm:whitespace-nowrap">
                         {plan.price}
                       </span>
                     )}
@@ -119,9 +119,9 @@ export default function FeaturedSection() {
                     {plan.features.map((feature, i) => (
                       <li
                         key={i}
-                        className="flex items-start text-[15px] leading-7 text-[#5A5A5A]"
+                        className="flex items-start text-[15px] leading-7 text-text-muted"
                       >
-                        <span className="mr-2 mt-1 text-[#2C2C2C]">•</span>
+                        <span className="mr-2 mt-1 text-brand">•</span>
                         {feature}
                       </li>
                     ))}
@@ -134,13 +134,13 @@ export default function FeaturedSection() {
             <div className="pt-2 flex flex-col gap-3 sm:flex-row">
               {locale !== "ja" && (
                 <Link href={`/${locale}/service/camu`}>
-                  <button className="w-full min-h-[44px] rounded-2xl border-2 border-[#8B7355] bg-transparent px-8 py-3 text-sm font-semibold uppercase tracking-wider text-[#8B7355] transition-all duration-150 hover:bg-[#8B7355] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B7355] focus-visible:ring-offset-2 md:w-auto">
+                  <button className="btn-secondary w-full md:w-auto">
                     View Details
                   </button>
                 </Link>
               )}
               <Link href={reservationUrl}>
-                <button className="w-full min-h-[44px] rounded-2xl border-2 border-[#2C2C2C] bg-[#2C2C2C] px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-150 hover:bg-[#1a1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2C2C2C] focus-visible:ring-offset-2 md:w-auto">
+                <button className="btn-primary w-full md:w-auto">
                   {t.cta}
                 </button>
               </Link>

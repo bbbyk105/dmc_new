@@ -156,12 +156,12 @@ function WallColumn({
             {/* ほんのり墨（10%）。ホバーで消えて写真本来の明るさに */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-[#1D1812]/10 transition-opacity duration-700 group-hover:opacity-0"
+              className="pointer-events-none absolute inset-0 bg-text/10 transition-opacity duration-700 group-hover:opacity-0"
             />
             {/* ホバー時のキャプション */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute bottom-4 left-4 translate-y-2 bg-[#F5F1E8]/92 px-3 py-1.5 font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-[#1D1812] opacity-0 backdrop-blur-sm transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100 md:bottom-5 md:left-5"
+              className="pointer-events-none absolute bottom-4 left-4 translate-y-2 bg-background/92 px-3 py-1.5 font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-text opacity-0 backdrop-blur-sm transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100 md:bottom-5 md:left-5"
             >
               {tile.label[lang]}
             </span>
@@ -214,12 +214,12 @@ export default function Hero() {
 
   // 見出しの端が写真に食い込む部分のための、ごく柔らかい影（面としては見えない）
   const headlineShadow =
-    "0 2px 32px rgba(29,24,18,0.55), 0 1px 2px rgba(29,24,18,0.35)";
+    "0 2px 32px color-mix(in srgb, var(--color-text) 55%, transparent), 0 1px 2px color-mix(in srgb, var(--color-text) 35%, transparent)";
   const reveal = [0.22, 1, 0.36, 1] as const;
 
   const headlineLines = ["Ceremonial", "Kimono", "Experience"];
   const headlineClass =
-    "mt-5 w-max max-w-none font-serif text-[clamp(3rem,7.2vw,7rem)] font-normal leading-[0.98] text-[#F5F1E8] md:mt-6";
+    "mt-5 w-max max-w-none font-serif text-[clamp(3rem,7.2vw,7rem)] font-normal leading-[0.98] text-background md:mt-6";
 
   // 一行ずつ下から立ち上がる見出し（ディセンダが切れないよう少し下に余白）
   const Headline = (
@@ -244,7 +244,7 @@ export default function Hero() {
   );
 
   return (
-    <section className="relative min-h-svh overflow-hidden bg-[#1D1812]">
+    <section className="relative min-h-svh overflow-hidden bg-text">
       {/*
         写真ウォール（背景・ホバー可能）。
         モバイル: 上 50svh。md 以上: 右 68vw。どちらも -4° 回転させ、
@@ -274,7 +274,7 @@ export default function Hero() {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(29,24,18,0.45) 0%, rgba(29,24,18,0) 100%)",
+            "linear-gradient(to bottom, color-mix(in srgb, var(--color-text) 30%, transparent) 0%, transparent 100%)",
         }}
       />
 
@@ -284,7 +284,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 1.1 }}
         aria-hidden="true"
-        className="pointer-events-none absolute left-7 top-1/2 z-10 hidden -translate-y-1/2 select-none font-mincho text-[13px] tracking-[0.5em] text-[#F5F1E8]/55 md:block lg:left-10"
+        className="pointer-events-none absolute left-7 top-1/2 z-10 hidden -translate-y-1/2 select-none font-mincho text-[13px] tracking-[0.5em] text-background/55 md:block lg:left-10"
         style={{ writingMode: "vertical-rl" }}
       >
         {t.tagline}
@@ -303,9 +303,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: reveal }}
-              className="flex items-start gap-3 font-mincho text-[11px] font-normal leading-[1.5] tracking-[0.2em] text-[#EBD6A6] md:gap-4 md:tracking-[0.24em] xl:text-[12px] xl:tracking-[0.3em]"
+              className="flex items-start gap-3 font-mincho text-[11px] font-normal leading-[1.5] tracking-[0.2em] text-brand-soft md:gap-4 md:tracking-[0.24em] xl:text-[12px] xl:tracking-[0.3em]"
             >
-              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-[#C9A97C]/80 md:w-8" />
+              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-brand-soft/70 md:w-8" />
               <span>{h1Keyword}</span>
             </motion.h1>
           ) : (
@@ -313,9 +313,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: reveal }}
-              className="flex items-start gap-3 font-mincho text-[11px] leading-[1.5] tracking-[0.26em] text-[#EBD6A6] md:gap-4 md:tracking-[0.3em] xl:text-[12px] xl:tracking-[0.36em]"
+              className="flex items-start gap-3 font-mincho text-[11px] leading-[1.5] tracking-[0.26em] text-brand-soft md:gap-4 md:tracking-[0.3em] xl:text-[12px] xl:tracking-[0.36em]"
             >
-              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-[#C9A97C]/80 md:w-8" />
+              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-brand-soft/70 md:w-8" />
               <span>{t.eyebrow}</span>
             </motion.p>
           )}
@@ -335,7 +335,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.75, ease: reveal }}
-            className="mt-7 max-w-[24rem] font-mincho text-[13px] leading-[2.1] tracking-[0.06em] text-[#F5F1E8]/85 md:mt-10 md:text-[14px] md:leading-[2.2]"
+            className="mt-7 max-w-[24rem] font-mincho text-[13px] leading-[2.1] tracking-[0.06em] text-background/85 md:mt-10 md:text-[14px] md:leading-[2.2]"
           >
             {t.lead}
           </motion.p>
@@ -350,15 +350,15 @@ export default function Hero() {
               href="https://dmcfuji0823.wixsite.com/reservation/en"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-[#F5F1E8] px-9 py-4 font-['Noto_Sans_JP'] text-[13px] font-medium tracking-[0.22em] text-[#1D1812] transition-colors duration-300 hover:bg-[#C9A97C] lg:px-10"
+              className="btn-primary px-9 lg:px-10"
             >
               {t.reserve}
             </a>
             <Link
               href={`/${locale}/gallery`}
-              className="inline-block font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-[#F5F1E8] transition-colors duration-300 hover:text-[#C9A97C]"
+              className="inline-block font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-background transition-colors duration-300 hover:text-brand-soft"
             >
-              <span className="border-b border-[#C9A97C]/70 pb-1">{t.gallery}</span>
+              <span className="border-b border-background/40 pb-1">{t.gallery}</span>
             </Link>
           </motion.div>
         </div>
@@ -372,8 +372,8 @@ export default function Hero() {
         className="pointer-events-none absolute bottom-8 left-[clamp(5rem,8vw,8.5rem)] z-10 hidden items-center gap-4 md:flex"
         aria-hidden="true"
       >
-        <span className="hero-scroll-line block h-10 w-px bg-gradient-to-b from-[#C9A97C] to-transparent" />
-        <span className="font-['Noto_Sans_JP'] text-[10px] uppercase tracking-[0.3em] text-[#E8DFD0]/60">
+        <span className="hero-scroll-line block h-10 w-px bg-gradient-to-b from-brand-soft to-transparent" />
+        <span className="font-['Noto_Sans_JP'] text-[10px] uppercase tracking-[0.3em] text-brand-soft/60">
           {t.scroll}
         </span>
       </motion.div>

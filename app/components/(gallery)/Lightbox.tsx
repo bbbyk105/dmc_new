@@ -56,7 +56,7 @@ export default function Lightbox({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-text/95 p-4"
         onClick={onClose}
       >
         {/* 閉じるボタン */}
@@ -68,10 +68,10 @@ export default function Lightbox({
           whileHover={{ scale: 1.1, rotate: 90 }}
           whileTap={{ scale: 0.9 }}
           onClick={onClose}
-          className="absolute right-4 top-4 z-50 rounded-full bg-white/10 p-3 backdrop-blur-sm transition-colors hover:bg-white/20 md:right-8 md:top-8"
+          className="absolute right-4 top-4 z-50 rounded-full bg-background/10 p-3 backdrop-blur-sm transition-colors hover:bg-background/20 md:right-8 md:top-8"
           aria-label="閉じる"
         >
-          <X className="h-6 w-6 text-white md:h-8 md:w-8" />
+          <X className="h-6 w-6 text-background md:h-8 md:w-8" />
         </motion.button>
 
         {/* 前へボタン */}
@@ -86,10 +86,10 @@ export default function Lightbox({
             e.stopPropagation();
             handlePrevious();
           }}
-          className="absolute left-4 z-50 rounded-full bg-white/10 p-3 backdrop-blur-sm transition-colors hover:bg-white/20 md:left-8"
+          className="absolute left-4 z-50 rounded-full bg-background/10 p-3 backdrop-blur-sm transition-colors hover:bg-background/20 md:left-8"
           aria-label="前の画像"
         >
-          <ChevronLeft className="h-6 w-6 text-white md:h-8 md:w-8" />
+          <ChevronLeft className="h-6 w-6 text-background md:h-8 md:w-8" />
         </motion.button>
 
         {/* 次へボタン */}
@@ -104,10 +104,10 @@ export default function Lightbox({
             e.stopPropagation();
             handleNext();
           }}
-          className="absolute right-4 z-50 rounded-full bg-white/10 p-3 backdrop-blur-sm transition-colors hover:bg-white/20 md:right-8"
+          className="absolute right-4 z-50 rounded-full bg-background/10 p-3 backdrop-blur-sm transition-colors hover:bg-background/20 md:right-8"
           aria-label="次の画像"
         >
-          <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8" />
+          <ChevronRight className="h-6 w-6 text-background md:h-8 md:w-8" />
         </motion.button>
 
         {/* 画像コンテナ */}
@@ -146,9 +146,9 @@ export default function Lightbox({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-6 py-3 backdrop-blur-sm"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full bg-background/10 px-6 py-3 backdrop-blur-sm"
         >
-          <p className="text-sm font-medium text-white md:text-base">
+          <p className="text-sm font-medium text-background md:text-base">
             {currentIndex + 1} / {images.length}
           </p>
         </motion.div>

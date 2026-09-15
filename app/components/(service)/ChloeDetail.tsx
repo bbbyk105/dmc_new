@@ -253,9 +253,9 @@ export default function ChloeDetail() {
   const t = content[locale as keyof typeof content] || content.ja;
 
   return (
-    <div className="min-h-screen bg-[#F5F3F0]">
+    <div className="min-h-screen bg-background">
       {/* ヒーローセクション */}
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-[#2C2C2C]">
+      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-text">
         <motion.div
           initial={{ scale: 1.2, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.4 }}
@@ -279,7 +279,7 @@ export default function ChloeDetail() {
           >
             <Link
               href={`/${locale}/service`}
-              className="mb-8 inline-flex items-center gap-2 text-white/80 transition-colors hover:text-white"
+              className="mb-8 inline-flex items-center gap-2 text-background/75 transition-colors hover:text-background"
             >
               <ArrowLeft className="h-4 w-4" />
               <span className="text-sm uppercase tracking-wider">
@@ -292,7 +292,7 @@ export default function ChloeDetail() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-6 whitespace-pre-line font-mincho text-4xl font-black leading-tight text-white md:text-6xl lg:text-7xl"
+            className="mb-6 whitespace-pre-line font-mincho text-4xl font-black leading-tight text-background md:text-6xl lg:text-7xl"
           >
             {t.hero.title}
           </motion.h1>
@@ -301,7 +301,7 @@ export default function ChloeDetail() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mx-auto max-w-2xl text-lg text-white/90"
+            className="mx-auto max-w-2xl text-lg text-background/90"
           >
             {t.hero.description}
           </motion.p>
@@ -318,7 +318,7 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-32"
         >
-          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-text">
             {t.pricing.title}
           </h2>
 
@@ -331,22 +331,22 @@ export default function ChloeDetail() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 whileHover={{ y: -10 }}
-                className="rounded-2xl border-2 border-[#2C2C2C]/10 bg-white p-8 shadow-xl"
+                className="rounded-2xl border-2 border-border bg-surface p-8 shadow-xl shadow-text/10"
               >
                 <div className="mb-4 flex items-center gap-3">
-                  <Clock className="h-8 w-8 text-[#8B7355]" />
-                  <h3 className="text-2xl font-bold text-[#2C2C2C]">
+                  <Clock className="h-8 w-8 text-brand" />
+                  <h3 className="text-2xl font-bold text-text">
                     {plan.duration}
                   </h3>
                 </div>
 
                 <div className="mb-4">
-                  <span className="text-4xl font-black text-[#8B7355]">
+                  <span className="text-4xl font-black text-brand">
                     {plan.price}
                   </span>
                 </div>
 
-                <p className="text-sm text-[#5A5A5A]">{plan.description}</p>
+                <p className="text-sm text-text-muted">{plan.description}</p>
               </motion.div>
             ))}
           </div>
@@ -356,7 +356,7 @@ export default function ChloeDetail() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="mt-8 text-center text-sm italic text-[#999]"
+            className="mt-8 text-center text-sm italic text-text-muted"
           >
             {t.pricing.note}
           </motion.p>
@@ -370,7 +370,7 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-32"
         >
-          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-text">
             {t.features.title}
           </h2>
 
@@ -383,18 +383,18 @@ export default function ChloeDetail() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -10 }}
-                className="rounded-2xl bg-white p-6 shadow-lg"
+                className="rounded-2xl bg-surface p-6 shadow-lg shadow-text/10"
               >
-                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#8B7355]/10">
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand/10">
                   {feature.icon === "camera" && (
-                    <Camera className="h-7 w-7 text-[#8B7355]" />
+                    <Camera className="h-7 w-7 text-brand" />
                   )}
                   {feature.icon === "light" && (
-                    <Lightbulb className="h-7 w-7 text-[#8B7355]" />
+                    <Lightbulb className="h-7 w-7 text-brand" />
                   )}
                   {feature.icon === "background" && (
                     <svg
-                      className="h-7 w-7 text-[#8B7355]"
+                      className="h-7 w-7 text-brand"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -412,7 +412,7 @@ export default function ChloeDetail() {
                   )}
                   {feature.icon === "costume" && (
                     <svg
-                      className="h-7 w-7 text-[#8B7355]"
+                      className="h-7 w-7 text-brand"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -426,10 +426,10 @@ export default function ChloeDetail() {
                     </svg>
                   )}
                 </div>
-                <h3 className="mb-2 text-lg font-bold text-[#2C2C2C]">
+                <h3 className="mb-2 text-lg font-bold text-text">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-[#5A5A5A]">{feature.description}</p>
+                <p className="text-sm text-text-muted">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -443,7 +443,7 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-32"
         >
-          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-text">
             {t.scenes.title}
           </h2>
 
@@ -455,12 +455,12 @@ export default function ChloeDetail() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="rounded-2xl bg-white p-6 shadow-lg"
+                className="rounded-2xl bg-surface p-6 shadow-lg shadow-text/10"
               >
-                <h3 className="mb-3 text-xl font-bold text-[#2C2C2C]">
+                <h3 className="mb-3 text-xl font-bold text-text">
                   {scene.name}
                 </h3>
-                <p className="text-sm text-[#5A5A5A]">{scene.description}</p>
+                <p className="text-sm text-text-muted">{scene.description}</p>
               </motion.div>
             ))}
           </div>
@@ -474,11 +474,11 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-32"
         >
-          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-text">
             {t.equipment.title}
           </h2>
 
-          <div className="mx-auto max-w-3xl rounded-2xl bg-white p-8 shadow-lg">
+          <div className="mx-auto max-w-3xl rounded-2xl bg-surface p-8 shadow-lg shadow-text/10">
             <ul className="grid gap-4 md:grid-cols-2">
               {t.equipment.items.map((item, index) => (
                 <motion.li
@@ -489,8 +489,8 @@ export default function ChloeDetail() {
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                   className="flex items-center gap-3"
                 >
-                  <Check className="h-5 w-5 shrink-0 text-[#8B7355]" />
-                  <span className="text-[#5A5A5A]">{item}</span>
+                  <Check className="h-5 w-5 shrink-0 text-brand" />
+                  <span className="text-text-muted">{item}</span>
                 </motion.li>
               ))}
             </ul>
@@ -505,7 +505,7 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-32"
         >
-          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-12 text-center font-mincho text-4xl font-black text-text">
             {t.usage.title}
           </h2>
 
@@ -519,14 +519,14 @@ export default function ChloeDetail() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="flex gap-6"
               >
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#8B7355] text-2xl font-black text-white">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand text-2xl font-black text-surface">
                   {step.number}
                 </div>
                 <div className="flex-1">
-                  <h3 className="mb-2 text-xl font-bold text-[#2C2C2C]">
+                  <h3 className="mb-2 text-xl font-bold text-text">
                     {step.title}
                   </h3>
-                  <p className="text-[#5A5A5A]">{step.description}</p>
+                  <p className="text-text-muted">{step.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -541,18 +541,18 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <h2 className="mb-8 text-center font-mincho text-4xl font-black text-[#2C2C2C]">
+          <h2 className="mb-8 text-center font-mincho text-4xl font-black text-text">
             {t.notes.title}
           </h2>
 
-          <div className="mx-auto max-w-3xl rounded-2xl bg-white p-8 shadow-lg">
+          <div className="mx-auto max-w-3xl rounded-2xl bg-surface p-8 shadow-lg shadow-text/10">
             <ul className="space-y-4">
               {t.notes.items.map((note, index) => (
                 <li
                   key={index}
-                  className="flex items-start gap-3 text-sm text-[#5A5A5A]"
+                  className="flex items-start gap-3 text-sm text-text-muted"
                 >
-                  <Clock className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
+                  <Clock className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <span>{note}</span>
                 </li>
               ))}
@@ -572,7 +572,7 @@ export default function ChloeDetail() {
             <motion.button
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              className="border-2 border-[#2C2C2C] bg-[#2C2C2C] px-12 py-4 text-lg font-bold uppercase tracking-wider text-white transition-all hover:bg-transparent hover:text-[#2C2C2C]"
+              className="btn-primary px-12"
             >
               {locale === "ja" ? "ご予約・お問い合わせ" : "Book Now"}
             </motion.button>

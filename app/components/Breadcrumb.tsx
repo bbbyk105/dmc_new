@@ -18,25 +18,25 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
       aria-label="breadcrumb"
       className="mx-auto max-w-[1200px] px-5 pt-24 md:px-6"
     >
-      <ol className="flex flex-wrap items-center gap-1.5 font-['Noto_Sans_JP'] text-xs text-[#8B7355] md:text-sm">
+      <ol className="flex flex-wrap items-center gap-1.5 font-['Noto_Sans_JP'] text-xs text-text-muted md:text-sm">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
             <li key={item.name} className="flex items-center gap-1.5">
               {index > 0 && (
                 <ChevronRight
-                  className="h-3.5 w-3.5 text-[#C9A97C]"
+                  className="h-3.5 w-3.5 text-border"
                   aria-hidden="true"
                 />
               )}
               {isLast || !item.href ? (
-                <span className="text-[#5A4A3A]" aria-current="page">
+                <span className="text-text" aria-current="page">
                   {item.name}
                 </span>
               ) : (
                 <Link
                   href={item.href}
-                  className="transition-colors hover:text-[#5A4A3A]"
+                  className="transition-colors hover:text-brand"
                 >
                   {item.name}
                 </Link>

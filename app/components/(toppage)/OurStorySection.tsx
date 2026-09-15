@@ -20,7 +20,7 @@ export default function OurStorySection() {
   ];
 
   return (
-    <section className="bg-[#2E5A3E] py-20 text-[#F5F1E8] md:py-28">
+    <section className="bg-brand-dark py-20 text-background md:py-28">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-5 md:grid-cols-12 md:gap-8 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -29,10 +29,10 @@ export default function OurStorySection() {
           transition={{ duration: 0.8 }}
           className="md:col-span-6"
         >
-          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-[#C9A97C]">
+          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-brand-soft">
             Our Story
           </p>
-          <p className="mt-5 font-serif text-sm tracking-[0.2em] text-[#F5F1E8]/75">
+          <p className="mt-5 font-serif text-sm tracking-[0.2em] text-background/75">
             DMC = {BRAND_MEANING}
           </p>
           <h2 className="mt-4 font-mincho text-[clamp(1.4rem,3vw,2rem)] font-medium leading-[1.8] tracking-[0.06em]">
@@ -54,7 +54,7 @@ export default function OurStorySection() {
           </h2>
           <Link
             href={`/${locale}/about`}
-            className="mt-8 inline-block border-b border-[#C9A97C]/60 pb-1.5 font-['Noto_Sans_JP'] text-[13px] tracking-[0.18em] text-[#F5F1E8] transition-colors hover:border-[#F5F1E8]"
+            className="mt-8 inline-block border-b border-background/40 pb-1.5 font-['Noto_Sans_JP'] text-[13px] tracking-[0.18em] text-background transition-colors hover:border-background"
           >
             {isJa ? "私たちについて" : "Read our story"}
           </Link>
@@ -68,13 +68,13 @@ export default function OurStorySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.7, delay: 0.1 + i * 0.12 }}
-              className="grid grid-cols-[4.5rem_1fr] items-baseline gap-4 border-t border-[#C9A97C]/40 py-6 md:grid-cols-[6rem_1fr] md:gap-8"
+              className="grid grid-cols-[4.5rem_1fr] items-baseline gap-4 border-t border-background/20 py-6 md:grid-cols-[6rem_1fr] md:gap-8"
             >
-              <span className="font-serif text-lg tracking-[0.2em] text-[#C9A97C]">
+              <span className="font-serif text-lg tracking-[0.2em] text-brand-soft">
                 {item.word}
               </span>
               <span>
-                <span className="block font-serif text-xs uppercase tracking-[0.2em] text-[#F5F1E8]/70">
+                <span className="block font-serif text-xs uppercase tracking-[0.2em] text-background/70">
                   {item.en}
                 </span>
                 <span className="mt-1.5 block font-mincho text-lg tracking-[0.08em] md:text-xl">

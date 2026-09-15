@@ -108,7 +108,7 @@ export default async function ServicePage({ params }: Props) {
   ];
 
   return (
-    <div className="min-h-screen bg-[#faf8f4]">
+    <div className="min-h-screen bg-background">
       <JsonLd data={buildFaqSchema(faqs.items)} />
       <JsonLd data={breadcrumb} />
       {services.map((s, i) => (

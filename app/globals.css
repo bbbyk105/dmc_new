@@ -8,20 +8,52 @@
 /* Tailwind を最初に読み込む（base → components → utilities の順で出力） */
 @import "tailwindcss";
 
+/* ======================================================================
+   DMC FUJI COLOR SYSTEM
+   ----------------------------------------------------------------------
+   基準は DMC ロゴのブラウン #6E4422。
+   「生成り（Kinari）70-75% / 写真・墨（Sumi）15-20% / ブラウン 5-10%」の比率で、
+   ブラウンは背景ではなくアクセント（CTA / hover / active / ラベル）として使う。
+
+   ここに定義した 9 色以外の UI カラーは増やさない。
+   コンポーネント側では常に token（bg-brand / text-text-muted など）を使い、
+   16 進数のハードコードは書かない。
+   ====================================================================== */
+@theme {
+  /* Brand ------------------------------------------------------------ */
+  /* ロゴそのもののブラウン。CTA / active / link hover / section label / icon / focus */
+  --color-brand: #6e4422;
+  /* CTA hover / footer / dark section
+     大面積に敷く色。彩度を落として深く沈めないと「チョコ箱」に見えるため、
+     ロゴブラウンと同じ色相のまま L を大きく下げている */
+  --color-brand-dark: #2f1d0e;
+  /* small text / metadata / subtitle / 装飾タイポ（多用しない） */
+  --color-brand-muted: #8d6a4b;
+  /* タグ / selected item / soft background（小さい装飾に限定） */
+  --color-brand-soft: #e8ded2;
+
+  /* Surface ---------------------------------------------------------- */
+  /* サイト全体の基本背景（純白は使わない） */
+  --color-background: #f4efe7;
+  /* カード / FAQ / フォーム / 写真まわり。背景とわずかに差をつけたい時だけ */
+  --color-surface: #faf7f2;
+
+  /* Text ------------------------------------------------------------- */
+  /* H1-H3 / 本文。少しブラウンを含んだ墨色 */
+  --color-text: #1b1714;
+  /* 説明文 / metadata / 住所 / 営業時間 / caption */
+  --color-text-muted: #746a62;
+
+  /* Line ------------------------------------------------------------- */
+  /* divider / input border / card border / header border */
+  --color-border: #ded4c9;
+}
+
 /* ------------------------------
-   デザイントークン（Tailwind v4 @theme）
+   フォントトークン（値が別の変数を参照するため inline）
+   サイト全体で「見出し＝しっぽり明朝 / 本文＝Noto Sans JP」の2役に統一
    ------------------------------ */
 @theme inline {
-  /* カラーパレット */
-  --color-primary: #8b7355;
-  --color-primary-dark: #5a4a3a;
-  --color-accent: #c9a97c;
-  --color-background: #fefefe;
-  --color-background-alt: #f5f1ed;
-  --color-foreground: #333333;
-
-  /* フォント（next/font の CSS 変数を使うのが理想。未設定時はフォールバック）
-     サイト全体で「見出し＝しっぽり明朝 / 本文＝Noto Sans JP」の2役に統一 */
   --font-serif: var(--font-shippori-mincho, "Shippori Mincho"),
     "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
   --font-mincho: var(--font-shippori-mincho, "Shippori Mincho"),
@@ -48,18 +80,9 @@
    Base レイヤー：初期化＆タグ単位のタイポ
    ------------------------------ */
 @layer base {
-  /* テーマ変数（ライト） */
+  /* 生成りの地に墨の文字。ダークテーマは持たない（写真を基準にした固定パレット） */
   :root {
-    --background: #fefefe;
-    --foreground: #333333;
-  }
-
-  /* ダークモード変数（システム連動） */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: #1a1a1a;
-      --foreground: #ededed;
-    }
+    color-scheme: light;
   }
 
   /* box-sizing（Tailwind Preflight でも指定されるが、明示しておく） */
@@ -84,8 +107,8 @@
 
   /* ベースの本文スタイル */
   body {
-    background: var(--background);
-    color: var(--foreground);
+    background: var(--color-background);
+    color: var(--color-text);
     font-family: var(--font-sans);
     line-height: 1.6;
     text-rendering: optimizeLegibility;
@@ -102,6 +125,18 @@
   h6 {
     font-family: var(--font-serif);
   }
+
+  /* 選択範囲もブランドカラーで */
+  ::selection {
+    background: var(--color-brand-soft);
+    color: var(--color-text);
+  }
+
+  /* キーボード操作時の focus はブランドブラウンで統一 */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
 }
 
 /* ------------------------------
@@ -112,21 +147,77 @@
     font-family: var(--font-serif);
     font-size: 3rem; /* 48px 相当 */
     font-weight: 700;
-    color: var(--color-primary-dark);
+    color: var(--color-text);
     text-align: center;
     margin-bottom: 1rem; /* 16px */
     line-height: 1.2;
   }
 
+  /* SERVICE / GALLERY / ABOUT などの小さな英字ラベル。
+     ここにブランドブラウンを置くことでページ全体がロゴと繋がる */
   .section-subtitle {
     font-family: var(--font-sans);
     font-size: 0.875rem; /* 14px */
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: var(--color-primary);
+    color: var(--color-brand);
     text-align: center;
     margin-bottom: 3rem; /* 48px */
+  }
+
+  /* ----------------------------------------------------------------
+     CTA — 全ページ共通。ブランドブラウンは「面」ではなく「版」で見せる。
+     角丸・太いボーダー・ボールドの大文字は同じ茶色でも安っぽく見えるので、
+     角は立てて、線は 1px、字は細めに字間を広く取る（編集誌のキャプション寄り）。
+     ---------------------------------------------------------------- */
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 1rem 2.5rem;
+    border-radius: 0;
+    border: 1px solid transparent;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem; /* 13px */
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.22em;
+    /* letter-spacing の最後の一文字ぶんを戻して、見た目の中心を合わせる */
+    text-indent: 0.22em;
+    text-align: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .btn-primary {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: var(--color-surface);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-brand-dark);
+    border-color: var(--color-brand-dark);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    border-color: var(--color-brand);
+    color: var(--color-brand);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-brand);
+    color: var(--color-surface);
+  }
+
+  .btn-primary:disabled,
+  .btn-secondary:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 
   /* microCMS リッチエディタのHTML本文（ブログ記事） */
@@ -134,24 +225,24 @@
     font-family: var(--font-sans);
     font-size: 0.9375rem; /* 15px */
     line-height: 1.9;
-    color: #3d3d3d;
+    color: var(--color-text);
   }
 
   .blog-body h2 {
     font-family: var(--font-mincho);
     font-size: 1.375rem;
     font-weight: 600;
-    color: var(--color-primary-dark);
+    color: var(--color-text);
     margin: 2.5rem 0 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(201, 169, 124, 0.4);
+    border-bottom: 1px solid var(--color-border);
   }
 
   .blog-body h3 {
     font-family: var(--font-mincho);
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--color-primary-dark);
+    color: var(--color-text);
     margin: 2rem 0 0.75rem;
   }
 
@@ -160,18 +251,18 @@
   }
 
   .blog-body a {
-    color: var(--color-primary);
+    color: var(--color-brand);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 
   .blog-body a:hover {
-    color: var(--color-primary-dark);
+    color: var(--color-brand-dark);
   }
 
   .blog-body strong {
     font-weight: 600;
-    color: #2c2c2c;
+    color: var(--color-text);
   }
 
   .blog-body ul,
@@ -195,9 +286,9 @@
   .blog-body blockquote {
     margin: 1.5rem 0;
     padding: 0.5rem 1.25rem;
-    border-left: 3px solid var(--color-accent);
-    background: var(--color-background-alt);
-    color: #5a5a5a;
+    border-left: 3px solid var(--color-brand);
+    background: var(--color-surface);
+    color: var(--color-text-muted);
   }
 
   .blog-body img {
@@ -213,21 +304,21 @@
 
   .blog-body figcaption {
     font-size: 0.8125rem;
-    color: #8b8b8b;
+    color: var(--color-text-muted);
     text-align: center;
     margin-top: 0.5rem;
   }
 
   .blog-body hr {
     border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid var(--color-border);
     margin: 2.5rem 0;
   }
 
   .blog-body pre {
     overflow-x: auto;
-    background: #2c2c2c;
-    color: #ededed;
+    background: var(--color-text);
+    color: var(--color-background);
     border-radius: 0.5rem;
     padding: 1rem 1.25rem;
     font-size: 0.8125rem;
@@ -243,15 +334,15 @@
 
   .blog-body th,
   .blog-body td {
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-border);
     padding: 0.5rem 0.75rem;
     text-align: left;
   }
 
   .blog-body th {
-    background: var(--color-background-alt);
+    background: var(--color-surface);
     font-weight: 600;
-    color: var(--color-primary-dark);
+    color: var(--color-text);
   }
 }
 

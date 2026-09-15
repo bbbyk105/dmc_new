@@ -33,7 +33,7 @@ export default function StatementSection() {
   const t = content[locale as keyof typeof content] || content.ja;
 
   return (
-    <section className="overflow-hidden bg-[#F5F1E8] py-24 md:py-36">
+    <section className="overflow-hidden bg-background py-24 md:py-36">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-16 px-5 md:grid-cols-12 md:gap-8 md:px-6">
         {/* テキスト */}
         <motion.div
@@ -43,15 +43,15 @@ export default function StatementSection() {
           transition={{ duration: 0.8 }}
           className="md:col-span-6 md:pt-8"
         >
-          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-[#8B7355]">
+          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-brand">
             {t.eyebrow}
           </p>
-          <h2 className="mt-7 font-mincho text-[clamp(1.6rem,3.6vw,2.4rem)] font-medium leading-[1.7] tracking-[0.06em] text-[#2C2418]">
+          <h2 className="mt-7 font-mincho text-[clamp(1.6rem,3.6vw,2.4rem)] font-medium leading-[1.7] tracking-[0.06em] text-text">
             {t.statementTop}
             <br />
-            <span className="text-[#8B7355]">{t.statementBottom}</span>
+            <span className="text-brand">{t.statementBottom}</span>
           </h2>
-          <p className="mt-8 max-w-md font-['Noto_Sans_JP'] text-sm leading-8 tracking-[0.02em] text-[#5A5245]">
+          <p className="mt-8 max-w-md font-['Noto_Sans_JP'] text-sm leading-8 tracking-[0.02em] text-text-muted">
             {t.body}
           </p>
         </motion.div>
@@ -75,7 +75,7 @@ export default function StatementSection() {
                 className="object-cover object-[50%_35%]"
               />
             </div>
-            <figcaption className="mt-3 text-right font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-[#8B7355]">
+            <figcaption className="mt-3 text-right font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-brand">
               {t.captionA}
             </figcaption>
           </motion.figure>
@@ -87,7 +87,7 @@ export default function StatementSection() {
             transition={{ duration: 0.9, delay: 0.15 }}
             className="relative -mt-24 w-[58%] md:-mt-32 md:w-[52%]"
           >
-            <div className="relative aspect-[4/3] overflow-hidden shadow-[0_24px_60px_rgba(44,36,24,0.18)]">
+            <div className="relative aspect-[4/3] overflow-hidden shadow-[0_24px_60px_color-mix(in_srgb,var(--color-text)_18%,transparent)]">
               <Image
                 src="/images/fuji.webp"
                 alt={t.captionB}
@@ -97,7 +97,7 @@ export default function StatementSection() {
                 className="object-cover"
               />
             </div>
-            <figcaption className="mt-3 font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-[#8B7355]">
+            <figcaption className="mt-3 font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-brand">
               {t.captionB}
             </figcaption>
           </motion.figure>

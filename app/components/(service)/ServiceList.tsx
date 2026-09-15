@@ -164,13 +164,13 @@ export default function ServiceList() {
           {/* コンテンツ */}
           <div className="flex flex-col justify-center space-y-6">
             <div>
-              <h2 className="mb-2 font-mincho text-5xl font-black text-[#2C2C2C]">
+              <h2 className="mb-2 font-mincho text-5xl font-black text-text">
                 {t.camu.title}
               </h2>
-              <p className="text-lg text-[#8B7355]">{t.camu.subtitle}</p>
+              <p className="text-lg text-brand">{t.camu.subtitle}</p>
             </div>
 
-            <p className="text-[#5A5A5A] leading-relaxed">
+            <p className="text-text-muted leading-relaxed">
               {t.camu.description}
             </p>
 
@@ -179,14 +179,14 @@ export default function ServiceList() {
               {t.camu.plans.map((plan, index) => (
                 <div
                   key={index}
-                  className="rounded-lg border border-[#2C2C2C]/10 bg-white p-6 hover:border-[#8B7355] transition-colors"
+                  className="rounded-lg border border-border bg-surface p-6 hover:border-brand transition-colors"
                 >
                   <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                    <h3 className="text-xl font-bold text-[#2C2C2C]">
+                    <h3 className="text-xl font-bold text-text">
                       {plan.name}
                     </h3>
                     {plan.price && (
-                      <span className="text-2xl font-black text-[#8B7355] leading-tight sm:whitespace-nowrap">
+                      <span className="text-2xl font-black text-brand leading-tight sm:whitespace-nowrap">
                         {plan.price}
                       </span>
                     )}
@@ -196,9 +196,9 @@ export default function ServiceList() {
                     {plan.features.map((feature, i) => (
                       <li
                         key={i}
-                        className="flex items-center text-sm text-[#5A5A5A]"
+                        className="flex items-center text-sm text-text-muted"
                       >
-                        <span className="mr-2 text-[#8B7355]">✓</span>
+                        <span className="mr-2 text-brand">✓</span>
                         {feature}
                       </li>
                     ))}
@@ -212,9 +212,9 @@ export default function ServiceList() {
               {t.camu.locations.map((location, index) => (
                 <div
                   key={index}
-                  className="flex items-center text-sm text-[#5A5A5A]"
+                  className="flex items-center text-sm text-text-muted"
                 >
-                  <MapPin className="mr-2 h-4 w-4 text-[#8B7355]" />
+                  <MapPin className="mr-2 h-4 w-4 text-brand" />
                   {location}
                 </div>
               ))}
@@ -224,7 +224,7 @@ export default function ServiceList() {
             <div className="flex flex-col gap-3 sm:flex-row pt-4">
               {locale !== "ja" && (
                 <Link href={`/${locale}/service/camu`}>
-                  <button className="w-full border-2 border-[#8B7355] bg-transparent px-8 py-4 font-bold uppercase tracking-wider text-[#8B7355] transition-colors hover:bg-[#8B7355] hover:text-white sm:w-auto">
+                  <button className="btn-secondary w-full sm:w-auto">
                     View Details
                   </button>
                 </Link>
@@ -236,7 +236,7 @@ export default function ServiceList() {
                     : "https://dmcfuji0823.wixsite.com/reservation/en"
                 }
               >
-                <button className="w-full border-2 border-[#2C2C2C] bg-[#2C2C2C] px-8 py-4 font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C] sm:w-auto">
+                <button className="btn-primary w-full sm:w-auto">
                   {locale === "ja" ? "予約する" : "Book Now"}
                 </button>
               </Link>
@@ -249,7 +249,7 @@ export default function ServiceList() {
       <div className="grid items-stretch gap-12 lg:grid-cols-2">
         {/* Chloe レンタルスタジオ */}
         <section>
-          <div className="h-full overflow-hidden rounded-lg bg-white border border-gray-200 flex flex-col">
+          <div className="h-full overflow-hidden rounded-lg bg-surface border border-border flex flex-col">
             {/* 画像 */}
             <div className="relative h-64 overflow-hidden md:h-80 lg:h-96">
               <Image
@@ -262,12 +262,12 @@ export default function ServiceList() {
 
             {/* コンテンツ */}
             <div className="p-8 flex-1 flex flex-col">
-              <h3 className="mb-2 font-mincho text-3xl font-black text-[#2C2C2C]">
+              <h3 className="mb-2 font-mincho text-3xl font-black text-text">
                 {t.chloe.title}
               </h3>
-              <p className="mb-4 text-sm text-[#8B7355]">{t.chloe.subtitle}</p>
+              <p className="mb-4 text-sm text-brand">{t.chloe.subtitle}</p>
 
-              <p className="mb-6 text-sm text-[#5A5A5A] leading-relaxed">
+              <p className="mb-6 text-sm text-text-muted leading-relaxed">
                 {t.chloe.description}
               </p>
 
@@ -276,13 +276,13 @@ export default function ServiceList() {
                 {t.chloe.pricing.map((price, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between rounded-lg bg-[#F5F3F0] p-4"
+                    className="flex items-center justify-between rounded-lg bg-surface p-4"
                   >
-                    <span className="font-medium text-[#2C2C2C]">
-                      <Clock className="mr-2 inline h-4 w-4 text-[#8B7355]" />
+                    <span className="font-medium text-text">
+                      <Clock className="mr-2 inline h-4 w-4 text-brand" />
                       {price.duration}
                     </span>
-                    <span className="text-xl font-bold text-[#8B7355]">
+                    <span className="text-xl font-bold text-brand">
                       {price.price}
                     </span>
                   </div>
@@ -294,20 +294,20 @@ export default function ServiceList() {
                 {t.chloe.features.map((feature, index) => (
                   <div
                     key={index}
-                    className="flex items-center text-sm text-[#5A5A5A]"
+                    className="flex items-center text-sm text-text-muted"
                   >
-                    <span className="mr-2 text-[#8B7355]">✓</span>
+                    <span className="mr-2 text-brand">✓</span>
                     {feature}
                   </div>
                 ))}
               </div>
 
-              <p className="mb-6 text-sm italic text-[#999]">{t.chloe.note}</p>
+              <p className="mb-6 text-sm italic text-text-muted">{t.chloe.note}</p>
 
               {/* CTA */}
               <div className="mt-auto">
                 <Link href="https://dmcfuji0823.wixsite.com/reservation">
-                  <button className="w-full border-2 border-[#2C2C2C] bg-[#2C2C2C] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C]">
+                  <button className="btn-primary w-full">
                     {locale === "ja" ? "予約する" : "Book Now"}
                   </button>
                 </Link>
@@ -318,7 +318,7 @@ export default function ServiceList() {
 
         {/* アンティークカフェ */}
         <section>
-          <div className="h-full overflow-hidden rounded-lg bg-white border border-gray-200 flex flex-col">
+          <div className="h-full overflow-hidden rounded-lg bg-surface border border-border flex flex-col">
             {/* 画像 */}
             <div className="relative h-64 overflow-hidden md:h-80 lg:h-96">
               <Image
@@ -331,12 +331,12 @@ export default function ServiceList() {
 
             {/* コンテンツ */}
             <div className="p-8 flex-1 flex flex-col">
-              <h3 className="mb-2 font-mincho text-3xl font-black text-[#2C2C2C]">
+              <h3 className="mb-2 font-mincho text-3xl font-black text-text">
                 {t.cafe.title}
               </h3>
-              <p className="mb-4 text-sm text-[#8B7355]">{t.cafe.subtitle}</p>
+              <p className="mb-4 text-sm text-brand">{t.cafe.subtitle}</p>
 
-              <p className="mb-6 text-sm text-[#5A5A5A] leading-relaxed">
+              <p className="mb-6 text-sm text-text-muted leading-relaxed">
                 {t.cafe.description}
               </p>
 
@@ -345,14 +345,14 @@ export default function ServiceList() {
                 {t.cafe.menu.map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between rounded-lg bg-[#F5F3F0] p-4"
+                    className="flex items-center justify-between rounded-lg bg-surface p-4"
                   >
-                    <span className="font-medium text-[#2C2C2C]">
-                      <Coffee className="mr-2 inline h-4 w-4 text-[#8B7355]" />
+                    <span className="font-medium text-text">
+                      <Coffee className="mr-2 inline h-4 w-4 text-brand" />
                       {item.item.includes("（") ? (
                         <>
                           {item.item.split("（")[0]}
-                          <span className="text-xs font-normal text-[#5A5A5A]">
+                          <span className="text-xs font-normal text-text-muted">
                             （{item.item.split("（")[1]}
                           </span>
                         </>
@@ -360,7 +360,7 @@ export default function ServiceList() {
                         item.item
                       )}
                     </span>
-                    <span className="text-xl font-bold text-[#8B7355]">
+                    <span className="text-xl font-bold text-brand">
                       {item.price}
                     </span>
                   </div>
@@ -368,8 +368,8 @@ export default function ServiceList() {
               </div>
 
               {/* 下寄せボックス */}
-              <div className="mt-auto rounded-lg bg-[#8B7355]/10 p-4 text-center">
-                <p className="text-sm text-[#5A5A5A]">
+              <div className="mt-auto rounded-lg bg-brand/10 p-4 text-center">
+                <p className="text-sm text-text-muted">
                   {locale === "ja"
                     ? "撮影の合間に、ゆっくりとおくつろぎください"
                     : "Relax and enjoy during your photo session"}

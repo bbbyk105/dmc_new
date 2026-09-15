@@ -42,10 +42,10 @@ export default function GalleryFilter({
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 aria-pressed={activeCategory === category.id}
-                className={`snap-start whitespace-nowrap border px-5 py-2 font-['Noto_Sans_JP'] text-[13px] tracking-[0.12em] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A97C] focus-visible:ring-offset-2 ${
+                className={`snap-start whitespace-nowrap border px-5 py-2 font-['Noto_Sans_JP'] text-[13px] tracking-[0.12em] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
                   activeCategory === category.id
-                    ? "border-[#2C2418] bg-[#2C2418] font-medium text-[#F5F1E8]"
-                    : "border-[#2C2418]/15 bg-transparent text-[#5A5245] hover:border-[#8B7355]/50 hover:text-[#2C2418]"
+                    ? "border-brand bg-brand font-medium text-surface"
+                    : "border-border bg-transparent text-text-muted hover:border-brand hover:text-brand"
                 }`}
               >
                 {category.label}

@@ -125,7 +125,7 @@ export default function GalleryGrid({
               aria-label="読み込み中"
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="h-8 w-8 rounded-full border-2 border-black/10 border-t-black/30"
+              className="h-8 w-8 rounded-full border-2 border-border border-t-brand"
             />
           </div>
         </div>
@@ -138,8 +138,8 @@ export default function GalleryGrid({
             {Array.from({ length: Math.max(currentImages.length, imagesPerPage) })
               .slice(0, imagesPerPage)
               .map((_, i) => (
-                <div key={`skeleton-${i}`} className="overflow-hidden rounded-xl bg-white">
-                  <div className="aspect-[4/5] animate-pulse bg-gray-50" />
+                <div key={`skeleton-${i}`} className="overflow-hidden rounded-xl bg-surface">
+                  <div className="aspect-[4/5] animate-pulse bg-border/50" />
                 </div>
               ))}
           </div>
@@ -171,7 +171,7 @@ export default function GalleryGrid({
                 className="group mb-6 break-inside-avoid cursor-pointer md:mb-8"
                 onClick={() => setSelectedImage(globalIndex)}
               >
-                <div className="relative overflow-hidden bg-[#F5F1E8]">
+                <div className="relative overflow-hidden bg-background">
                   {!imageLoadErrors.has(image.id) ? (
                     <>
                       <Image
@@ -196,15 +196,15 @@ export default function GalleryGrid({
                       {/* ホバー時のみ沈み込むグラデーションとカテゴリ表示 */}
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1D1812]/55 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-text/55 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                       />
-                      <p className="pointer-events-none absolute bottom-4 left-4 translate-y-2 font-['Noto_Sans_JP'] text-[11px] font-medium uppercase tracking-[0.26em] text-[#F5F1E8] opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                      <p className="pointer-events-none absolute bottom-4 left-4 translate-y-2 font-['Noto_Sans_JP'] text-[11px] font-medium uppercase tracking-[0.26em] text-background opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                         {image.category}
                       </p>
                     </>
                   ) : (
-                    <div className="flex aspect-[4/5] w-full items-center justify-center bg-white">
-                      <p className="text-sm text-[#5A5A5A]">
+                    <div className="flex aspect-[4/5] w-full items-center justify-center bg-surface">
+                      <p className="text-sm text-text-muted">
                         画像を読み込めません
                       </p>
                     </div>
@@ -223,10 +223,10 @@ export default function GalleryGrid({
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A97C] focus-visible:ring-offset-2 ${
+              className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
                 currentPage === 1
-                  ? "cursor-not-allowed text-[#C9C0B0]"
-                  : "text-[#8B7355] hover:text-[#2C2418]"
+                  ? "cursor-not-allowed text-text-muted"
+                  : "text-brand hover:text-brand-dark"
               }`}
               aria-label="前のページ"
             >
@@ -240,20 +240,20 @@ export default function GalleryGrid({
               </span>
               Prev
             </button>
-            <span className="select-none font-mincho text-lg tracking-[0.2em] text-[#2C2418]">
+            <span className="select-none font-mincho text-lg tracking-[0.2em] text-text">
               {String(currentPage).padStart(2, "0")}
-              <span className="mx-2 text-[#C9A97C]">/</span>
-              <span className="text-[#8B7355]">
+              <span className="mx-2 text-border">/</span>
+              <span className="text-text-muted">
                 {String(totalPages).padStart(2, "0")}
               </span>
             </span>
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A97C] focus-visible:ring-offset-2 ${
+              className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
                 currentPage === totalPages
-                  ? "cursor-not-allowed text-[#C9C0B0]"
-                  : "text-[#8B7355] hover:text-[#2C2418]"
+                  ? "cursor-not-allowed text-text-muted"
+                  : "text-brand hover:text-brand-dark"
               }`}
               aria-label="次のページ"
             >
