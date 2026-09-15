@@ -167,7 +167,7 @@ export default function ServiceList() {
               <h2 className="mb-2 font-mincho text-5xl font-black text-text">
                 {t.camu.title}
               </h2>
-              <p className="text-lg text-brand">{t.camu.subtitle}</p>
+              <p className="text-lg text-text-muted">{t.camu.subtitle}</p>
             </div>
 
             <p className="text-text-muted leading-relaxed">
@@ -179,14 +179,14 @@ export default function ServiceList() {
               {t.camu.plans.map((plan, index) => (
                 <div
                   key={index}
-                  className="rounded-lg border border-border bg-surface p-6 hover:border-brand transition-colors"
+                  className="rounded-lg border border-border bg-surface p-6 hover:border-text transition-colors"
                 >
                   <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                     <h3 className="text-xl font-bold text-text">
                       {plan.name}
                     </h3>
                     {plan.price && (
-                      <span className="text-2xl font-black text-brand leading-tight sm:whitespace-nowrap">
+                      <span className="text-2xl font-black text-text leading-tight sm:whitespace-nowrap">
                         {plan.price}
                       </span>
                     )}
@@ -198,7 +198,7 @@ export default function ServiceList() {
                         key={i}
                         className="flex items-center text-sm text-text-muted"
                       >
-                        <span className="mr-2 text-brand">✓</span>
+                        <span className="mr-2 text-text">✓</span>
                         {feature}
                       </li>
                     ))}
@@ -214,7 +214,7 @@ export default function ServiceList() {
                   key={index}
                   className="flex items-center text-sm text-text-muted"
                 >
-                  <MapPin className="mr-2 h-4 w-4 text-brand" />
+                  <MapPin className="mr-2 h-4 w-4 text-text-muted" />
                   {location}
                 </div>
               ))}
@@ -265,7 +265,7 @@ export default function ServiceList() {
               <h3 className="mb-2 font-mincho text-3xl font-black text-text">
                 {t.chloe.title}
               </h3>
-              <p className="mb-4 text-sm text-brand">{t.chloe.subtitle}</p>
+              <p className="mb-4 text-sm text-text-muted">{t.chloe.subtitle}</p>
 
               <p className="mb-6 text-sm text-text-muted leading-relaxed">
                 {t.chloe.description}
@@ -279,10 +279,10 @@ export default function ServiceList() {
                     className="flex items-center justify-between rounded-lg bg-surface p-4"
                   >
                     <span className="font-medium text-text">
-                      <Clock className="mr-2 inline h-4 w-4 text-brand" />
+                      <Clock className="mr-2 inline h-4 w-4 text-text-muted" />
                       {price.duration}
                     </span>
-                    <span className="text-xl font-bold text-brand">
+                    <span className="text-xl font-bold text-text">
                       {price.price}
                     </span>
                   </div>
@@ -296,7 +296,7 @@ export default function ServiceList() {
                     key={index}
                     className="flex items-center text-sm text-text-muted"
                   >
-                    <span className="mr-2 text-brand">✓</span>
+                    <span className="mr-2 text-text">✓</span>
                     {feature}
                   </div>
                 ))}
@@ -334,7 +334,7 @@ export default function ServiceList() {
               <h3 className="mb-2 font-mincho text-3xl font-black text-text">
                 {t.cafe.title}
               </h3>
-              <p className="mb-4 text-sm text-brand">{t.cafe.subtitle}</p>
+              <p className="mb-4 text-sm text-text-muted">{t.cafe.subtitle}</p>
 
               <p className="mb-6 text-sm text-text-muted leading-relaxed">
                 {t.cafe.description}
@@ -348,7 +348,7 @@ export default function ServiceList() {
                     className="flex items-center justify-between rounded-lg bg-surface p-4"
                   >
                     <span className="font-medium text-text">
-                      <Coffee className="mr-2 inline h-4 w-4 text-brand" />
+                      <Coffee className="mr-2 inline h-4 w-4 text-text-muted" />
                       {item.item.includes("（") ? (
                         <>
                           {item.item.split("（")[0]}
@@ -360,7 +360,7 @@ export default function ServiceList() {
                         item.item
                       )}
                     </span>
-                    <span className="text-xl font-bold text-brand">
+                    <span className="text-xl font-bold text-text">
                       {item.price}
                     </span>
                   </div>
@@ -368,7 +368,7 @@ export default function ServiceList() {
               </div>
 
               {/* 下寄せボックス */}
-              <div className="mt-auto rounded-lg bg-brand/10 p-4 text-center">
+              <div className="mt-auto rounded-lg border border-border bg-background p-4 text-center">
                 <p className="text-sm text-text-muted">
                   {locale === "ja"
                     ? "撮影の合間に、ゆっくりとおくつろぎください"

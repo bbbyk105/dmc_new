@@ -96,7 +96,7 @@ export default function ServiceGrid() {
               <h3 className="mb-2 font-mincho text-xl font-semibold text-text md:text-2xl">
                 {t.chloe.title}
               </h3>
-              <p className="mb-4 text-sm text-brand">{t.chloe.subtitle}</p>
+              <p className="mb-4 text-sm text-text-muted">{t.chloe.subtitle}</p>
 
               <p className="mb-8 text-[15px] leading-7 text-text-muted">
                 {t.chloe.description}
@@ -126,7 +126,7 @@ export default function ServiceGrid() {
                     key={index}
                     className="flex items-start text-[15px] text-text-muted"
                   >
-                    <span className="mr-2 mt-1 text-brand">•</span>
+                    <span className="mr-2 mt-1 text-text-muted">•</span>
                     {feature}
                   </div>
                 ))}
@@ -161,7 +161,7 @@ export default function ServiceGrid() {
               <h3 className="mb-2 font-mincho text-xl font-semibold text-text md:text-2xl">
                 {t.cafe.title}
               </h3>
-              <p className="mb-4 text-sm text-brand">{t.cafe.subtitle}</p>
+              <p className="mb-4 text-sm text-text-muted">{t.cafe.subtitle}</p>
 
               <p className="mb-8 text-[15px] leading-7 text-text-muted">
                 {t.cafe.description}

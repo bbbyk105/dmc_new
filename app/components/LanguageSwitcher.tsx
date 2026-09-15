@@ -32,11 +32,11 @@ export default function LanguageSwitcher({
         className={`font-['Noto_Sans_JP'] text-sm font-medium transition-colors ${
           locale === "ja"
             ? isScrolled
-              ? "text-brand"
-              : "text-brand-soft"
+              ? "text-text"
+              : "text-background"
             : isScrolled
-            ? "text-text-muted hover:text-brand"
-            : "text-background/60 hover:text-background"
+            ? "text-text-muted hover:text-text"
+            : "text-background/50 hover:text-background/80"
         }`}
       >
         日本語
@@ -49,11 +49,11 @@ export default function LanguageSwitcher({
         className={`font-['Noto_Sans_JP'] text-sm font-medium transition-colors ${
           locale === "en"
             ? isScrolled
-              ? "text-brand"
-              : "text-brand-soft"
+              ? "text-text"
+              : "text-background"
             : isScrolled
-            ? "text-text-muted hover:text-brand"
-            : "text-background/60 hover:text-background"
+            ? "text-text-muted hover:text-text"
+            : "text-background/50 hover:text-background/80"
         }`}
       >
         EN

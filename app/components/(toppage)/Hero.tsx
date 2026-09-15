@@ -303,9 +303,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: reveal }}
-              className="flex items-start gap-3 font-mincho text-[11px] font-normal leading-[1.5] tracking-[0.2em] text-brand-soft md:gap-4 md:tracking-[0.24em] xl:text-[12px] xl:tracking-[0.3em]"
+              className="flex items-start gap-3 font-mincho text-[11px] font-normal leading-[1.5] tracking-[0.2em] text-background/70 md:gap-4 md:tracking-[0.24em] xl:text-[12px] xl:tracking-[0.3em]"
             >
-              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-brand-soft/70 md:w-8" />
+              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-background/50 md:w-8" />
               <span>{h1Keyword}</span>
             </motion.h1>
           ) : (
@@ -313,9 +313,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: reveal }}
-              className="flex items-start gap-3 font-mincho text-[11px] leading-[1.5] tracking-[0.26em] text-brand-soft md:gap-4 md:tracking-[0.3em] xl:text-[12px] xl:tracking-[0.36em]"
+              className="flex items-start gap-3 font-mincho text-[11px] leading-[1.5] tracking-[0.26em] text-background/70 md:gap-4 md:tracking-[0.3em] xl:text-[12px] xl:tracking-[0.36em]"
             >
-              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-brand-soft/70 md:w-8" />
+              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-background/50 md:w-8" />
               <span>{t.eyebrow}</span>
             </motion.p>
           )}
@@ -350,13 +350,13 @@ export default function Hero() {
               href="https://dmcfuji0823.wixsite.com/reservation/en"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary px-9 lg:px-10"
+              className="btn-invert px-9 lg:px-10"
             >
               {t.reserve}
             </a>
             <Link
               href={`/${locale}/gallery`}
-              className="inline-block font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-background transition-colors duration-300 hover:text-brand-soft"
+              className="inline-block font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-background transition-colors duration-300 hover:text-background/70"
             >
               <span className="border-b border-background/40 pb-1">{t.gallery}</span>
             </Link>
@@ -372,8 +372,8 @@ export default function Hero() {
         className="pointer-events-none absolute bottom-8 left-[clamp(5rem,8vw,8.5rem)] z-10 hidden items-center gap-4 md:flex"
         aria-hidden="true"
       >
-        <span className="hero-scroll-line block h-10 w-px bg-gradient-to-b from-brand-soft to-transparent" />
-        <span className="font-['Noto_Sans_JP'] text-[10px] uppercase tracking-[0.3em] text-brand-soft/60">
+        <span className="hero-scroll-line block h-10 w-px bg-gradient-to-b from-background to-transparent" />
+        <span className="font-['Noto_Sans_JP'] text-[10px] uppercase tracking-[0.3em] text-background/55">
           {t.scroll}
         </span>
       </motion.div>

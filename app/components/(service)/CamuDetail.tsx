@@ -286,7 +286,7 @@ export default function CamuDetail() {
         <div className="container mx-auto px-6 py-4 lg:px-12">
           <Link
             href={`/${currentLocale}/service`}
-            className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-brand"
+            className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-text"
           >
             <ArrowLeft className="h-4 w-4" />
             {isJa ? "サービス一覧へ戻る" : "Back to Services"}
@@ -396,7 +396,7 @@ export default function CamuDetail() {
             {t.support.items.map((item: SupportItem, index: number) => (
               <div
                 key={`${item.title}-${index}`}
-                className="border-l-4 border-brand bg-surface p-6"
+                className="border-l border-text bg-surface p-6"
               >
                 <h3 className="mb-3 text-xl font-bold text-text">
                   {item.title}
@@ -433,7 +433,7 @@ export default function CamuDetail() {
                         {plan.name}
                       </h4>
                       <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-2">
-                        <span className="text-4xl font-bold text-brand leading-tight sm:whitespace-nowrap">
+                        <span className="text-4xl font-bold text-text leading-tight sm:whitespace-nowrap">
                           {plan.price}
                         </span>
                         <span className="text-sm text-text-muted">
@@ -447,7 +447,7 @@ export default function CamuDetail() {
                           key={`${plan.name}-feat-${i}`}
                           className="flex items-start gap-3 text-sm text-text-muted"
                         >
-                          <span className="mt-1 text-brand">•</span>
+                          <span className="mt-1 text-text-muted">•</span>
                           {feature}
                         </li>
                       ))}

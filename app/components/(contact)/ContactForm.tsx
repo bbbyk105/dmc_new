@@ -178,7 +178,7 @@ export default function ContactForm() {
             <h1 className="mb-6 font-serif text-4xl font-light tracking-wide text-text md:text-5xl">
               {t.title}
             </h1>
-            <div className="mx-auto mb-6 h-px w-16 bg-brand" />
+            <div className="mx-auto mb-6 h-px w-16 bg-text" />
             <p className="text-base text-text-muted md:text-lg">{t.subtitle}</p>
             <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-text-muted">
               {t.note}
@@ -197,13 +197,13 @@ export default function ContactForm() {
             >
               <form
                 onSubmit={handleSubmit}
-                className="space-y-6 border border-border bg-surface p-8 shadow-lg shadow-text/10 md:p-10"
+                className="space-y-6 border border-border bg-surface p-8 shadow-lg shadow-text/5 md:p-10"
               >
                 <div className="mb-2">
                   <h2 className="font-serif text-2xl font-light tracking-wide text-text md:text-3xl">
                     {t.formHeading}
                   </h2>
-                  <div className="mt-3 h-px w-12 bg-brand" />
+                  <div className="mt-3 h-px w-12 bg-text" />
                 </div>
 
                 <div>
@@ -212,7 +212,7 @@ export default function ContactForm() {
                     className="mb-2 block font-light tracking-wide text-text-muted"
                   >
                     {t.form.name}
-                    <span className="ml-1 text-brand">*</span>
+                    <span className="ml-1 text-text-muted">*</span>
                   </label>
                   <input
                     type="text"
@@ -223,7 +223,7 @@ export default function ContactForm() {
                     required
                     placeholder={t.form.namePlaceholder}
                     autoComplete="name"
-                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-brand focus:outline-none"
+                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-text focus:outline-none"
                   />
                 </div>
 
@@ -233,7 +233,7 @@ export default function ContactForm() {
                     className="mb-2 block font-light tracking-wide text-text-muted"
                   >
                     {t.form.email}
-                    <span className="ml-1 text-brand">*</span>
+                    <span className="ml-1 text-text-muted">*</span>
                   </label>
                   <input
                     type="email"
@@ -244,7 +244,7 @@ export default function ContactForm() {
                     required
                     placeholder={t.form.emailPlaceholder}
                     autoComplete="email"
-                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-brand focus:outline-none"
+                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-text focus:outline-none"
                   />
                 </div>
 
@@ -263,7 +263,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     placeholder={t.form.phonePlaceholder}
                     autoComplete="tel"
-                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-brand focus:outline-none"
+                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-text focus:outline-none"
                   />
                 </div>
 
@@ -279,7 +279,7 @@ export default function ContactForm() {
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-brand focus:outline-none"
+                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-text focus:outline-none"
                   >
                     {t.services.map((service) => (
                       <option key={service.value} value={service.value}>
@@ -295,7 +295,7 @@ export default function ContactForm() {
                     className="mb-2 block font-light tracking-wide text-text-muted"
                   >
                     {t.form.message}
-                    <span className="ml-1 text-brand">*</span>
+                    <span className="ml-1 text-text-muted">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -305,7 +305,7 @@ export default function ContactForm() {
                     required
                     rows={6}
                     placeholder={t.form.messagePlaceholder}
-                    className="w-full resize-none border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-brand focus:outline-none"
+                    className="w-full resize-none border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-text focus:outline-none"
                   />
                 </div>
 
@@ -323,9 +323,9 @@ export default function ContactForm() {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="border-l-4 border-brand bg-brand-soft p-4"
+                    className="border-l border-text bg-background p-4"
                   >
-                    <p className="font-medium text-brand-dark">
+                    <p className="font-medium text-text">
                       {t.success.title}
                     </p>
                     <p className="mt-1 text-sm text-text-muted">
@@ -338,7 +338,7 @@ export default function ContactForm() {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="border-l-4 border-text bg-surface p-4"
+                    className="border-l border-text bg-background p-4"
                   >
                     <p className="font-medium text-text">{t.error.title}</p>
                     <p className="mt-1 text-sm text-text-muted">
@@ -359,12 +359,12 @@ export default function ContactForm() {
                 <h2 className="mb-8 font-serif text-3xl font-light tracking-wide text-text">
                   {t.info.title}
                 </h2>
-                <div className="h-px w-12 bg-brand" />
+                <div className="h-px w-12 bg-text" />
               </div>
 
-              <div className="space-y-8 border border-border bg-surface p-8 shadow-lg shadow-text/10">
+              <div className="space-y-8 border border-border bg-surface p-8 shadow-lg shadow-text/5">
                 <div className="flex gap-4">
-                  <MapPin className="mt-1 h-5 w-5 shrink-0 text-brand" />
+                  <MapPin className="mt-1 h-5 w-5 shrink-0 text-text-muted" />
                   <div>
                     <p className="mb-2 font-light tracking-wide text-text">
                       {t.info.address.label}
@@ -376,7 +376,7 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex gap-4 border-t border-border pt-8">
-                  <Car className="mt-1 h-5 w-5 shrink-0 text-brand" />
+                  <Car className="mt-1 h-5 w-5 shrink-0 text-text-muted" />
                   <div>
                     <p className="mb-2 font-light tracking-wide text-text">
                       {t.info.parking.label}
@@ -388,14 +388,14 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex gap-4 border-t border-border pt-8">
-                  <Phone className="mt-1 h-5 w-5 shrink-0 text-brand" />
+                  <Phone className="mt-1 h-5 w-5 shrink-0 text-text-muted" />
                   <div>
                     <p className="mb-2 font-light tracking-wide text-text">
                       {t.info.phone.label}
                     </p>
                     <a
                       href={`tel:${t.info.phone.value.replace(/[^+\d]/g, "")}`}
-                      className="text-sm text-text-muted transition-colors hover:text-brand"
+                      className="text-sm text-text-muted transition-colors hover:text-text"
                     >
                       {t.info.phone.value}
                     </a>
@@ -403,14 +403,14 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex gap-4 border-t border-border pt-8">
-                  <Mail className="mt-1 h-5 w-5 shrink-0 text-brand" />
+                  <Mail className="mt-1 h-5 w-5 shrink-0 text-text-muted" />
                   <div>
                     <p className="mb-2 font-light tracking-wide text-text">
                       {t.info.email.label}
                     </p>
                     <a
                       href={`mailto:${t.info.email.value}`}
-                      className="text-sm text-text-muted transition-colors hover:text-brand"
+                      className="text-sm text-text-muted transition-colors hover:text-text"
                     >
                       {t.info.email.value}
                     </a>
@@ -418,7 +418,7 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex gap-4 border-t border-border pt-8">
-                  <Clock className="mt-1 h-5 w-5 shrink-0 text-brand" />
+                  <Clock className="mt-1 h-5 w-5 shrink-0 text-text-muted" />
                   <div>
                     <p className="mb-2 font-light tracking-wide text-text">
                       {t.info.hours.label}

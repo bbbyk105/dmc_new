@@ -66,7 +66,7 @@ export default async function BlogPage({ params }: Props) {
       />
 
       {/* Hero */}
-      <section className="bg-surface py-12 md:py-16">
+      <section className="bg-background py-12 md:py-16">
         <div className="mx-auto max-w-[1200px] px-5 md:px-6">
           <div className="space-y-3">
             <h1 className="font-mincho text-3xl font-semibold tracking-tight text-text md:text-5xl">
@@ -87,7 +87,7 @@ export default async function BlogPage({ params }: Props) {
       </section>
 
       {/* Post List */}
-      <section className="bg-surface pb-16 md:pb-24">
+      <section className="bg-background pb-16 md:pb-24">
         <div className="mx-auto max-w-[1200px] px-5 md:px-6">
           {posts.length === 0 ? (
             <p className="border-t border-border pt-10 text-sm leading-7 text-text-muted">
@@ -106,7 +106,7 @@ export default async function BlogPage({ params }: Props) {
                       href={`/${locale}/blog/${post.id}`}
                       className="block space-y-3"
                     >
-                      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-background">
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-surface">
                         {thumb ? (
                           <Image
                             src={thumb.url}
@@ -117,23 +117,23 @@ export default async function BlogPage({ params }: Props) {
                           />
                         ) : (
                           <div className="flex h-full items-center justify-center">
-                            <span className="font-mincho text-2xl text-brand">
+                            <span className="font-mincho text-2xl text-text-muted">
                               DMC FUJI
                             </span>
                           </div>
                         )}
                       </div>
-                      <div className="flex flex-wrap items-center gap-3 font-['Noto_Sans_JP'] text-xs text-brand">
+                      <div className="flex flex-wrap items-center gap-3 font-['Noto_Sans_JP'] text-xs text-text-muted">
                         <time dateTime={post.publishedAt}>
                           {formatPublishedDate(post.publishedAt, locale)}
                         </time>
                         {categoryName && (
-                          <span className="rounded-full border border-brand/50 px-3 py-0.5 text-[11px] text-brand">
+                          <span className="rounded-full border border-border px-3 py-0.5 text-[11px] text-text-muted">
                             {categoryName}
                           </span>
                         )}
                       </div>
-                      <h2 className="font-mincho text-base font-semibold leading-7 text-text transition-colors group-hover:text-brand md:text-lg">
+                      <h2 className="font-mincho text-base font-semibold leading-7 text-text transition-colors group-hover:text-text-muted md:text-lg">
                         {post.title}
                       </h2>
                       {post.excerpt && (

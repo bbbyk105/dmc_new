@@ -32,7 +32,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-brand-dark text-background">
+    <footer className="bg-text text-background">
       {/* Main Footer Content */}
       <div className="container mx-auto px-6 py-12 lg:px-12">
         {/* 3カラム：会社情報 / メニュー / 連絡先 */}
@@ -67,7 +67,7 @@ export default function Footer() {
                 href="https://www.instagram.com/dmcfuji123/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-background/10 p-2 transition-colors hover:bg-brand"
+                className="rounded-full bg-background/10 p-2 transition-colors hover:bg-background/20"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
@@ -85,7 +85,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="font-['Noto_Sans_JP'] text-sm text-background/65 transition-colors hover:text-white"
+                    className="font-['Noto_Sans_JP'] text-sm text-background/65 transition-colors hover:text-background"
                   >
                     {item.label}
                   </Link>
@@ -112,7 +112,7 @@ export default function Footer() {
                 <Phone className="h-4 w-4 shrink-0" />
                 <a
                   href={`tel:${TELEPHONE_E164}`}
-                  className="transition-colors hover:text-white"
+                  className="transition-colors hover:text-background"
                 >
                   {TELEPHONE_DISPLAY}
                 </a>

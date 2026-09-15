@@ -11,42 +11,35 @@
 /* ======================================================================
    DMC FUJI COLOR SYSTEM
    ----------------------------------------------------------------------
-   基準は DMC ロゴのブラウン #6E4422。
-   「生成り（Kinari）70-75% / 写真・墨（Sumi）15-20% / ブラウン 5-10%」の比率で、
-   ブラウンは背景ではなくアクセント（CTA / hover / active / ラベル）として使う。
+   色は「一枚の上質な紙（生成り）と、その上の墨」だけで組む。
+   セクションごとにアクセントカラーを持たせない。色は写真に任せる。
 
-   ここに定義した 9 色以外の UI カラーは増やさない。
-   コンポーネント側では常に token（bg-brand / text-text-muted など）を使い、
+   - 地は常に background。surface はカード/フォームなど「紙の上に乗るもの」専用。
+   - UI の色（CTA / リンク / 罫線 / アイコン / ラベル）は墨の濃淡 1 系統のみ。
+   - 強調したいブロックだけ、地と文字を反転させる（墨の地＋生成りの文字）。
+
+   ここに定義した 6 色以外の UI カラーは増やさない。
+   コンポーネント側では常に token（bg-background / text-text-muted など）を使い、
    16 進数のハードコードは書かない。
    ====================================================================== */
 @theme {
-  /* Brand ------------------------------------------------------------ */
-  /* ロゴそのもののブラウン。CTA / active / link hover / section label / icon / focus */
-  --color-brand: #6e4422;
-  /* CTA hover / footer / dark section
-     大面積に敷く色。彩度を落として深く沈めないと「チョコ箱」に見えるため、
-     ロゴブラウンと同じ色相のまま L を大きく下げている */
-  --color-brand-dark: #2f1d0e;
-  /* small text / metadata / subtitle / 装飾タイポ（多用しない） */
-  --color-brand-muted: #8d6a4b;
-  /* タグ / selected item / soft background（小さい装飾に限定） */
-  --color-brand-soft: #e8ded2;
-
   /* Surface ---------------------------------------------------------- */
-  /* サイト全体の基本背景（純白は使わない） */
-  --color-background: #f4efe7;
-  /* カード / FAQ / フォーム / 写真まわり。背景とわずかに差をつけたい時だけ */
-  --color-surface: #faf7f2;
+  /* サイト全体の地。温かみのあるオフホワイト（純白は使わない） */
+  --color-background: #f4f1ea;
+  /* カード / フォーム / 入力欄。地から半歩だけ持ち上げたい時のみ */
+  --color-surface: #faf9f6;
 
-  /* Text ------------------------------------------------------------- */
-  /* H1-H3 / 本文。少しブラウンを含んだ墨色 */
-  --color-text: #1b1714;
-  /* 説明文 / metadata / 住所 / 営業時間 / caption */
-  --color-text-muted: #746a62;
+  /* Ink -------------------------------------------------------------- */
+  /* 見出し / 本文 / CTA / リンク / 反転ブロックの地。UI の色はこれ 1 系統 */
+  --color-text: #181816;
+  /* hover / active で墨を持ち上げる時だけ使う（新しい色ではなく墨の濃淡） */
+  --color-ink-soft: #33312c;
+  /* 説明文 / ラベル / metadata / 住所 / 営業時間 / caption */
+  --color-text-muted: #817d75;
 
   /* Line ------------------------------------------------------------- */
   /* divider / input border / card border / header border */
-  --color-border: #ded4c9;
+  --color-border: #e3dfd4;
 }
 
 /* ------------------------------
@@ -126,16 +119,16 @@
     font-family: var(--font-serif);
   }
 
-  /* 選択範囲もブランドカラーで */
+  /* 選択範囲も墨の濃淡で（色を足さない） */
   ::selection {
-    background: var(--color-brand-soft);
+    background: var(--color-border);
     color: var(--color-text);
   }
 
-  /* キーボード操作時の focus はブランドブラウンで統一 */
+  /* キーボード操作時の focus は墨で統一 */
   :focus-visible {
-    outline: 2px solid var(--color-brand);
-    outline-offset: 2px;
+    outline: 1px solid var(--color-text);
+    outline-offset: 3px;
   }
 }
 
@@ -154,25 +147,28 @@
   }
 
   /* SERVICE / GALLERY / ABOUT などの小さな英字ラベル。
-     ここにブランドブラウンを置くことでページ全体がロゴと繋がる */
+     ラベルは色ではなく字間と小ささで区別する（アクセントカラーを置かない） */
   .section-subtitle {
     font-family: var(--font-sans);
     font-size: 0.875rem; /* 14px */
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: var(--color-brand);
+    color: var(--color-text-muted);
     text-align: center;
     margin-bottom: 3rem; /* 48px */
   }
 
   /* ----------------------------------------------------------------
-     CTA — 全ページ共通。ブランドブラウンは「面」ではなく「版」で見せる。
-     角丸・太いボーダー・ボールドの大文字は同じ茶色でも安っぽく見えるので、
+     CTA — 全ページ共通で「墨 1 系統」。色は 3 つとも同じで、地との関係だけが違う。
+       .btn-primary  生成りの地の上 → 墨のベタ
+       .btn-invert   墨の地の上     → 生成りのベタ（ヒーロー・メニュー・反転ブロック）
+       .btn-secondary どちらでも    → 線だけ
      角は立てて、線は 1px、字は細めに字間を広く取る（編集誌のキャプション寄り）。
      ---------------------------------------------------------------- */
   .btn-primary,
-  .btn-secondary {
+  .btn-secondary,
+  .btn-invert {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -192,30 +188,45 @@
       color 0.3s ease;
   }
 
+  /* 生成りの地の上：墨のベタ。hover は墨をわずかに持ち上げるだけ */
   .btn-primary {
-    background: var(--color-brand);
-    border-color: var(--color-brand);
-    color: var(--color-surface);
+    background: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-background);
   }
 
   .btn-primary:hover {
-    background: var(--color-brand-dark);
-    border-color: var(--color-brand-dark);
+    background: var(--color-ink-soft);
+    border-color: var(--color-ink-soft);
   }
 
+  /* 墨の地の上：生成りのベタ。hover で地に沈めて線だけ残す */
+  .btn-invert {
+    background: var(--color-background);
+    border-color: var(--color-background);
+    color: var(--color-text);
+  }
+
+  .btn-invert:hover {
+    background: transparent;
+    color: var(--color-background);
+  }
+
+  /* 線だけの副ボタン。地の側の文字色をそのまま継ぐ */
   .btn-secondary {
     background: transparent;
-    border-color: var(--color-brand);
-    color: var(--color-brand);
+    border-color: var(--color-text);
+    color: var(--color-text);
   }
 
   .btn-secondary:hover {
-    background: var(--color-brand);
-    color: var(--color-surface);
+    background: var(--color-text);
+    color: var(--color-background);
   }
 
   .btn-primary:disabled,
-  .btn-secondary:disabled {
+  .btn-secondary:disabled,
+  .btn-invert:disabled {
     cursor: not-allowed;
     opacity: 0.5;
   }
@@ -251,13 +262,15 @@
   }
 
   .blog-body a {
-    color: var(--color-brand);
+    color: var(--color-text);
     text-decoration: underline;
+    text-decoration-color: var(--color-border);
     text-underline-offset: 3px;
+    transition: text-decoration-color 0.3s ease;
   }
 
   .blog-body a:hover {
-    color: var(--color-brand-dark);
+    text-decoration-color: var(--color-text);
   }
 
   .blog-body strong {
@@ -286,7 +299,7 @@
   .blog-body blockquote {
     margin: 1.5rem 0;
     padding: 0.5rem 1.25rem;
-    border-left: 3px solid var(--color-brand);
+    border-left: 1px solid var(--color-text);
     background: var(--color-surface);
     color: var(--color-text-muted);
   }

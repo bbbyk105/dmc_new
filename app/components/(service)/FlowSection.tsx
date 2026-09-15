@@ -61,7 +61,7 @@ export default function FlowSection() {
   const t = content[locale as keyof typeof content] || content.ja;
 
   return (
-    <section className="bg-surface py-12 md:py-16">
+    <section className="bg-background py-12 md:py-16">
       <div className="mx-auto max-w-[1120px] px-6 md:px-8">
         <h2 className="mb-16 text-center font-mincho text-2xl font-semibold text-text md:text-3xl">
           {t.title}

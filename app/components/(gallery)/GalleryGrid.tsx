@@ -125,7 +125,7 @@ export default function GalleryGrid({
               aria-label="読み込み中"
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="h-8 w-8 rounded-full border-2 border-border border-t-brand"
+              className="h-8 w-8 rounded-full border-2 border-border border-t-text"
             />
           </div>
         </div>
@@ -223,10 +223,10 @@ export default function GalleryGrid({
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
+              className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text focus-visible:ring-offset-2 ${
                 currentPage === 1
                   ? "cursor-not-allowed text-text-muted"
-                  : "text-brand hover:text-brand-dark"
+                  : "text-text hover:text-text-muted"
               }`}
               aria-label="前のページ"
             >
@@ -250,10 +250,10 @@ export default function GalleryGrid({
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
+              className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text focus-visible:ring-offset-2 ${
                 currentPage === totalPages
                   ? "cursor-not-allowed text-text-muted"
-                  : "text-brand hover:text-brand-dark"
+                  : "text-text hover:text-text-muted"
               }`}
               aria-label="次のページ"
             >

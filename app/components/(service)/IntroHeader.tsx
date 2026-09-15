@@ -26,7 +26,7 @@ export default function IntroHeader() {
       : "https://dmcfuji0823.wixsite.com/reservation/en";
 
   return (
-    <section className="bg-surface py-16 md:py-20">
+    <section className="bg-background py-16 md:py-20">
       <div className="mx-auto max-w-[1120px] px-6 md:px-8">
         <div className="flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
           <div className="space-y-4">

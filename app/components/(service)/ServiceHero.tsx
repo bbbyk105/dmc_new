@@ -46,7 +46,7 @@ export default function ServiceHero() {
         <h1 className="font-mincho text-6xl font-black uppercase tracking-tighter text-background md:text-7xl lg:text-8xl">
           {t.title}
         </h1>
-        <div className="mx-auto h-0.5 w-24 bg-brand-soft" />
+        <div className="mx-auto h-px w-24 bg-background/60" />
         <p className="text-lg font-light tracking-wide text-background/90 md:text-xl">
           {t.subtitle}
         </p>

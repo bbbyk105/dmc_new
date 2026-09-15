@@ -21,7 +21,7 @@ export default function CtaSection() {
         transition={{ duration: 0.8 }}
         className="mx-auto max-w-[720px] px-5 text-center md:px-6"
       >
-        <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-brand">
+        <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-text-muted">
           Reservation
         </p>
         <h2 className="mt-7 font-mincho text-[clamp(1.4rem,3.2vw,2rem)] font-medium leading-[1.8] tracking-[0.08em] text-text">
@@ -45,7 +45,7 @@ export default function CtaSection() {
           </a>
           <Link
             href={`/${locale}/contact`}
-            className="inline-block border-b border-brand pb-1.5 font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-brand transition-colors duration-300 hover:border-brand-dark hover:text-brand-dark"
+            className="inline-block border-b border-border pb-1.5 font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-text transition-colors duration-300 hover:border-text"
           >
             {isJa ? "お問い合わせ" : "Contact Us"}
           </Link>
@@ -53,7 +53,7 @@ export default function CtaSection() {
         <p className="mt-8 font-['Noto_Sans_JP'] text-xs tracking-wider text-text-muted">
           <a
             href={`tel:${TELEPHONE_E164}`}
-            className="transition-colors hover:text-brand"
+            className="transition-colors hover:text-text"
           >
             {TELEPHONE_DISPLAY}
           </a>

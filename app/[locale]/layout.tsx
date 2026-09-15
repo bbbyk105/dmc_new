@@ -131,7 +131,7 @@ export default async function LocaleLayout({
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <meta name="theme-color" content="#F4EFE7" />
+        <meta name="theme-color" content="#F4F1EA" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }}

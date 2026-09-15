@@ -98,14 +98,14 @@ export default async function BlogDetailPage({ params }: Props) {
 
       <article className="pb-16 md:pb-24">
         {/* Header */}
-        <header className="bg-surface py-10 md:py-14">
+        <header className="bg-background py-10 md:py-14">
           <div className="mx-auto max-w-[820px] px-5 md:px-6">
-            <div className="flex flex-wrap items-center gap-3 font-['Noto_Sans_JP'] text-xs text-brand md:text-sm">
+            <div className="flex flex-wrap items-center gap-3 font-['Noto_Sans_JP'] text-xs text-text-muted md:text-sm">
               <time dateTime={post.publishedAt}>
                 {formatPublishedDate(post.publishedAt, locale)}
               </time>
               {categoryName && (
-                <span className="rounded-full border border-brand/50 px-3 py-0.5 text-[11px] md:text-xs">
+                <span className="rounded-full border border-border px-3 py-0.5 text-[11px] md:text-xs">
                   {categoryName}
                 </span>
               )}
@@ -124,7 +124,7 @@ export default async function BlogDetailPage({ params }: Props) {
         {/* Eyecatch */}
         {thumb && (
           <div className="mx-auto max-w-[820px] px-5 md:px-6">
-            <div className="relative aspect-video overflow-hidden rounded-lg bg-background">
+            <div className="relative aspect-video overflow-hidden rounded-lg bg-surface">
               <Image
                 src={thumb.url}
                 alt={post.title}
@@ -151,13 +151,13 @@ export default async function BlogDetailPage({ params }: Props) {
           )}
 
           <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8 font-['Noto_Sans_JP'] text-sm">
-            <span className="text-brand">
+            <span className="text-text-muted">
               {isJa ? "最終更新: " : "Last updated: "}
               {formatPublishedDate(post.updatedAt, locale)}
             </span>
             <Link
               href={`/${locale}/blog`}
-              className="font-medium text-brand transition-colors hover:text-brand-dark"
+              className="font-medium text-text transition-colors hover:text-text-muted"
             >
               {isJa ? "ブログ一覧に戻る →" : "Back to Blog →"}
             </Link>

@@ -68,7 +68,7 @@ export default function FeaturedSection() {
       : "https://dmcfuji0823.wixsite.com/reservation/en";
 
   return (
-    <section className="bg-surface py-12 md:py-16">
+    <section className="bg-background py-12 md:py-16">
       <div className="mx-auto max-w-[1120px] px-6 md:px-8">
         <div className="grid gap-12 md:grid-cols-2 md:items-center md:gap-16">
           {/* 画像 */}
@@ -88,7 +88,7 @@ export default function FeaturedSection() {
               <h2 className="mb-2 font-mincho text-2xl font-semibold text-text md:text-3xl">
                 {t.title}
               </h2>
-              <p className="text-[15px] text-brand md:text-base">
+              <p className="text-[15px] text-text-muted md:text-base">
                 {t.subtitle}
               </p>
             </div>
@@ -121,7 +121,7 @@ export default function FeaturedSection() {
                         key={i}
                         className="flex items-start text-[15px] leading-7 text-text-muted"
                       >
-                        <span className="mr-2 mt-1 text-brand">•</span>
+                        <span className="mr-2 mt-1 text-text-muted">•</span>
                         {feature}
                       </li>
                     ))}

@@ -23,7 +23,7 @@ export default function GalleryShowcase({
   const isJa = locale === "ja";
 
   return (
-    <section className="bg-text py-24 md:py-32">
+    <section className="bg-background py-24 md:py-32">
       <div className="mx-auto max-w-[1200px] px-5 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -33,16 +33,16 @@ export default function GalleryShowcase({
           className="flex flex-wrap items-end justify-between gap-6"
         >
           <div>
-            <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-brand-soft">
+            <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-text-muted">
               Gallery
             </p>
-            <h2 className="mt-5 font-mincho text-[1.6rem] font-medium tracking-[0.08em] text-background md:text-3xl">
+            <h2 className="mt-5 font-mincho text-[1.6rem] font-medium tracking-[0.08em] text-text md:text-3xl">
               {isJa ? <>光の中の、一枚</> : <>Portraits in light</>}
             </h2>
           </div>
           <Link
             href={`/${locale}/gallery`}
-            className="border-b border-brand-soft/50 pb-1 font-['Noto_Sans_JP'] text-[13px] tracking-[0.18em] text-brand-soft transition-colors hover:border-background hover:text-background"
+            className="border-b border-border pb-1 font-['Noto_Sans_JP'] text-[13px] tracking-[0.18em] text-text transition-colors hover:border-text"
           >
             {isJa ? "ギャラリーを見る" : "View the gallery"}
           </Link>
@@ -57,7 +57,7 @@ export default function GalleryShowcase({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.9 }}
-        className="mt-12 overflow-x-auto pb-6 [scrollbar-width:thin] [scrollbar-color:var(--color-brand-muted)_transparent] md:mt-16"
+        className="mt-12 overflow-x-auto pb-6 [scrollbar-width:thin] [scrollbar-color:var(--color-border)_transparent] md:mt-16"
       >
         <div className="flex w-max snap-x snap-mandatory gap-5 px-5 md:gap-7 md:px-[max(1.5rem,calc((100vw-1200px)/2))]">
           {images.map((image, i) => (
@@ -80,9 +80,10 @@ export default function GalleryShowcase({
                 quality={85}
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
               />
+              {/* 紙の地では写真に膜をかけない。ホバーでだけ足元をわずかに沈める */}
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-text/45 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-20"
+                className="absolute inset-0 bg-gradient-to-t from-text/25 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
               />
             </Link>
           ))}

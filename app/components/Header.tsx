@@ -89,7 +89,7 @@ export default function Header() {
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-6 lg:flex xl:gap-8">
           {navItems.map((item) => {
-            // active は「そのページにいる」ことをブランドブラウンで示す
+            // active は「そのページにいる」ことを墨の濃さで示す（色は足さない）
             const active =
               item.href === `/${locale}`
                 ? isHome
@@ -103,11 +103,11 @@ export default function Header() {
                 className={`font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider transition-colors ${
                   solid
                     ? active
-                      ? "text-brand"
-                      : "text-text hover:text-brand"
+                      ? "text-text"
+                      : "text-text-muted hover:text-text"
                     : active
                     ? "text-background"
-                    : "text-background/70 hover:text-background"
+                    : "text-background/60 hover:text-background"
                 }`}
               >
                 {item.label}
@@ -115,12 +115,12 @@ export default function Header() {
             );
           })}
 
-          {/* Reserve Button（Primary CTA は全ページ・全状態で同じ見た目） */}
+          {/* Reserve Button（色は墨 1 系統。地が墨の時だけ生成りに反転させる） */}
           <a
             href="https://dmcfuji0823.wixsite.com/reservation/en"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary min-h-0 px-6 py-2.5 text-xs"
+            className={`${solid ? "btn-primary" : "btn-invert"} min-h-0 px-6 py-2.5 text-xs`}
           >
             {t("reserve")}
           </a>

@@ -28,7 +28,7 @@ export default function FaqSection() {
             >
               <button
                 onClick={() => toggleItem(index)}
-                className="w-full flex items-center justify-between py-5 md:py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-opacity duration-150 hover:opacity-70"
+                className="w-full flex items-center justify-between py-5 md:py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text focus-visible:ring-offset-2 transition-opacity duration-150 hover:opacity-70"
                 aria-expanded={openIndex === index}
                 aria-controls={`faq-answer-${index}`}
               >
@@ -36,7 +36,7 @@ export default function FaqSection() {
                   {item.question}
                 </span>
                 <span
-                  className={`text-brand text-xl transition-transform duration-150 ${
+                  className={`text-text-muted text-xl transition-transform duration-150 ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                   aria-hidden="true"

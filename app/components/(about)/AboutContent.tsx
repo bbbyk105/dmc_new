@@ -21,16 +21,16 @@ import {
 
 /**
  * Our Story ページ本体。
- * 店頭フライヤー（深緑のヘッダー＋生成りの本文）に合わせ、
- * DMC = Dad · Mom · Child の三つの想いと Our Vision、アクセスを載せる。
+ * 全体を一枚の生成りの紙として流し、DMC = Dad · Mom · Child の三つの想い、
+ * Our Vision、アクセスを載せる。色は写真に任せ、UI は墨の濃淡だけで組む。
+ * 地を反転させる（墨＋生成り）のは Our Vision の一箇所だけ。
  */
 
 // 色は globals.css の design token を参照する（ここで値を複製しない）
-const BRAND = "var(--color-brand)";
-const BRAND_DARK = "var(--color-brand-dark)";
-const BRAND_SOFT = "var(--color-brand-soft)";
-const KINARI = "var(--color-background)";
+const PAPER = "var(--color-background)";
+const CARD = "var(--color-surface)";
 const INK = "var(--color-text)";
+const MUTED = "var(--color-text-muted)";
 const LINE = "var(--color-border)";
 
 const fadeUp = {
@@ -86,10 +86,10 @@ export default function AboutContent() {
 
   return (
     <>
-      {/* ───────── ブランドヒーロー（ブランドブラウンの地） ───────── */}
+      {/* ───────── ブランドヒーロー（紙の地） ───────── */}
       <section
         className="relative overflow-hidden"
-        style={{ backgroundColor: BRAND_DARK, color: KINARI }}
+        style={{ backgroundColor: PAPER, color: INK }}
       >
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-14 px-5 py-20 md:px-6 md:py-28 lg:grid-cols-12 lg:gap-10">
           <motion.div
@@ -99,7 +99,7 @@ export default function AboutContent() {
           >
             <p
               className="font-serif text-[11px] uppercase tracking-[0.34em]"
-              style={{ color: BRAND_SOFT }}
+              style={{ color: MUTED }}
             >
               Our Story
             </p>
@@ -109,11 +109,11 @@ export default function AboutContent() {
                 alt="DMC"
                 width={220}
                 height={156}
-                className="h-auto w-[150px] brightness-0 invert md:w-[200px]"
+                className="h-auto w-[150px] md:w-[200px]"
                 style={{ clipPath: "inset(2px)" }}
                 priority
               />
-              <p className="pb-1 font-serif text-sm tracking-[0.2em] text-background/80 md:text-base">
+              <p className="pb-1 font-serif text-sm tracking-[0.2em] text-text-muted md:text-base">
                 {BRAND_MEANING}
               </p>
             </div>
@@ -134,7 +134,7 @@ export default function AboutContent() {
                 </>
               )}
             </h1>
-            <p className="mt-6 max-w-lg font-['Noto_Sans_JP'] text-sm leading-8 tracking-[0.02em] text-background/85">
+            <p className="mt-6 max-w-lg font-['Noto_Sans_JP'] text-sm leading-8 tracking-[0.02em] text-text-muted">
               {isJa
                 ? "DMC という名前には、父・母・子、三つの想いを込めています。富士市のこの小さなスタジオから、着物と抹茶と写真で、心に残る時間をお届けします。"
                 : "Our name holds three wishes: those of a father, a mother, and a child. From our small studio in Fuji City, we share kimono, matcha, and photography to create moments worth keeping."}
@@ -150,8 +150,8 @@ export default function AboutContent() {
             className="mx-auto w-full max-w-[420px] lg:col-span-5"
           >
             <div
-              className="p-2.5 shadow-[0_24px_60px_color-mix(in_srgb,var(--color-text)_28%,transparent)]"
-              style={{ backgroundColor: KINARI }}
+              className="p-2.5 shadow-[0_24px_60px_color-mix(in_srgb,var(--color-text)_12%,transparent)]"
+              style={{ backgroundColor: CARD }}
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
@@ -171,7 +171,7 @@ export default function AboutContent() {
             </div>
             <figcaption
               className="mt-4 whitespace-nowrap text-center font-serif text-[10px] uppercase tracking-[0.22em] md:text-[11px]"
-              style={{ color: BRAND_SOFT }}
+              style={{ color: MUTED }}
             >
               Kimono · Matcha · Photography · Memories
             </figcaption>
@@ -180,12 +180,12 @@ export default function AboutContent() {
       </section>
 
       {/* ───────── Our Story：D / M / C ───────── */}
-      <section className="py-24 md:py-32" style={{ backgroundColor: KINARI }}>
+      <section className="py-24 md:py-32" style={{ backgroundColor: PAPER }}>
         <div className="mx-auto max-w-[1200px] px-5 md:px-6">
           <motion.div {...fadeUp} transition={{ duration: 0.7 }}>
             <p
               className="font-serif text-[11px] uppercase tracking-[0.34em]"
-              style={{ color: BRAND }}
+              style={{ color: MUTED }}
             >
               D · M · C
             </p>
@@ -208,20 +208,20 @@ export default function AboutContent() {
               >
                 <span
                   className="pointer-events-none absolute -top-6 right-0 select-none font-serif text-[6.5rem] leading-none"
-                  style={{ color: BRAND_SOFT }}
+                  style={{ color: LINE }}
                   aria-hidden="true"
                 >
                   {s.letter}
                 </span>
                 <p
                   className="font-serif text-xs uppercase tracking-[0.3em]"
-                  style={{ color: BRAND }}
+                  style={{ color: MUTED }}
                 >
                   {s.letter} = {s.word}
                 </p>
                 <p
                   className="mt-4 font-serif text-sm uppercase tracking-[0.12em]"
-                  style={{ color: BRAND }}
+                  style={{ color: INK }}
                 >
                   {s.en}
                 </p>
@@ -240,17 +240,14 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* ───────── We are family（ブランドブラウンの帯） ───────── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: BRAND_DARK, color: KINARI }}>
+      {/* ───────── We are family（サイトで唯一、地を墨に反転させるブロック） ───────── */}
+      <section className="py-20 md:py-28" style={{ backgroundColor: INK, color: PAPER }}>
         <motion.div
           {...fadeUp}
           transition={{ duration: 0.8 }}
           className="mx-auto max-w-[960px] px-5 text-center md:px-6"
         >
-          <p
-            className="font-serif text-[11px] uppercase tracking-[0.34em]"
-            style={{ color: BRAND_SOFT }}
-          >
+          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-background/55">
             Our Vision
           </p>
           <h2 className="mt-6 font-serif text-[clamp(2rem,5vw,3.4rem)] leading-[1.15] tracking-[0.06em]">
@@ -271,10 +268,7 @@ export default function AboutContent() {
           <ul className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4">
             {pillars.map((p) => (
               <li key={p.en} className="flex flex-col items-center gap-2">
-                <span
-                  className="font-serif text-xs uppercase tracking-[0.3em]"
-                  style={{ color: BRAND_SOFT }}
-                >
+                <span className="font-serif text-xs uppercase tracking-[0.3em] text-background/55">
                   {p.en}
                 </span>
                 <span className="font-mincho text-lg tracking-[0.2em]">
@@ -287,12 +281,12 @@ export default function AboutContent() {
       </section>
 
       {/* ───────── アクセス ───────── */}
-      <section className="bg-surface py-24 md:py-32">
+      <section className="bg-background py-24 md:py-32">
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-5 md:grid-cols-12 md:px-6">
           <motion.div {...fadeUp} transition={{ duration: 0.7 }} className="md:col-span-5">
             <p
               className="font-serif text-[11px] uppercase tracking-[0.34em]"
-              style={{ color: BRAND }}
+              style={{ color: MUTED }}
             >
               Access
             </p>
@@ -311,8 +305,8 @@ export default function AboutContent() {
               href={mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 border-b pb-1.5 font-['Noto_Sans_JP'] text-[13px] tracking-[0.18em] transition-colors hover:text-text"
-              style={{ color: BRAND, borderColor: BRAND }}
+              className="mt-8 inline-flex items-center gap-2 border-b pb-1.5 font-['Noto_Sans_JP'] text-[13px] tracking-[0.18em] transition-colors hover:border-text"
+              style={{ color: INK, borderColor: LINE }}
             >
               {isJa ? "Google マップで開く" : "Open in Google Maps"}
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -326,40 +320,40 @@ export default function AboutContent() {
             style={{ borderColor: LINE, color: INK }}
           >
             <div className="flex items-start gap-3 md:col-span-2">
-              <MapPin className="mt-1 h-4 w-4 shrink-0" style={{ color: BRAND }} aria-hidden="true" />
+              <MapPin className="mt-1 h-4 w-4 shrink-0" style={{ color: MUTED }} aria-hidden="true" />
               <div>
-                <dt className="text-xs tracking-[0.2em]" style={{ color: BRAND }}>
+                <dt className="text-xs tracking-[0.2em]" style={{ color: MUTED }}>
                   {isJa ? "所在地" : "Address"}
                 </dt>
                 <dd className="mt-1 leading-7">{isJa ? ADDRESS_JA : ADDRESS_EN}</dd>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <Car className="mt-1 h-4 w-4 shrink-0" style={{ color: BRAND }} aria-hidden="true" />
+              <Car className="mt-1 h-4 w-4 shrink-0" style={{ color: MUTED }} aria-hidden="true" />
               <div>
-                <dt className="text-xs tracking-[0.2em]" style={{ color: BRAND }}>
+                <dt className="text-xs tracking-[0.2em]" style={{ color: MUTED }}>
                   {isJa ? "駐車場" : "Parking"}
                 </dt>
                 <dd className="mt-1 leading-7">{isJa ? PARKING_JA : PARKING_EN}</dd>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <Phone className="mt-1 h-4 w-4 shrink-0" style={{ color: BRAND }} aria-hidden="true" />
+              <Phone className="mt-1 h-4 w-4 shrink-0" style={{ color: MUTED }} aria-hidden="true" />
               <div>
-                <dt className="text-xs tracking-[0.2em]" style={{ color: BRAND }}>
+                <dt className="text-xs tracking-[0.2em]" style={{ color: MUTED }}>
                   {isJa ? "電話" : "Phone"}
                 </dt>
                 <dd className="mt-1 leading-7">
-                  <a href={`tel:${TELEPHONE_E164}`} className="transition-colors hover:text-brand">
+                  <a href={`tel:${TELEPHONE_E164}`} className="transition-colors hover:text-text">
                     {TELEPHONE_DISPLAY}
                   </a>
                 </dd>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <Clock className="mt-1 h-4 w-4 shrink-0" style={{ color: BRAND }} aria-hidden="true" />
+              <Clock className="mt-1 h-4 w-4 shrink-0" style={{ color: MUTED }} aria-hidden="true" />
               <div>
-                <dt className="text-xs tracking-[0.2em]" style={{ color: BRAND }}>
+                <dt className="text-xs tracking-[0.2em]" style={{ color: MUTED }}>
                   {isJa ? "営業時間" : "Hours"}
                 </dt>
                 <dd className="mt-1 leading-7">
@@ -371,9 +365,9 @@ export default function AboutContent() {
               </div>
             </div>
             <div className="flex items-start gap-3 md:col-span-2">
-              <Instagram className="mt-1 h-4 w-4 shrink-0" style={{ color: BRAND }} aria-hidden="true" />
+              <Instagram className="mt-1 h-4 w-4 shrink-0" style={{ color: MUTED }} aria-hidden="true" />
               <div>
-                <dt className="text-xs tracking-[0.2em]" style={{ color: BRAND }}>
+                <dt className="text-xs tracking-[0.2em]" style={{ color: MUTED }}>
                   Instagram
                 </dt>
                 <dd className="mt-1 leading-7">
@@ -381,7 +375,7 @@ export default function AboutContent() {
                     href={SAME_AS_INSTAGRAM}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="transition-colors hover:text-brand"
+                    className="transition-colors hover:text-text"
                   >
                     @dmcfuji123
                   </a>

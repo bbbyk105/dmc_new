@@ -331,17 +331,17 @@ export default function ChloeDetail() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 whileHover={{ y: -10 }}
-                className="rounded-2xl border-2 border-border bg-surface p-8 shadow-xl shadow-text/10"
+                className="rounded-2xl border border-border bg-surface p-8 shadow-lg shadow-text/5"
               >
                 <div className="mb-4 flex items-center gap-3">
-                  <Clock className="h-8 w-8 text-brand" />
+                  <Clock className="h-8 w-8 text-text-muted" />
                   <h3 className="text-2xl font-bold text-text">
                     {plan.duration}
                   </h3>
                 </div>
 
                 <div className="mb-4">
-                  <span className="text-4xl font-black text-brand">
+                  <span className="text-4xl font-black text-text">
                     {plan.price}
                   </span>
                 </div>
@@ -383,18 +383,18 @@ export default function ChloeDetail() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -10 }}
-                className="rounded-2xl bg-surface p-6 shadow-lg shadow-text/10"
+                className="rounded-2xl border border-border bg-surface p-6 shadow-lg shadow-text/5"
               >
-                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand/10">
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-background">
                   {feature.icon === "camera" && (
-                    <Camera className="h-7 w-7 text-brand" />
+                    <Camera className="h-7 w-7 text-text" />
                   )}
                   {feature.icon === "light" && (
-                    <Lightbulb className="h-7 w-7 text-brand" />
+                    <Lightbulb className="h-7 w-7 text-text" />
                   )}
                   {feature.icon === "background" && (
                     <svg
-                      className="h-7 w-7 text-brand"
+                      className="h-7 w-7 text-text"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -412,7 +412,7 @@ export default function ChloeDetail() {
                   )}
                   {feature.icon === "costume" && (
                     <svg
-                      className="h-7 w-7 text-brand"
+                      className="h-7 w-7 text-text"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -455,7 +455,7 @@ export default function ChloeDetail() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="rounded-2xl bg-surface p-6 shadow-lg shadow-text/10"
+                className="rounded-2xl border border-border bg-surface p-6 shadow-lg shadow-text/5"
               >
                 <h3 className="mb-3 text-xl font-bold text-text">
                   {scene.name}
@@ -478,7 +478,7 @@ export default function ChloeDetail() {
             {t.equipment.title}
           </h2>
 
-          <div className="mx-auto max-w-3xl rounded-2xl bg-surface p-8 shadow-lg shadow-text/10">
+          <div className="mx-auto max-w-3xl rounded-2xl border border-border bg-surface p-8 shadow-lg shadow-text/5">
             <ul className="grid gap-4 md:grid-cols-2">
               {t.equipment.items.map((item, index) => (
                 <motion.li
@@ -489,7 +489,7 @@ export default function ChloeDetail() {
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                   className="flex items-center gap-3"
                 >
-                  <Check className="h-5 w-5 shrink-0 text-brand" />
+                  <Check className="h-5 w-5 shrink-0 text-text" />
                   <span className="text-text-muted">{item}</span>
                 </motion.li>
               ))}
@@ -519,7 +519,7 @@ export default function ChloeDetail() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="flex gap-6"
               >
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand text-2xl font-black text-surface">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-text text-2xl font-black text-background">
                   {step.number}
                 </div>
                 <div className="flex-1">
@@ -545,14 +545,14 @@ export default function ChloeDetail() {
             {t.notes.title}
           </h2>
 
-          <div className="mx-auto max-w-3xl rounded-2xl bg-surface p-8 shadow-lg shadow-text/10">
+          <div className="mx-auto max-w-3xl rounded-2xl border border-border bg-surface p-8 shadow-lg shadow-text/5">
             <ul className="space-y-4">
               {t.notes.items.map((note, index) => (
                 <li
                   key={index}
                   className="flex items-start gap-3 text-sm text-text-muted"
                 >
-                  <Clock className="mt-1 h-5 w-5 shrink-0 text-brand" />
+                  <Clock className="mt-1 h-5 w-5 shrink-0 text-text-muted" />
                   <span>{note}</span>
                 </li>
               ))}

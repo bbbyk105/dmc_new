@@ -43,13 +43,13 @@ export default function StatementSection() {
           transition={{ duration: 0.8 }}
           className="md:col-span-6 md:pt-8"
         >
-          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-brand">
+          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-text-muted">
             {t.eyebrow}
           </p>
           <h2 className="mt-7 font-mincho text-[clamp(1.6rem,3.6vw,2.4rem)] font-medium leading-[1.7] tracking-[0.06em] text-text">
             {t.statementTop}
             <br />
-            <span className="text-brand">{t.statementBottom}</span>
+            <span className="text-text">{t.statementBottom}</span>
           </h2>
           <p className="mt-8 max-w-md font-['Noto_Sans_JP'] text-sm leading-8 tracking-[0.02em] text-text-muted">
             {t.body}
@@ -75,7 +75,7 @@ export default function StatementSection() {
                 className="object-cover object-[50%_35%]"
               />
             </div>
-            <figcaption className="mt-3 text-right font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-brand">
+            <figcaption className="mt-3 text-right font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-text-muted">
               {t.captionA}
             </figcaption>
           </motion.figure>
@@ -97,7 +97,7 @@ export default function StatementSection() {
                 className="object-cover"
               />
             </div>
-            <figcaption className="mt-3 font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-brand">
+            <figcaption className="mt-3 font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-text-muted">
               {t.captionB}
             </figcaption>
           </motion.figure>

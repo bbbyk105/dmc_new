@@ -7,7 +7,7 @@ import { useLocale } from "next-intl";
 
 /**
  * サービス3本柱の写真カード。
- * ホバーで写真がゆっくり寄り、金の罫線が伸びる。
+ * ホバーで写真がゆっくり寄り、墨の罫線が伸びる。
  */
 export default function ServicesShowcase() {
   const locale = useLocale();
@@ -44,7 +44,7 @@ export default function ServicesShowcase() {
   ];
 
   return (
-    <section className="bg-surface py-24 md:py-32">
+    <section className="bg-background py-24 md:py-32">
       <div className="mx-auto max-w-[1200px] px-5 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -54,7 +54,7 @@ export default function ServicesShowcase() {
           className="flex flex-wrap items-end justify-between gap-6"
         >
           <div>
-            <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-brand">
+            <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-text-muted">
               Service
             </p>
             <h2 className="mt-5 font-mincho text-[1.6rem] font-medium tracking-[0.08em] text-text md:text-3xl">
@@ -63,7 +63,7 @@ export default function ServicesShowcase() {
           </div>
           <Link
             href={`/${locale}/service`}
-            className="border-b border-brand pb-1 font-['Noto_Sans_JP'] text-[13px] tracking-[0.18em] text-brand transition-colors hover:border-brand-dark hover:text-brand-dark"
+            className="border-b border-border pb-1 font-['Noto_Sans_JP'] text-[13px] tracking-[0.18em] text-text transition-colors hover:border-text"
           >
             {isJa ? "サービス一覧" : "All services"}
           </Link>
@@ -93,7 +93,7 @@ export default function ServicesShowcase() {
                     className="absolute inset-0 bg-text/0 transition-colors duration-500 group-hover:bg-text/10"
                   />
                 </div>
-                <p className="mt-5 font-serif text-[10px] uppercase tracking-[0.3em] text-brand">
+                <p className="mt-5 font-serif text-[10px] uppercase tracking-[0.3em] text-text-muted">
                   {service.en}
                 </p>
                 <h3 className="mt-2.5 font-mincho text-lg font-medium tracking-[0.04em] text-text">
@@ -104,7 +104,7 @@ export default function ServicesShowcase() {
                 </p>
                 <span
                   aria-hidden="true"
-                  className="mt-4 block h-px w-8 bg-brand transition-all duration-500 group-hover:w-16"
+                  className="mt-4 block h-px w-8 bg-text transition-all duration-500 group-hover:w-16"
                 />
               </Link>
             </motion.div>

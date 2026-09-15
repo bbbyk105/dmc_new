@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Kimono experience in Fuji City, Shizuoka. Photo sessions with Mt. Fuji and tea fields.",
     start_url: "/ja",
     display: "standalone",
-    background_color: "#F4EFE7",
-    theme_color: "#6E4422",
+    background_color: "#F4F1EA",
+    theme_color: "#181816",
     icons: [
       {
         src: "/favicon.ico",

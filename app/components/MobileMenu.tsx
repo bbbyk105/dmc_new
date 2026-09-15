@@ -50,7 +50,7 @@ export function HamburgerButton({
     { scope: ref, dependencies: [open] },
   );
 
-  const lineColor = light ? "bg-background" : "bg-brand-dark";
+  const lineColor = light ? "bg-background" : "bg-text";
   const label =
     locale === "ja"
       ? open
@@ -217,9 +217,9 @@ export default function MobileMenu({
       className="fixed inset-0 z-[9998] lg:hidden"
       style={{ visibility: "hidden", pointerEvents: "none" }}
     >
-      {/* 先行するブランドブラウンのカーテン */}
+      {/* 先行する墨のカーテン（本体よりわずかに薄い墨。色は足さない） */}
       <div
-        className="mm-accent absolute inset-0 bg-brand"
+        className="mm-accent absolute inset-0 bg-ink-soft"
         aria-hidden="true"
         style={{ clipPath: "inset(0 0 100% 0)" }}
       />
@@ -238,7 +238,7 @@ export default function MobileMenu({
         </p>
 
         <div className="flex min-h-full flex-col px-7 pb-10 pt-28">
-          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-brand-soft">
+          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-background/55">
             Menu
           </p>
 
@@ -255,7 +255,7 @@ export default function MobileMenu({
                       aria-current={active ? "page" : undefined}
                       className="group flex items-baseline gap-4 py-4"
                     >
-                      <span className="mm-index w-7 shrink-0 font-serif text-[11px] tracking-[0.2em] text-brand-soft">
+                      <span className="mm-index w-7 shrink-0 font-serif text-[11px] tracking-[0.2em] text-background/45">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {/* マスク：この中で文字が下から立ち上がる */}
@@ -263,8 +263,8 @@ export default function MobileMenu({
                         <span
                           className={`mm-item-inner block font-mincho text-[1.7rem] leading-[1.25] tracking-[0.06em] transition-colors duration-300 ${
                             active
-                              ? "text-brand-soft"
-                              : "text-background group-hover:text-brand-soft"
+                              ? "text-background"
+                              : "text-background/65 group-hover:text-background"
                           }`}
                         >
                           {item.label}
@@ -286,7 +286,7 @@ export default function MobileMenu({
               target="_blank"
               rel="noopener noreferrer"
               onClick={onClose}
-              className="btn-primary"
+              className="btn-invert"
             >
               {reserveLabel}
             </a>
@@ -298,7 +298,7 @@ export default function MobileMenu({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="rounded-full border border-background/20 p-2.5 text-background/80 transition-colors hover:border-brand-soft hover:text-brand-soft"
+                className="rounded-full border border-background/20 p-2.5 text-background/80 transition-colors hover:border-background hover:text-background"
               >
                 <Instagram className="h-4 w-4" />
               </a>
@@ -314,7 +314,7 @@ export default function MobileMenu({
               </a>
               <p className="mt-1">
                 {isJa ? HOURS_JA : HOURS_EN}
-                <span className="mx-2 text-brand-soft" aria-hidden="true">
+                <span className="mx-2 text-background/40" aria-hidden="true">
                   /
                 </span>
                 {isJa ? CLOSED_JA : CLOSED_EN}
