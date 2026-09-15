@@ -131,7 +131,7 @@ export default async function LocaleLayout({
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <meta name="theme-color" content="#F5F3F0" />
+        <meta name="theme-color" content="#F4EFE7" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }}
@@ -141,7 +141,7 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWeb) }}
         />
       </head>
-      <body className="min-h-screen bg-[#F5F3F0] antialiased">
+      <body className="min-h-screen bg-background antialiased">
         <NextIntlClientProvider messages={messages}>
           <Header />
           <main>{children}</main>

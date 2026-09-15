@@ -280,13 +280,13 @@ export default function CamuDetail() {
   const t: LocaleBundle = content[currentLocale];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <div className="border-b border-gray-200 bg-white pt-12">
+      <div className="border-b border-border bg-surface pt-12">
         <div className="container mx-auto px-6 py-4 lg:px-12">
           <Link
             href={`/${currentLocale}/service`}
-            className="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-[#8B7355]"
+            className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-brand"
           >
             <ArrowLeft className="h-4 w-4" />
             {isJa ? "サービス一覧へ戻る" : "Back to Services"}
@@ -295,33 +295,41 @@ export default function CamuDetail() {
       </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gray-900 h-[42vh] max-[360px]:h-[36vh] md:h-[55vh]">
+      <section className="relative overflow-hidden bg-text h-[42vh] max-[360px]:h-[36vh] md:h-[55vh]">
         <Image
           src="/images/camu.webp"
           alt={isJa ? "花夢（CAMU）富士山と茶畑を背景にした打掛の着物撮影" : "CAMU Ceremonial Kimono Photography"}
           fill
-          className="object-cover opacity-70 object-[50%_35%]"
+          className="object-cover object-[50%_35%]"
           priority
           sizes="(max-width: 390px) 100vw, (max-width: 768px) 100vw, 100vw"
         />
+        {/* 写真の色は変えず、文字を読ませるぶんだけ墨をかける */}
+        <div className="absolute inset-0 bg-text/30" aria-hidden="true" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="px-6 text-center">
-            <h1 className="mb-4 font-serif text-5xl font-bold text-white md:text-6xl lg:text-7xl">
+          <div
+            className="px-6 text-center"
+            style={{
+              textShadow:
+                "0 2px 28px color-mix(in srgb, var(--color-text) 60%, transparent)",
+            }}
+          >
+            <h1 className="mb-4 font-serif text-5xl font-bold text-background md:text-6xl lg:text-7xl">
               {t.title}
             </h1>
-            <p className="text-lg text-white/90 md:text-xl">{t.subtitle}</p>
+            <p className="text-lg text-background/90 md:text-xl">{t.subtitle}</p>
           </div>
         </div>
       </section>
 
       {/* Intro */}
-      <section className="border-b border-gray-200 bg-[#F5F3F0] py-20">
+      <section className="border-b border-border bg-surface py-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="mb-6 font-serif text-3xl font-bold text-gray-900 md:text-4xl">
+            <h2 className="mb-6 font-serif text-3xl font-bold text-text md:text-4xl">
               {t.intro.title}
             </h2>
-            <p className="leading-relaxed text-gray-700">
+            <p className="leading-relaxed text-text-muted">
               {t.intro.description}
             </p>
           </div>
@@ -329,9 +337,9 @@ export default function CamuDetail() {
       </section>
 
       {/* Locations */}
-      <section className="border-b border-gray-200 py-20">
+      <section className="border-b border-border py-20">
         <div className="container mx-auto px-6 lg:px-12">
-          <h2 className="mb-16 text-center font-serif text-3xl font-bold text-gray-900 md:text-4xl">
+          <h2 className="mb-16 text-center font-serif text-3xl font-bold text-text md:text-4xl">
             {t.locations.title}
           </h2>
 
@@ -359,10 +367,10 @@ export default function CamuDetail() {
                   />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <h3 className="mb-4 font-serif text-2xl font-bold text-gray-900">
+                  <h3 className="mb-4 font-serif text-2xl font-bold text-text">
                     {location.name}
                   </h3>
-                  <p className="leading-relaxed text-gray-700">
+                  <p className="leading-relaxed text-text-muted">
                     {location.description}
                   </p>
                 </div>
@@ -373,13 +381,13 @@ export default function CamuDetail() {
       </section>
 
       {/* Support */}
-      <section className="border-b border-gray-200 bg-[#F5F3F0] py-20">
+      <section className="border-b border-border bg-surface py-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="mb-16 text-center">
-            <h2 className="mb-6 font-serif text-3xl font-bold text-gray-900 md:text-4xl">
+            <h2 className="mb-6 font-serif text-3xl font-bold text-text md:text-4xl">
               {t.support.title}
             </h2>
-            <p className="mx-auto max-w-3xl leading-relaxed text-gray-700">
+            <p className="mx-auto max-w-3xl leading-relaxed text-text-muted">
               {t.support.description}
             </p>
           </div>
@@ -388,12 +396,12 @@ export default function CamuDetail() {
             {t.support.items.map((item: SupportItem, index: number) => (
               <div
                 key={`${item.title}-${index}`}
-                className="border-l-4 border-[#8B7355] bg-white p-6"
+                className="border-l-4 border-brand bg-surface p-6"
               >
-                <h3 className="mb-3 text-xl font-bold text-gray-900">
+                <h3 className="mb-3 text-xl font-bold text-text">
                   {item.title}
                 </h3>
-                <p className="leading-relaxed text-gray-700">
+                <p className="leading-relaxed text-text-muted">
                   {item.description}
                 </p>
               </div>
@@ -403,14 +411,14 @@ export default function CamuDetail() {
       </section>
 
       {/* Pricing */}
-      <section className="border-b border-gray-200 py-20">
+      <section className="border-b border-border py-20">
         <div className="container mx-auto px-6 lg:px-12">
-          <h2 className="mb-16 text-center font-serif text-3xl font-bold text-gray-900 md:text-4xl">
+          <h2 className="mb-16 text-center font-serif text-3xl font-bold text-text md:text-4xl">
             {t.pricing.title}
           </h2>
 
           <div>
-            <h3 className="mb-8 text-center text-2xl font-bold text-gray-900">
+            <h3 className="mb-8 text-center text-2xl font-bold text-text">
               {t.pricing.international.title}
             </h3>
             <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
@@ -418,17 +426,17 @@ export default function CamuDetail() {
                 (plan: Plan, index: number) => (
                   <div
                     key={`${plan.name}-${index}`}
-                    className="border border-gray-200 bg-white p-8"
+                    className="border border-border bg-surface p-8"
                   >
-                    <div className="mb-6 border-b border-gray-200 pb-6">
-                      <h4 className="mb-2 text-xl font-bold text-gray-900">
+                    <div className="mb-6 border-b border-border pb-6">
+                      <h4 className="mb-2 text-xl font-bold text-text">
                         {plan.name}
                       </h4>
                       <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-2">
-                        <span className="text-4xl font-bold text-[#8B7355] leading-tight sm:whitespace-nowrap">
+                        <span className="text-4xl font-bold text-brand leading-tight sm:whitespace-nowrap">
                           {plan.price}
                         </span>
-                        <span className="text-sm text-gray-600">
+                        <span className="text-sm text-text-muted">
                           {plan.tax}
                         </span>
                       </div>
@@ -437,9 +445,9 @@ export default function CamuDetail() {
                       {plan.features.map((feature: string, i: number) => (
                         <li
                           key={`${plan.name}-feat-${i}`}
-                          className="flex items-start gap-3 text-sm text-gray-700"
+                          className="flex items-start gap-3 text-sm text-text-muted"
                         >
-                          <span className="mt-1 text-[#8B7355]">•</span>
+                          <span className="mt-1 text-brand">•</span>
                           {feature}
                         </li>
                       ))}
@@ -453,17 +461,17 @@ export default function CamuDetail() {
       </section>
 
       {/* Notes */}
-      <section className="bg-[#F5F3F0] py-20">
+      <section className="bg-surface py-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="mx-auto max-w-4xl">
-            <h2 className="mb-8 text-center font-serif text-3xl font-bold text-gray-900 md:text-4xl">
+            <h2 className="mb-8 text-center font-serif text-3xl font-bold text-text md:text-4xl">
               {t.notes.title}
             </h2>
-            <div className="space-y-4 bg-white p-8">
+            <div className="space-y-4 bg-surface p-8">
               {t.notes.items.map((note: string, index: number) => (
                 <p
                   key={`note-${index}`}
-                  className="border-l-2 border-gray-300 pl-4 text-sm leading-relaxed text-gray-700"
+                  className="border-l-2 border-border pl-4 text-sm leading-relaxed text-text-muted"
                 >
                   {note}
                 </p>
@@ -474,10 +482,10 @@ export default function CamuDetail() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-gray-200 py-16">
+      <section className="border-t border-border py-16">
         <div className="container mx-auto px-6 text-center lg:px-12">
           <Link href="https://dmcfuji0823.wixsite.com/reservation/en">
-            <button className="border-2 border-[#2C2C2C] bg-[#2C2C2C] px-12 py-4 font-bold uppercase tracking-wider text-white transition-colors hover:bg-transparent hover:text-[#2C2C2C]">
+            <button className="btn-primary px-12">
               {isJa ? "予約する" : "Book Now"}
             </button>
           </Link>

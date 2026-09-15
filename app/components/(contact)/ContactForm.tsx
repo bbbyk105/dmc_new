@@ -166,8 +166,8 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF8]">
-      <section className="border-b border-[#E5E3DC] bg-white py-20">
+    <div className="min-h-screen bg-background">
+      <section className="border-b border-border bg-background py-20">
         <div className="container mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -175,12 +175,12 @@ export default function ContactForm() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="mb-6 font-serif text-4xl font-light tracking-wide text-[#2C2C2C] md:text-5xl">
+            <h1 className="mb-6 font-serif text-4xl font-light tracking-wide text-text md:text-5xl">
               {t.title}
             </h1>
-            <div className="mx-auto mb-6 h-px w-16 bg-[#8B7355]" />
-            <p className="text-base text-gray-600 md:text-lg">{t.subtitle}</p>
-            <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-gray-600">
+            <div className="mx-auto mb-6 h-px w-16 bg-brand" />
+            <p className="text-base text-text-muted md:text-lg">{t.subtitle}</p>
+            <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-text-muted">
               {t.note}
             </p>
           </motion.div>
@@ -197,22 +197,22 @@ export default function ContactForm() {
             >
               <form
                 onSubmit={handleSubmit}
-                className="space-y-6 border border-[#E5E3DC] bg-white p-8 shadow-lg md:p-10"
+                className="space-y-6 border border-border bg-surface p-8 shadow-lg shadow-text/10 md:p-10"
               >
                 <div className="mb-2">
-                  <h2 className="font-serif text-2xl font-light tracking-wide text-[#2C2C2C] md:text-3xl">
+                  <h2 className="font-serif text-2xl font-light tracking-wide text-text md:text-3xl">
                     {t.formHeading}
                   </h2>
-                  <div className="mt-3 h-px w-12 bg-[#8B7355]" />
+                  <div className="mt-3 h-px w-12 bg-brand" />
                 </div>
 
                 <div>
                   <label
                     htmlFor="name"
-                    className="mb-2 block font-light tracking-wide text-gray-700"
+                    className="mb-2 block font-light tracking-wide text-text-muted"
                   >
                     {t.form.name}
-                    <span className="ml-1 text-red-500">*</span>
+                    <span className="ml-1 text-brand">*</span>
                   </label>
                   <input
                     type="text"
@@ -223,17 +223,17 @@ export default function ContactForm() {
                     required
                     placeholder={t.form.namePlaceholder}
                     autoComplete="name"
-                    className="w-full border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-[#8B7355] focus:outline-none"
+                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-brand focus:outline-none"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="email"
-                    className="mb-2 block font-light tracking-wide text-gray-700"
+                    className="mb-2 block font-light tracking-wide text-text-muted"
                   >
                     {t.form.email}
-                    <span className="ml-1 text-red-500">*</span>
+                    <span className="ml-1 text-brand">*</span>
                   </label>
                   <input
                     type="email"
@@ -244,14 +244,14 @@ export default function ContactForm() {
                     required
                     placeholder={t.form.emailPlaceholder}
                     autoComplete="email"
-                    className="w-full border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-[#8B7355] focus:outline-none"
+                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-brand focus:outline-none"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="phone"
-                    className="mb-2 block font-light tracking-wide text-gray-700"
+                    className="mb-2 block font-light tracking-wide text-text-muted"
                   >
                     {t.form.phone}
                   </label>
@@ -263,14 +263,14 @@ export default function ContactForm() {
                     onChange={handleChange}
                     placeholder={t.form.phonePlaceholder}
                     autoComplete="tel"
-                    className="w-full border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-[#8B7355] focus:outline-none"
+                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-brand focus:outline-none"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="service"
-                    className="mb-2 block font-light tracking-wide text-gray-700"
+                    className="mb-2 block font-light tracking-wide text-text-muted"
                   >
                     {t.form.service}
                   </label>
@@ -279,7 +279,7 @@ export default function ContactForm() {
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-[#8B7355] focus:outline-none"
+                    className="w-full border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-brand focus:outline-none"
                   >
                     {t.services.map((service) => (
                       <option key={service.value} value={service.value}>
@@ -292,10 +292,10 @@ export default function ContactForm() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="mb-2 block font-light tracking-wide text-gray-700"
+                    className="mb-2 block font-light tracking-wide text-text-muted"
                   >
                     {t.form.message}
-                    <span className="ml-1 text-red-500">*</span>
+                    <span className="ml-1 text-brand">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -305,7 +305,7 @@ export default function ContactForm() {
                     required
                     rows={6}
                     placeholder={t.form.messagePlaceholder}
-                    className="w-full resize-none border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-[#8B7355] focus:outline-none"
+                    className="w-full resize-none border border-border bg-surface px-4 py-3 text-text transition-colors focus:border-brand focus:outline-none"
                   />
                 </div>
 
@@ -314,7 +314,7 @@ export default function ContactForm() {
                   disabled={isSubmitting}
                   whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                  className="w-full border-2 border-[#2C2C2C] bg-[#2C2C2C] px-8 py-4 font-light uppercase tracking-widest text-white transition-all duration-300 hover:bg-transparent hover:text-[#2C2C2C] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="btn-primary w-full"
                 >
                   {isSubmitting ? t.form.submitting : t.form.submit}
                 </motion.button>
@@ -323,12 +323,12 @@ export default function ContactForm() {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="border-l-4 border-green-500 bg-green-50 p-4"
+                    className="border-l-4 border-brand bg-brand-soft p-4"
                   >
-                    <p className="font-medium text-green-800">
+                    <p className="font-medium text-brand-dark">
                       {t.success.title}
                     </p>
-                    <p className="mt-1 text-sm text-green-700">
+                    <p className="mt-1 text-sm text-text-muted">
                       {t.success.message}
                     </p>
                   </motion.div>
@@ -338,10 +338,10 @@ export default function ContactForm() {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="border-l-4 border-red-500 bg-red-50 p-4"
+                    className="border-l-4 border-text bg-surface p-4"
                   >
-                    <p className="font-medium text-red-800">{t.error.title}</p>
-                    <p className="mt-1 text-sm text-red-700">
+                    <p className="font-medium text-text">{t.error.title}</p>
+                    <p className="mt-1 text-sm text-text-muted">
                       {t.error.message}
                     </p>
                   </motion.div>
@@ -356,74 +356,74 @@ export default function ContactForm() {
               className="space-y-8"
             >
               <div>
-                <h2 className="mb-8 font-serif text-3xl font-light tracking-wide text-[#2C2C2C]">
+                <h2 className="mb-8 font-serif text-3xl font-light tracking-wide text-text">
                   {t.info.title}
                 </h2>
-                <div className="h-px w-12 bg-[#8B7355]" />
+                <div className="h-px w-12 bg-brand" />
               </div>
 
-              <div className="space-y-8 border border-[#E5E3DC] bg-white p-8 shadow-lg">
+              <div className="space-y-8 border border-border bg-surface p-8 shadow-lg shadow-text/10">
                 <div className="flex gap-4">
-                  <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
+                  <MapPin className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <div>
-                    <p className="mb-2 font-light tracking-wide text-gray-900">
+                    <p className="mb-2 font-light tracking-wide text-text">
                       {t.info.address.label}
                     </p>
-                    <p className="whitespace-pre-line text-sm leading-relaxed text-gray-600">
+                    <p className="whitespace-pre-line text-sm leading-relaxed text-text-muted">
                       {t.info.address.value}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-4 border-t border-[#E5E3DC] pt-8">
-                  <Car className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
+                <div className="flex gap-4 border-t border-border pt-8">
+                  <Car className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <div>
-                    <p className="mb-2 font-light tracking-wide text-gray-900">
+                    <p className="mb-2 font-light tracking-wide text-text">
                       {t.info.parking.label}
                     </p>
-                    <p className="text-sm leading-relaxed text-gray-600">
+                    <p className="text-sm leading-relaxed text-text-muted">
                       {t.info.parking.value}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-4 border-t border-[#E5E3DC] pt-8">
-                  <Phone className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
+                <div className="flex gap-4 border-t border-border pt-8">
+                  <Phone className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <div>
-                    <p className="mb-2 font-light tracking-wide text-gray-900">
+                    <p className="mb-2 font-light tracking-wide text-text">
                       {t.info.phone.label}
                     </p>
                     <a
                       href={`tel:${t.info.phone.value.replace(/[^+\d]/g, "")}`}
-                      className="text-sm text-gray-600 transition-colors hover:text-[#8B7355]"
+                      className="text-sm text-text-muted transition-colors hover:text-brand"
                     >
                       {t.info.phone.value}
                     </a>
                   </div>
                 </div>
 
-                <div className="flex gap-4 border-t border-[#E5E3DC] pt-8">
-                  <Mail className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
+                <div className="flex gap-4 border-t border-border pt-8">
+                  <Mail className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <div>
-                    <p className="mb-2 font-light tracking-wide text-gray-900">
+                    <p className="mb-2 font-light tracking-wide text-text">
                       {t.info.email.label}
                     </p>
                     <a
                       href={`mailto:${t.info.email.value}`}
-                      className="text-sm text-gray-600 transition-colors hover:text-[#8B7355]"
+                      className="text-sm text-text-muted transition-colors hover:text-brand"
                     >
                       {t.info.email.value}
                     </a>
                   </div>
                 </div>
 
-                <div className="flex gap-4 border-t border-[#E5E3DC] pt-8">
-                  <Clock className="mt-1 h-5 w-5 shrink-0 text-[#8B7355]" />
+                <div className="flex gap-4 border-t border-border pt-8">
+                  <Clock className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <div>
-                    <p className="mb-2 font-light tracking-wide text-gray-900">
+                    <p className="mb-2 font-light tracking-wide text-text">
                       {t.info.hours.label}
                     </p>
-                    <p className="whitespace-pre-line text-sm leading-relaxed text-gray-600">
+                    <p className="whitespace-pre-line text-sm leading-relaxed text-text-muted">
                       {t.info.hours.value}
                     </p>
                   </div>
@@ -431,7 +431,7 @@ export default function ContactForm() {
               </div>
 
               {/* Google Map */}
-              <div className="h-[300px] overflow-hidden border border-[#E5E3DC] shadow-lg">
+              <div className="h-[300px] overflow-hidden border border-border shadow-lg shadow-text/10">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.935887267429!2d138.68353227668302!3d35.15821965852564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601a2b006bb14195%3A0x5dfbf3ad2e789fda!2zRE1D44OJ44Os44K544Oe44Oz44Kz44O844OJ!5e0!3m2!1sja!2sjp!4v1763086557169!5m2!1sja!2sjp"
                   width="100%"

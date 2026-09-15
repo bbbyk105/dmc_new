@@ -32,7 +32,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-[#5A4A3A] text-white">
+    <footer className="bg-brand-dark text-background">
       {/* Main Footer Content */}
       <div className="container mx-auto px-6 py-12 lg:px-12">
         {/* 3カラム：会社情報 / メニュー / 連絡先 */}
@@ -56,7 +56,7 @@ export default function Footer() {
                 </span>
               </div>
             </div>
-            <p className="font-['Noto_Sans_JP'] text-sm leading-relaxed text-white/80">
+            <p className="font-['Noto_Sans_JP'] text-sm leading-relaxed text-background/65">
               {locale === "ja"
                 ? "DMC FUJIは静岡県富士市の着物撮影・レンタルスタジオ。富士山と茶畑を背景に、あなたの特別な瞬間を美しく残します。"
                 : "DMC FUJI is a kimono photography & rental studio in Fuji City, Shizuoka. Capture your special moments with Mt. Fuji and tea fields as your backdrop."}
@@ -67,7 +67,7 @@ export default function Footer() {
                 href="https://www.instagram.com/dmcfuji123/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-white/10 p-2 transition-colors hover:bg-[#8B7355]"
+                className="rounded-full bg-background/10 p-2 transition-colors hover:bg-brand"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
@@ -85,7 +85,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="font-['Noto_Sans_JP'] text-sm text-white/80 transition-colors hover:text-[#C9A97C]"
+                    className="font-['Noto_Sans_JP'] text-sm text-background/65 transition-colors hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -99,7 +99,7 @@ export default function Footer() {
             <h3 className="font-mincho text-lg font-bold">
               {t("contact.info.title")}
             </h3>
-            <ul className="space-y-3 font-['Noto_Sans_JP'] text-sm text-white/80">
+            <ul className="space-y-3 font-['Noto_Sans_JP'] text-sm text-background/65">
               <li className="flex items-start gap-2 mt-6">
                 <MapPin className="mt-1 h-4 w-4 shrink-0" />
                 <span>{locale === "ja" ? ADDRESS_JA : ADDRESS_EN}</span>
@@ -112,7 +112,7 @@ export default function Footer() {
                 <Phone className="h-4 w-4 shrink-0" />
                 <a
                   href={`tel:${TELEPHONE_E164}`}
-                  className="transition-colors hover:text-[#C9A97C]"
+                  className="transition-colors hover:text-white"
                 >
                   {TELEPHONE_DISPLAY}
                 </a>
@@ -132,13 +132,13 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10">
+      <div className="border-t border-background/15">
         <div className="container mx-auto px-6 py-6 lg:px-12">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="font-['Noto_Sans_JP'] text-sm text-white/60">
+            <p className="font-['Noto_Sans_JP'] text-sm text-background/65">
               {t("footer.copyright")}
             </p>
-            <p className="font-['Noto_Sans_JP'] text-sm text-white/60">
+            <p className="font-['Noto_Sans_JP'] text-sm text-background/65">
               {t("footer.company")}
             </p>
           </div>

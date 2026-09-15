@@ -56,7 +56,7 @@ export default async function BlogPage({ params }: Props) {
   ]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <JsonLd data={breadcrumb} />
       <Breadcrumb
         items={[
@@ -66,10 +66,10 @@ export default async function BlogPage({ params }: Props) {
       />
 
       {/* Hero */}
-      <section className="bg-white py-12 md:py-16">
+      <section className="bg-surface py-12 md:py-16">
         <div className="mx-auto max-w-[1200px] px-5 md:px-6">
           <div className="space-y-3">
-            <h1 className="font-mincho text-3xl font-semibold tracking-tight text-[#111] md:text-5xl">
+            <h1 className="font-mincho text-3xl font-semibold tracking-tight text-text md:text-5xl">
               <span className="sr-only">
                 {isJa
                   ? "富士市の着物撮影ブログ｜DMC FUJI"
@@ -77,7 +77,7 @@ export default async function BlogPage({ params }: Props) {
               </span>
               <span aria-hidden="true">Blog</span>
             </h1>
-            <p className="text-[15px] leading-7 text-[#5A5A5A] md:text-base">
+            <p className="text-[15px] leading-7 text-text-muted md:text-base">
               {isJa
                 ? "撮影のコツやスタジオの最新情報をお届けします"
                 : "Photography tips and the latest news from our studio"}
@@ -87,16 +87,16 @@ export default async function BlogPage({ params }: Props) {
       </section>
 
       {/* Post List */}
-      <section className="bg-white pb-16 md:pb-24">
+      <section className="bg-surface pb-16 md:pb-24">
         <div className="mx-auto max-w-[1200px] px-5 md:px-6">
           {posts.length === 0 ? (
-            <p className="border-t border-black/5 pt-10 text-sm leading-7 text-[#5A5A5A]">
+            <p className="border-t border-border pt-10 text-sm leading-7 text-text-muted">
               {isJa
                 ? "記事は準備中です。公開まで少々お待ちください。"
                 : "Posts are coming soon. Please check back later."}
             </p>
           ) : (
-            <div className="grid grid-cols-1 gap-8 border-t border-black/5 pt-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-8 border-t border-border pt-10 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => {
                 const thumb = getThumbnail(post);
                 const categoryName = getCategoryName(post.category);
@@ -106,7 +106,7 @@ export default async function BlogPage({ params }: Props) {
                       href={`/${locale}/blog/${post.id}`}
                       className="block space-y-3"
                     >
-                      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-[#F5F1ED]">
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-background">
                         {thumb ? (
                           <Image
                             src={thumb.url}
@@ -117,27 +117,27 @@ export default async function BlogPage({ params }: Props) {
                           />
                         ) : (
                           <div className="flex h-full items-center justify-center">
-                            <span className="font-mincho text-2xl text-[#C9A97C]">
+                            <span className="font-mincho text-2xl text-brand">
                               DMC FUJI
                             </span>
                           </div>
                         )}
                       </div>
-                      <div className="flex flex-wrap items-center gap-3 font-['Noto_Sans_JP'] text-xs text-[#8B7355]">
+                      <div className="flex flex-wrap items-center gap-3 font-['Noto_Sans_JP'] text-xs text-brand">
                         <time dateTime={post.publishedAt}>
                           {formatPublishedDate(post.publishedAt, locale)}
                         </time>
                         {categoryName && (
-                          <span className="rounded-full border border-[#C9A97C]/50 px-3 py-0.5 text-[11px] text-[#8B7355]">
+                          <span className="rounded-full border border-brand/50 px-3 py-0.5 text-[11px] text-brand">
                             {categoryName}
                           </span>
                         )}
                       </div>
-                      <h2 className="font-mincho text-base font-semibold leading-7 text-[#2C2C2C] transition-colors group-hover:text-[#8B7355] md:text-lg">
+                      <h2 className="font-mincho text-base font-semibold leading-7 text-text transition-colors group-hover:text-brand md:text-lg">
                         {post.title}
                       </h2>
                       {post.excerpt && (
-                        <p className="line-clamp-3 text-sm leading-6 text-[#5A5A5A]">
+                        <p className="line-clamp-3 text-sm leading-6 text-text-muted">
                           {post.excerpt}
                         </p>
                       )}

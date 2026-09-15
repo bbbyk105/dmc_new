@@ -50,7 +50,7 @@ export function HamburgerButton({
     { scope: ref, dependencies: [open] },
   );
 
-  const lineColor = light ? "bg-[#F5F1E8]" : "bg-[#5A4A3A]";
+  const lineColor = light ? "bg-background" : "bg-brand-dark";
   const label =
     locale === "ja"
       ? open
@@ -217,20 +217,20 @@ export default function MobileMenu({
       className="fixed inset-0 z-[9998] lg:hidden"
       style={{ visibility: "hidden", pointerEvents: "none" }}
     >
-      {/* 先行する金の薄いカーテン */}
+      {/* 先行するブランドブラウンのカーテン */}
       <div
-        className="mm-accent absolute inset-0 bg-[#C9A97C]"
+        className="mm-accent absolute inset-0 bg-brand"
         aria-hidden="true"
         style={{ clipPath: "inset(0 0 100% 0)" }}
       />
       {/* 墨のパネル本体 */}
       <div
-        className="mm-panel absolute inset-0 overflow-y-auto bg-[#1D1812] text-[#F5F1E8]"
+        className="mm-panel absolute inset-0 overflow-y-auto bg-text text-background"
         style={{ clipPath: "inset(0 0 100% 0)" }}
       >
         {/* 縦書きタグライン（右端） */}
         <p
-          className="mm-tagline pointer-events-none absolute right-5 top-28 select-none font-mincho text-[12px] tracking-[0.5em] text-[#F5F1E8]/35"
+          className="mm-tagline pointer-events-none absolute right-5 top-28 select-none font-mincho text-[12px] tracking-[0.5em] text-background/35"
           style={{ writingMode: "vertical-rl" }}
           aria-hidden="true"
         >
@@ -238,7 +238,7 @@ export default function MobileMenu({
         </p>
 
         <div className="flex min-h-full flex-col px-7 pb-10 pt-28">
-          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-[#C9A97C]">
+          <p className="font-serif text-[11px] uppercase tracking-[0.34em] text-brand-soft">
             Menu
           </p>
 
@@ -248,21 +248,23 @@ export default function MobileMenu({
               {navItems.map((item, i) => {
                 const active = isActive(item.href);
                 return (
-                  <li key={item.href} className="border-b border-[#F5F1E8]/10">
+                  <li key={item.href} className="border-b border-background/10">
                     <Link
                       href={item.href}
                       onClick={onClose}
                       aria-current={active ? "page" : undefined}
                       className="group flex items-baseline gap-4 py-4"
                     >
-                      <span className="mm-index w-7 shrink-0 font-serif text-[11px] tracking-[0.2em] text-[#C9A97C]">
+                      <span className="mm-index w-7 shrink-0 font-serif text-[11px] tracking-[0.2em] text-brand-soft">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {/* マスク：この中で文字が下から立ち上がる */}
                       <span className="block overflow-hidden">
                         <span
                           className={`mm-item-inner block font-mincho text-[1.7rem] leading-[1.25] tracking-[0.06em] transition-colors duration-300 ${
-                            active ? "text-[#C9A97C]" : "text-[#F5F1E8] group-hover:text-[#C9A97C]"
+                            active
+                              ? "text-brand-soft"
+                              : "text-background group-hover:text-brand-soft"
                           }`}
                         >
                           {item.label}
@@ -275,7 +277,7 @@ export default function MobileMenu({
             </ul>
           </nav>
 
-          <span className="mm-rule mt-8 block h-px w-full bg-[#C9A97C]/50" aria-hidden="true" />
+          <span className="mm-rule mt-8 block h-px w-full bg-background/20" aria-hidden="true" />
 
           {/* フッター：予約・言語・連絡先 */}
           <div className="mm-footer mt-8 flex flex-col gap-6">
@@ -284,7 +286,7 @@ export default function MobileMenu({
               target="_blank"
               rel="noopener noreferrer"
               onClick={onClose}
-              className="inline-block bg-[#F5F1E8] px-8 py-4 text-center font-['Noto_Sans_JP'] text-[13px] font-medium tracking-[0.22em] text-[#1D1812] transition-colors duration-300 hover:bg-[#C9A97C]"
+              className="btn-primary"
             >
               {reserveLabel}
             </a>
@@ -296,23 +298,23 @@ export default function MobileMenu({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="rounded-full border border-[#F5F1E8]/20 p-2.5 text-[#F5F1E8]/80 transition-colors hover:border-[#C9A97C] hover:text-[#C9A97C]"
+                className="rounded-full border border-background/20 p-2.5 text-background/80 transition-colors hover:border-brand-soft hover:text-brand-soft"
               >
                 <Instagram className="h-4 w-4" />
               </a>
             </div>
 
-            <div className="font-['Noto_Sans_JP'] text-xs leading-6 text-[#F5F1E8]/60">
+            <div className="font-['Noto_Sans_JP'] text-xs leading-6 text-background/60">
               <a
                 href={`tel:${TELEPHONE_E164}`}
-                className="inline-flex items-center gap-2 transition-colors hover:text-[#F5F1E8]"
+                className="inline-flex items-center gap-2 transition-colors hover:text-background"
               >
                 <Phone className="h-3.5 w-3.5" />
                 {TELEPHONE_DISPLAY}
               </a>
               <p className="mt-1">
                 {isJa ? HOURS_JA : HOURS_EN}
-                <span className="mx-2 text-[#C9A97C]" aria-hidden="true">
+                <span className="mx-2 text-brand-soft" aria-hidden="true">
                   /
                 </span>
                 {isJa ? CLOSED_JA : CLOSED_EN}

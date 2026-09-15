@@ -85,7 +85,7 @@ export default async function BlogDetailPage({ params }: Props) {
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <JsonLd data={breadcrumb} />
       <JsonLd data={blogPosting} />
       <Breadcrumb
@@ -98,23 +98,23 @@ export default async function BlogDetailPage({ params }: Props) {
 
       <article className="pb-16 md:pb-24">
         {/* Header */}
-        <header className="bg-white py-10 md:py-14">
+        <header className="bg-surface py-10 md:py-14">
           <div className="mx-auto max-w-[820px] px-5 md:px-6">
-            <div className="flex flex-wrap items-center gap-3 font-['Noto_Sans_JP'] text-xs text-[#8B7355] md:text-sm">
+            <div className="flex flex-wrap items-center gap-3 font-['Noto_Sans_JP'] text-xs text-brand md:text-sm">
               <time dateTime={post.publishedAt}>
                 {formatPublishedDate(post.publishedAt, locale)}
               </time>
               {categoryName && (
-                <span className="rounded-full border border-[#C9A97C]/50 px-3 py-0.5 text-[11px] md:text-xs">
+                <span className="rounded-full border border-brand/50 px-3 py-0.5 text-[11px] md:text-xs">
                   {categoryName}
                 </span>
               )}
             </div>
-            <h1 className="mt-4 font-mincho text-2xl font-semibold leading-snug tracking-tight text-[#111] md:text-4xl">
+            <h1 className="mt-4 font-mincho text-2xl font-semibold leading-snug tracking-tight text-text md:text-4xl">
               {post.title}
             </h1>
             {post.excerpt && (
-              <p className="mt-4 text-sm leading-7 text-[#5A5A5A] md:text-[15px]">
+              <p className="mt-4 text-sm leading-7 text-text-muted md:text-[15px]">
                 {post.excerpt}
               </p>
             )}
@@ -124,7 +124,7 @@ export default async function BlogDetailPage({ params }: Props) {
         {/* Eyecatch */}
         {thumb && (
           <div className="mx-auto max-w-[820px] px-5 md:px-6">
-            <div className="relative aspect-video overflow-hidden rounded-lg bg-[#F5F1ED]">
+            <div className="relative aspect-video overflow-hidden rounded-lg bg-background">
               <Image
                 src={thumb.url}
                 alt={post.title}
@@ -145,19 +145,19 @@ export default async function BlogDetailPage({ params }: Props) {
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           ) : (
-            <p className="text-sm leading-7 text-[#5A5A5A]">
+            <p className="text-sm leading-7 text-text-muted">
               {isJa ? "本文は準備中です。" : "This post is coming soon."}
             </p>
           )}
 
-          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-black/5 pt-8 font-['Noto_Sans_JP'] text-sm">
-            <span className="text-[#8B7355]">
+          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8 font-['Noto_Sans_JP'] text-sm">
+            <span className="text-brand">
               {isJa ? "最終更新: " : "Last updated: "}
               {formatPublishedDate(post.updatedAt, locale)}
             </span>
             <Link
               href={`/${locale}/blog`}
-              className="font-medium text-[#8B7355] transition-colors hover:text-[#5A4A3A]"
+              className="font-medium text-brand transition-colors hover:text-brand-dark"
             >
               {isJa ? "ブログ一覧に戻る →" : "Back to Blog →"}
             </Link>

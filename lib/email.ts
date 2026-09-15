@@ -43,14 +43,14 @@ export const createContactEmailTemplate = (data: {
           <head>
             <meta charset="utf-8">
             <style>
-              body { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; line-height: 1.8; color: #333; }
+              body { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; line-height: 1.8; color: #1B1714; }
               .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-              .header { background-color: #2C2C2C; color: white; padding: 30px 20px; text-align: center; }
-              .content { background-color: #ffffff; padding: 30px; border: 1px solid #E5E3DC; }
+              .header { background-color: #4B2C17; color: #F4EFE7; padding: 30px 20px; text-align: center; }
+              .content { background-color: #FAF7F2; padding: 30px; border: 1px solid #DED4C9; }
               .field { margin-bottom: 25px; }
-              .label { font-weight: bold; color: #8B7355; margin-bottom: 8px; display: block; }
-              .value { padding: 10px; background-color: #FAFAF8; border-left: 3px solid #8B7355; }
-              .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+              .label { font-weight: bold; color: #6E4422; margin-bottom: 8px; display: block; }
+              .value { padding: 10px; background-color: #F4EFE7; border-left: 3px solid #6E4422; }
+              .footer { text-align: center; padding: 20px; color: #746A62; font-size: 12px; }
             </style>
           </head>
           <body>
@@ -118,14 +118,14 @@ ${data.message}
           <head>
             <meta charset="utf-8">
             <style>
-              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.8; color: #333; }
+              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.8; color: #1B1714; }
               .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-              .header { background-color: #2C2C2C; color: white; padding: 30px 20px; text-align: center; }
-              .content { background-color: #ffffff; padding: 30px; border: 1px solid #E5E3DC; }
+              .header { background-color: #4B2C17; color: #F4EFE7; padding: 30px 20px; text-align: center; }
+              .content { background-color: #FAF7F2; padding: 30px; border: 1px solid #DED4C9; }
               .field { margin-bottom: 25px; }
-              .label { font-weight: bold; color: #8B7355; margin-bottom: 8px; display: block; }
-              .value { padding: 10px; background-color: #FAFAF8; border-left: 3px solid #8B7355; }
-              .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+              .label { font-weight: bold; color: #6E4422; margin-bottom: 8px; display: block; }
+              .value { padding: 10px; background-color: #F4EFE7; border-left: 3px solid #6E4422; }
+              .footer { text-align: center; padding: 20px; color: #746A62; font-size: 12px; }
             </style>
           </head>
           <body>
@@ -198,12 +198,12 @@ export const createAutoReplyTemplate = (name: string, locale: string) => {
           <head>
             <meta charset="utf-8">
             <style>
-              body { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; line-height: 1.8; color: #333; }
+              body { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; line-height: 1.8; color: #1B1714; }
               .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-              .header { background-color: #2C2C2C; color: white; padding: 30px 20px; text-align: center; }
-              .content { background-color: #ffffff; padding: 30px; border: 1px solid #E5E3DC; }
-              .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; border-top: 1px solid #E5E3DC; margin-top: 30px; }
-              .signature { margin-top: 30px; padding-top: 20px; border-top: 1px solid #E5E3DC; }
+              .header { background-color: #4B2C17; color: #F4EFE7; padding: 30px 20px; text-align: center; }
+              .content { background-color: #FAF7F2; padding: 30px; border: 1px solid #DED4C9; }
+              .footer { text-align: center; padding: 20px; color: #746A62; font-size: 12px; border-top: 1px solid #DED4C9; margin-top: 30px; }
+              .signature { margin-top: 30px; padding-top: 20px; border-top: 1px solid #DED4C9; }
             </style>
           </head>
           <body>
@@ -268,12 +268,12 @@ Email: dmc.fuji0823@gmail.com
           <head>
             <meta charset="utf-8">
             <style>
-              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.8; color: #333; }
+              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.8; color: #1B1714; }
               .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-              .header { background-color: #2C2C2C; color: white; padding: 30px 20px; text-align: center; }
-              .content { background-color: #ffffff; padding: 30px; border: 1px solid #E5E3DC; }
-              .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; border-top: 1px solid #E5E3DC; margin-top: 30px; }
-              .signature { margin-top: 30px; padding-top: 20px; border-top: 1px solid #E5E3DC; }
+              .header { background-color: #4B2C17; color: #F4EFE7; padding: 30px 20px; text-align: center; }
+              .content { background-color: #FAF7F2; padding: 30px; border: 1px solid #DED4C9; }
+              .footer { text-align: center; padding: 20px; color: #746A62; font-size: 12px; border-top: 1px solid #DED4C9; margin-top: 30px; }
+              .signature { margin-top: 30px; padding-top: 20px; border-top: 1px solid #DED4C9; }
             </style>
           </head>
           <body>

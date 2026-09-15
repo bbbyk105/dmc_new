@@ -43,7 +43,7 @@ export default function ValueSection() {
   const t = content[locale as keyof typeof content] || content.ja;
 
   return (
-    <section className="bg-white py-12 md:py-16">
+    <section className="bg-background py-12 md:py-16">
       <div className="mx-auto max-w-[1120px] px-6 md:px-8">
         <div className="grid gap-12 md:grid-cols-3 md:gap-8">
           {t.items.map((item, index) => (
@@ -51,14 +51,14 @@ export default function ValueSection() {
               key={index}
               className={`space-y-3 ${
                 index > 0 && index < t.items.length
-                  ? "md:border-l md:border-[rgba(0,0,0,0.08)] md:pl-8"
+                  ? "md:border-l md:border-border md:pl-8"
                   : ""
               }`}
             >
-              <h3 className="font-mincho text-xl font-semibold text-[#2C2C2C] md:text-2xl">
+              <h3 className="font-mincho text-xl font-semibold text-text md:text-2xl">
                 {item.title}
               </h3>
-              <p className="text-[15px] leading-7 text-[#5A5A5A]">
+              <p className="text-[15px] leading-7 text-text-muted">
                 {item.description}
               </p>
             </div>

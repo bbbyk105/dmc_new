@@ -32,16 +32,16 @@ export default function LanguageSwitcher({
         className={`font-['Noto_Sans_JP'] text-sm font-medium transition-colors ${
           locale === "ja"
             ? isScrolled
-              ? "text-[#8B7355]"
-              : "text-white"
+              ? "text-brand"
+              : "text-brand-soft"
             : isScrolled
-            ? "text-gray-400 hover:text-[#8B7355]"
-            : "text-white/60 hover:text-white"
+            ? "text-text-muted hover:text-brand"
+            : "text-background/60 hover:text-background"
         }`}
       >
         日本語
       </button>
-      <span className={`${isScrolled ? "text-gray-400" : "text-white/60"}`}>
+      <span className={`${isScrolled ? "text-border" : "text-background/40"}`}>
         /
       </span>
       <button
@@ -49,11 +49,11 @@ export default function LanguageSwitcher({
         className={`font-['Noto_Sans_JP'] text-sm font-medium transition-colors ${
           locale === "en"
             ? isScrolled
-              ? "text-[#8B7355]"
-              : "text-white"
+              ? "text-brand"
+              : "text-brand-soft"
             : isScrolled
-            ? "text-gray-400 hover:text-[#8B7355]"
-            : "text-white/60 hover:text-white"
+            ? "text-text-muted hover:text-brand"
+            : "text-background/60 hover:text-background"
         }`}
       >
         EN

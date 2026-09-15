@@ -77,7 +77,7 @@ export default function ServiceGrid() {
       : "https://dmcfuji0823.wixsite.com/reservation/en";
 
   return (
-    <section className="bg-white py-12 md:py-16">
+    <section className="bg-background py-12 md:py-16">
       <div className="mx-auto max-w-[1120px] px-6 md:px-8">
         <div className="grid gap-12 md:grid-cols-2">
           {/* Chloe レンタルスタジオ */}
@@ -93,12 +93,12 @@ export default function ServiceGrid() {
             </div>
 
             <div className="flex flex-1 flex-col">
-              <h3 className="mb-2 font-mincho text-xl font-semibold text-[#2C2C2C] md:text-2xl">
+              <h3 className="mb-2 font-mincho text-xl font-semibold text-text md:text-2xl">
                 {t.chloe.title}
               </h3>
-              <p className="mb-4 text-sm text-[#8B7355]">{t.chloe.subtitle}</p>
+              <p className="mb-4 text-sm text-brand">{t.chloe.subtitle}</p>
 
-              <p className="mb-8 text-[15px] leading-7 text-[#5A5A5A]">
+              <p className="mb-8 text-[15px] leading-7 text-text-muted">
                 {t.chloe.description}
               </p>
 
@@ -107,12 +107,12 @@ export default function ServiceGrid() {
                 {t.chloe.pricing.map((price, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between border-b border-[rgba(0,0,0,0.08)] pb-3 last:border-b-0 last:pb-0"
+                    className="flex items-center justify-between border-b border-border pb-3 last:border-b-0 last:pb-0"
                   >
-                    <span className="text-[15px] text-[#2C2C2C]">
+                    <span className="text-[15px] text-text">
                       {price.duration}
                     </span>
-                    <span className="text-lg font-semibold text-[#2C2C2C]">
+                    <span className="text-lg font-semibold text-text">
                       {price.price}
                     </span>
                   </div>
@@ -124,20 +124,20 @@ export default function ServiceGrid() {
                 {t.chloe.features.map((feature, index) => (
                   <div
                     key={index}
-                    className="flex items-start text-[15px] text-[#5A5A5A]"
+                    className="flex items-start text-[15px] text-text-muted"
                   >
-                    <span className="mr-2 mt-1 text-[#2C2C2C]">•</span>
+                    <span className="mr-2 mt-1 text-brand">•</span>
                     {feature}
                   </div>
                 ))}
               </div>
 
-              <p className="mb-8 text-xs text-[#999]">{t.chloe.note}</p>
+              <p className="mb-8 text-xs text-text-muted">{t.chloe.note}</p>
 
               {/* CTA */}
               <div className="mt-auto">
                 <Link href={reservationUrl}>
-                  <button className="w-full min-h-[44px] rounded-2xl border-2 border-[#2C2C2C] bg-[#2C2C2C] px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-150 hover:bg-[#1a1a1a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2C2C2C] focus-visible:ring-offset-2">
+                  <button className="btn-primary w-full">
                     {t.chloe.cta}
                   </button>
                 </Link>
@@ -158,12 +158,12 @@ export default function ServiceGrid() {
             </div>
 
             <div className="flex flex-1 flex-col">
-              <h3 className="mb-2 font-mincho text-xl font-semibold text-[#2C2C2C] md:text-2xl">
+              <h3 className="mb-2 font-mincho text-xl font-semibold text-text md:text-2xl">
                 {t.cafe.title}
               </h3>
-              <p className="mb-4 text-sm text-[#8B7355]">{t.cafe.subtitle}</p>
+              <p className="mb-4 text-sm text-brand">{t.cafe.subtitle}</p>
 
-              <p className="mb-8 text-[15px] leading-7 text-[#5A5A5A]">
+              <p className="mb-8 text-[15px] leading-7 text-text-muted">
                 {t.cafe.description}
               </p>
 
@@ -172,13 +172,13 @@ export default function ServiceGrid() {
                 {t.cafe.menu.map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between border-b border-[rgba(0,0,0,0.08)] pb-3 last:border-b-0 last:pb-0"
+                    className="flex items-center justify-between border-b border-border pb-3 last:border-b-0 last:pb-0"
                   >
-                    <span className="text-[15px] text-[#2C2C2C]">
+                    <span className="text-[15px] text-text">
                       {item.item.includes("（") ? (
                         <>
                           {item.item.split("（")[0]}
-                          <span className="text-xs font-normal text-[#5A5A5A]">
+                          <span className="text-xs font-normal text-text-muted">
                             （{item.item.split("（")[1]}
                           </span>
                         </>
@@ -186,7 +186,7 @@ export default function ServiceGrid() {
                         item.item
                       )}
                     </span>
-                    <span className="text-lg font-semibold text-[#2C2C2C]">
+                    <span className="text-lg font-semibold text-text">
                       {item.price}
                     </span>
                   </div>

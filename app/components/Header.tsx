@@ -57,7 +57,7 @@ export default function Header() {
   const headerSkin = isMobileMenuOpen
     ? "bg-transparent"
     : solid
-    ? "bg-white/95 shadow-md backdrop-blur-sm"
+    ? "border-b border-border bg-background/95 backdrop-blur-sm"
     : "bg-transparent";
   // ロゴ・ハンバーガーを白抜きにする条件（透明ヘッダー時 or メニュー展開中）
   const onDark = !solid || isMobileMenuOpen;
@@ -88,30 +88,39 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-6 lg:flex xl:gap-8">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider transition-colors ${
-                solid
-                  ? "text-[#5A4A3A] hover:text-[#8B7355]"
-                  : "text-white hover:text-[#C9A97C]"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            // active は「そのページにいる」ことをブランドブラウンで示す
+            const active =
+              item.href === `/${locale}`
+                ? isHome
+                : pathname === item.href ||
+                  pathname.startsWith(`${item.href}/`);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={`font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider transition-colors ${
+                  solid
+                    ? active
+                      ? "text-brand"
+                      : "text-text hover:text-brand"
+                    : active
+                    ? "text-background"
+                    : "text-background/70 hover:text-background"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
 
-          {/* Reserve Button */}
+          {/* Reserve Button（Primary CTA は全ページ・全状態で同じ見た目） */}
           <a
             href="https://dmcfuji0823.wixsite.com/reservation/en"
             target="_blank"
             rel="noopener noreferrer"
-            className={`rounded border-2 px-6 py-2 font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider transition-all ${
-              solid
-                ? "border-[#8B7355] bg-[#8B7355] text-white hover:border-[#5A4A3A] hover:bg-[#5A4A3A]"
-                : "border-white bg-white/10 text-white hover:bg-white hover:text-[#5A4A3A]"
-            }`}
+            className="btn-primary min-h-0 px-6 py-2.5 text-xs"
           >
             {t("reserve")}
           </a>

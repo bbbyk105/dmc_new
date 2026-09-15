@@ -26,15 +26,15 @@ export default function IntroHeader() {
       : "https://dmcfuji0823.wixsite.com/reservation/en";
 
   return (
-    <section className="bg-[#faf8f4] py-16 md:py-20">
+    <section className="bg-surface py-16 md:py-20">
       <div className="mx-auto max-w-[1120px] px-6 md:px-8">
         <div className="flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
           <div className="space-y-4">
-            <h1 className="font-mincho text-3xl font-semibold tracking-tight text-[#2C2C2C] md:text-5xl">
+            <h1 className="font-mincho text-3xl font-semibold tracking-tight text-text md:text-5xl">
               <span className="sr-only">{t.srTitle}</span>
               <span aria-hidden="true">{t.title}</span>
             </h1>
-            <p className="text-[15px] leading-7 text-[#5A5A5A] md:text-base">
+            <p className="text-[15px] leading-7 text-text-muted md:text-base">
               {t.subtitle}
             </p>
           </div>
