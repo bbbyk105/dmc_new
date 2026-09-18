@@ -43,9 +43,9 @@ export default function Footer() {
               <Image
                 src="/logo/logo.png"
                 alt="DMC FUJI - 富士市の着物撮影スタジオ"
-                width={50}
-                height={50}
-                className="h-12 w-auto brightness-0 invert"
+                width={1600}
+                height={389}
+                className="h-7 w-auto brightness-0 invert"
               />
               <div className="flex flex-col">
                 <span className="font-mincho text-2xl font-bold">

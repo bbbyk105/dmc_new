@@ -15,7 +15,6 @@ import {
   CLOSED_EN,
   PARKING_JA,
   PARKING_EN,
-  BRAND_MEANING,
   SAME_AS_INSTAGRAM,
 } from "@/lib/site-info";
 
@@ -103,19 +102,15 @@ export default function AboutContent() {
             >
               Our Story
             </p>
-            <div className="mt-7 flex items-end gap-5">
+            <div className="mt-7">
               <Image
                 src="/logo/logo.png"
                 alt="DMC"
-                width={220}
-                height={156}
-                className="h-auto w-[150px] md:w-[200px]"
-                style={{ clipPath: "inset(2px)" }}
+                width={1600}
+                height={389}
+                className="h-auto w-[200px] md:w-[260px]"
                 priority
               />
-              <p className="pb-1 font-serif text-sm tracking-[0.2em] text-text-muted md:text-base">
-                {BRAND_MEANING}
-              </p>
             </div>
             <h1 className="mt-10 font-mincho text-[clamp(1.5rem,3.4vw,2.4rem)] font-medium leading-[1.75] tracking-[0.06em]">
               {isJa ? (

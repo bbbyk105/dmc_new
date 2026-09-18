@@ -73,7 +73,7 @@ export default function Header() {
           className="relative z-[10001] flex items-center gap-3"
           onClick={() => setIsMobileMenuOpen(false)}
         >
-          <div className="relative h-10 w-20 md:h-12 md:w-24">
+          <div className="relative h-6 w-24 md:h-7 md:w-28">
             <Image
               src="/logo/logo.png"
               alt="DMC FUJI - 富士市の着物撮影スタジオ"
