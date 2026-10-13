@@ -37,12 +37,19 @@ export const ADDRESS_SCHEMA = {
 
 /**
  * schema.org openingHoursSpecification（営業 11:00-17:00、水曜定休）
- * Mo,Tu,Th,Fr,Sa 11:00-17:00
+ * Mo,Tu,Th,Fr,Sa,Su 11:00-17:00
  */
 export const OPENING_HOURS_SPECIFICATION = [
   {
     "@type": "OpeningHoursSpecification" as const,
-    dayOfWeek: ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"],
+    dayOfWeek: [
+      "Monday",
+      "Tuesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ],
     opens: "11:00",
     closes: "17:00",
   },

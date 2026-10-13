@@ -10,7 +10,7 @@
     },
     "footer": {
         "company": "DMC.LLC",
-        "copyright": "© 2025 DMC.LLC All Rights Reserved."
+        "copyright": "© {year} DMC.LLC All Rights Reserved."
     },
     "contact": {
         "info": {
