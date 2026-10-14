@@ -5,7 +5,9 @@ const withNextIntl = createNextIntlPlugin("./i18n.ts");
 
 const nextConfig: NextConfig = {
   // ロケールのない URL（/about など）と末尾スラッシュは proxy.ts でまとめて 1 回のリダイレクトにする。
-  // Next 本体の末尾スラッシュの 308 が先に走ると /about/ → /about → /ja/about と 2 回になるので止める
+  // Next 本体の末尾スラッシュの 308 が先に走ると /about/ → /about → /ja/about と 2 回になるので止める。
+  // proxy の matcher の外（/api/*、/sitemap.xml などの拡張子つき）は末尾スラッシュを外さなくなる（/sitemap.xml/ が 200 になる）が、
+  // 外から使われる URL ではないので許容する
   skipTrailingSlashRedirect: true,
   images: {
     formats: ["image/avif", "image/webp"],

@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { locales, defaultLocale } from "./i18n";
+import { isPagePath } from "./lib/routes";
 
 const handleI18nRouting = createMiddleware({
   locales,
@@ -30,9 +31,10 @@ export default function proxy(request: NextRequest) {
 
   if (location) {
     // ロケールのない URL は、next-intl がクッキー（NEXT_LOCALE）と Accept-Language でロケールを決めて 307 で送る。
-    // 既定の ja へは 308 にして検索エンジンに正規 URL を伝える（Googlebot は Accept-Language を送らないので必ずこちら）。
-    // 判定が人によって変わるので、ブラウザには保存させない。en へは 307 のまま
-    if (new URL(location).pathname.split("/")[1] === defaultLocale) {
+    // ページのある URL で既定の ja へ送るときは 308 にして、検索エンジンに正規 URL を伝える
+    // （Googlebot は Accept-Language を送らないので必ずこちら）。判定が人によって変わるので、ブラウザには保存させない。
+    // en へ送るときと、ページのない URL（/foo・/fr/about。行き先で 404）は 307 のまま
+    if (new URL(location).pathname.split("/")[1] === defaultLocale && isPagePath(target.nextUrl.pathname)) {
       const redirect = new NextResponse(null, { status: 308, headers: response.headers });
       redirect.headers.set("Cache-Control", "no-store");
       return redirect;

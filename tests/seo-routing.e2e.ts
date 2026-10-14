@@ -24,9 +24,12 @@ function get(baseUrl: string | undefined, path: string, headers: Record<string, 
   return fetch(new URL(path, baseUrl), { redirect: "manual", headers });
 }
 
+/** Location のパスとクエリ（ホストは見ない） */
 function locationPath(response: Response) {
   const location = response.headers.get("location");
-  return location === null ? null : new URL(location, "http://localhost").pathname;
+  if (location === null) return null;
+  const url = new URL(location, "http://localhost");
+  return url.pathname + url.search;
 }
 
 /** sitemap.xml に載っているページ（本番の URL と、そのパス） */
@@ -73,6 +76,33 @@ describe("ロケールのない URL", () => {
       expect({ path, status: response.status, location: locationPath(response) }).toEqual({
         path,
         status: 308,
+        location: expected,
+      });
+    }
+  });
+
+  test("ページのない URL は恒久リダイレクトにせず、/ja へ 307 で送る（行き先で 404）", async ({ app }) => {
+    for (const path of ["/foo", "/fr/about", "/about/xyz", "/blog/a/b"]) {
+      const response = await get(app.baseUrl, path, { "user-agent": GOOGLEBOT_UA });
+      expect({ path, status: response.status, location: locationPath(response) }).toEqual({
+        path,
+        status: 307,
+        location: `/ja${path}`,
+      });
+    }
+  });
+
+  test("リダイレクトしてもクエリ文字列を残す", async ({ app }) => {
+    const cases: { path: string; headers: Record<string, string>; status: number; expected: string }[] = [
+      { path: "/about?utm_source=x", headers: {}, status: 308, expected: "/ja/about?utm_source=x" },
+      { path: "/ja/about/?utm_source=x", headers: {}, status: 308, expected: "/ja/about?utm_source=x" },
+      { path: "/about/?utm_source=x", headers: { cookie: "NEXT_LOCALE=en" }, status: 307, expected: "/en/about?utm_source=x" },
+    ];
+    for (const { path, headers, status, expected } of cases) {
+      const response = await get(app.baseUrl, path, { "user-agent": BROWSER_UA, ...headers });
+      expect({ path, status: response.status, location: locationPath(response) }).toEqual({
+        path,
+        status,
         location: expected,
       });
     }
