@@ -136,7 +136,7 @@ export default function Footer() {
         <div className="container mx-auto px-6 py-6 lg:px-12">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="font-['Noto_Sans_JP'] text-sm text-background/65">
-              {t("footer.copyright")}
+              {t("footer.copyright", { year: new Date().getFullYear() })}
             </p>
             <p className="font-['Noto_Sans_JP'] text-sm text-background/65">
               {t("footer.company")}
