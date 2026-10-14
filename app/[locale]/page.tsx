@@ -10,6 +10,10 @@ import CtaSection from "@/app/components/(toppage)/CtaSection";
 import JsonLd from "@/app/components/JsonLd";
 import { getAllGalleryImages } from "@/lib/supabase";
 import { buildPageMeta, buildBreadcrumbSchema, getSiteUrl } from "@/lib/seo";
+import { setRequestLocale } from "next-intl/server";
+
+// Supabase のギャラリー写真の追加を60秒ごとに反映（ISR）
+export const revalidate = 60;
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -80,6 +84,7 @@ async function getShowcaseImages(): Promise<ShowcaseImage[]> {
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const isJa = locale === "ja";
   const siteUrl = getSiteUrl();
   const showcaseImages = await getShowcaseImages();

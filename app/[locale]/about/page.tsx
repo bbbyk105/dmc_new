@@ -4,6 +4,7 @@ import Breadcrumb from "@/app/components/Breadcrumb";
 import AboutContent from "@/app/components/(about)/AboutContent";
 import CtaSection from "@/app/components/(toppage)/CtaSection";
 import { buildPageMeta, buildBreadcrumbSchema, getSiteUrl } from "@/lib/seo";
+import { setRequestLocale } from "next-intl/server";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -41,6 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const isJa = locale === "ja";
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/${locale}/about`;

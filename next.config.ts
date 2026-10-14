@@ -4,22 +4,9 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./i18n.ts");
 
 const nextConfig: NextConfig = {
-  // メタデータのストリーミングを止め、canonical・hreflang・title を常に <head> に出す。
-  // 既定では Googlebot に <body> 側で返し、Search Console で canonical が「指定なし」扱いになっていた
-  htmlLimitedBots: /.*/,
-  async redirects() {
-    return [
-      // 非ロケールURLが Search Console に露出しているため、既定言語(ja)へ正規化
-      { source: "/", destination: "/ja", permanent: true },
-      { source: "/about", destination: "/ja/about", permanent: true },
-      { source: "/service", destination: "/ja/service", permanent: true },
-      { source: "/service/camu", destination: "/ja/service/camu", permanent: true },
-      { source: "/gallery", destination: "/ja/gallery", permanent: true },
-      { source: "/blog", destination: "/ja/blog", permanent: true },
-      { source: "/blog/:id", destination: "/ja/blog/:id", permanent: true },
-      { source: "/contact", destination: "/ja/contact", permanent: true },
-    ];
-  },
+  // ロケールのない URL（/about など）と末尾スラッシュは proxy.ts でまとめて 1 回のリダイレクトにする。
+  // Next 本体の末尾スラッシュの 308 が先に走ると /about/ → /about → /ja/about と 2 回になるので止める
+  skipTrailingSlashRedirect: true,
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 2560, 3200, 3840],
