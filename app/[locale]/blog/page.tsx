@@ -10,6 +10,7 @@ import {
   getThumbnail,
 } from "@/lib/microcms";
 import { buildPageMeta, buildBreadcrumbSchema, getSiteUrl } from "@/lib/seo";
+import { setRequestLocale } from "next-intl/server";
 
 // microCMS の更新を60秒ごとに反映（ISR）
 export const revalidate = 60;
@@ -46,6 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPage({ params }: Props) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const isJa = locale === "ja";
   const siteUrl = getSiteUrl();
   const { contents: posts } = await fetchBlogList();

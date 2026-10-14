@@ -2,27 +2,14 @@ import type { MetadataRoute } from "next";
 import { locales } from "@/i18n";
 import { getSiteUrl } from "@/lib/seo";
 import { fetchBlogList } from "@/lib/microcms";
-
-const routes = [
-  { path: "", changeFrequency: "weekly" as const, priority: 1 },
-  { path: "/about", changeFrequency: "monthly" as const, priority: 0.7 },
-  { path: "/service", changeFrequency: "monthly" as const, priority: 0.9 },
-  {
-    path: "/service/camu",
-    changeFrequency: "monthly" as const,
-    priority: 0.85,
-  },
-  { path: "/gallery", changeFrequency: "weekly" as const, priority: 0.8 },
-  { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
-  { path: "/contact", changeFrequency: "monthly" as const, priority: 0.8 },
-] as const;
+import { pageRoutes } from "@/lib/routes";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getSiteUrl();
   const lastModified = new Date();
 
   const staticEntries = locales.flatMap((locale) =>
-    routes.map((route) => ({
+    pageRoutes.map((route) => ({
       url: `${baseUrl}/${locale}${route.path}`,
       changeFrequency: route.changeFrequency,
       priority: route.priority,

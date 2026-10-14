@@ -18,6 +18,7 @@ import {
   buildBlogPostingSchema,
   getSiteUrl,
 } from "@/lib/seo";
+import { setRequestLocale } from "next-intl/server";
 
 // microCMS の更新を60秒ごとに反映（ISR）
 export const revalidate = 60;
@@ -57,6 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogDetailPage({ params }: Props) {
   const { locale, id } = await params;
+  setRequestLocale(locale);
   const isJa = locale === "ja";
   const post = await fetchBlogItem(id);
   if (!post) notFound();

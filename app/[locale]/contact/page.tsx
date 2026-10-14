@@ -3,6 +3,7 @@ import ContactForm from "@/app/components/(contact)/ContactForm";
 import JsonLd from "@/app/components/JsonLd";
 import Breadcrumb from "@/app/components/Breadcrumb";
 import { buildPageMeta, buildBreadcrumbSchema, getSiteUrl } from "@/lib/seo";
+import { setRequestLocale } from "next-intl/server";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -48,6 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ContactPage({ params }: Props) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const isJa = locale === "ja";
   const siteUrl = getSiteUrl();
 

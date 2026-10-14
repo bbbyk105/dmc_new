@@ -21,7 +21,8 @@ export interface GalleryImage {
 const ALLOWED_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"];
 
 /**
- * Supabase Storageから指定フォルダの画像一覧を取得
+ * Supabase Storageから指定フォルダの画像一覧を取得。
+ * 取得に失敗したら投げる（0 件なら空配列）
  */
 export async function getImagesFromFolder(
   bucketName: string,
@@ -36,10 +37,7 @@ export async function getImagesFromFolder(
         limit: 100,
       });
 
-    if (error) {
-      console.error(`[supabase] list error: ${folderPath}`, error);
-      return [];
-    }
+    if (error) throw error;
     if (!data || data.length === 0) return [];
 
     // 画像ファイルのみフィルタリング
@@ -83,8 +81,10 @@ export async function getImagesFromFolder(
 
     return images;
   } catch (err) {
-    console.error(`[supabase] unexpected error: ${folderPath}`, err);
-    return [];
+    // 空配列にせず投げる。ギャラリーは ISR で、再生成が例外で終われば Next は前の正常なページを残すが、
+    // 空配列だと写真 0 枚のページで上書きされる（トップは page.tsx でローカル画像に切り替え、画面側は GalleryGrid が受け止める）
+    console.error(`[supabase] list error: ${folderPath}`, err);
+    throw err;
   }
 }
 

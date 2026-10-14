@@ -9,6 +9,7 @@ import {
   getSiteUrl,
 } from "@/lib/seo";
 import { SITE_NAME } from "@/lib/site-info";
+import { setRequestLocale } from "next-intl/server";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -53,6 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CamuPage({ params }: Props) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const isJa = locale === "ja";
   const siteUrl = getSiteUrl();
 

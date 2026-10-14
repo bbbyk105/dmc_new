@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Noto_Sans_JP, Shippori_Mincho } from "next/font/google";
 import { locales } from "@/i18n";
@@ -114,9 +113,11 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  if (!locales.includes(locale as any)) {
+  if (!hasLocale(locales, locale)) {
     notFound();
   }
+  // ロケールを headers() から読まずに済ませ、[locale] 配下を静的に生成する（各ページでも呼ぶ）
+  setRequestLocale(locale);
 
   const messages = await getMessages();
   const siteUrl = getSiteUrl();
