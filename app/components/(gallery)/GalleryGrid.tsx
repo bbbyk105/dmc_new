@@ -2,9 +2,23 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Lightbox from "./Lightbox";
 import { getAllGalleryImages, GalleryImage } from "@/lib/supabase";
+
+function subscribeEagerCount() {
+  return () => {};
+}
+
+function getEagerCountSnapshot() {
+  const w = window.innerWidth;
+  // sm未満:3, md未満:4, それ以上:6 くらいが体感バランス良い
+  return w < 640 ? 3 : w < 1024 ? 4 : 6;
+}
+
+function getEagerCountServerSnapshot() {
+  return 3;
+}
 
 interface GalleryGridProps {
   activeCategory: string;
@@ -17,40 +31,45 @@ export default function GalleryGrid({
 }: GalleryGridProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [allImages, setAllImages] = useState<GalleryImage[]>(initialImages);
-  const [loadingList, setLoadingList] = useState(initialImages.length === 0);
+  const [fetchSettled, setFetchSettled] = useState(initialImages.length > 0);
+  const loadingList = initialImages.length === 0 && !fetchSettled;
   const [imageLoadErrors, setImageLoadErrors] = useState<Set<string>>(
     new Set()
   );
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageCategory, setPageCategory] = useState(activeCategory);
+  const categoryChanged = pageCategory !== activeCategory;
+  const page = categoryChanged ? 1 : currentPage;
+  if (categoryChanged) {
+    setPageCategory(activeCategory);
+    setCurrentPage(1);
+  }
 
-  // ▼ ローダー制御（Filter直下に表示）
-  const [showLoader, setShowLoader] = useState(true);
-  // 画面幅に応じて「先頭何枚を eager にするか」
-  const [eagerCount, setEagerCount] = useState(3); // 初期はモバイル想定
+  // 画面幅に応じて「先頭何枚を eager にするか」。SSR はモバイル想定の 3。
+  const eagerCount = useSyncExternalStore(
+    subscribeEagerCount,
+    getEagerCountSnapshot,
+    getEagerCountServerSnapshot
+  );
 
+  // 初回画像が無いときだけ取り直す
   useEffect(() => {
-    const w = window.innerWidth;
-    // sm未満:3, md未満:4, それ以上:6 くらいが体感バランス良い
-    setEagerCount(w < 640 ? 3 : w < 1024 ? 4 : 6);
-  }, []);
-
-  // 初回 & 再取得（安全のため）
-  useEffect(() => {
-    if (initialImages.length > 0) {
-      setLoadingList(false);
-      return;
-    }
+    if (initialImages.length > 0) return;
+    let cancelled = false;
     (async () => {
-      setLoadingList(true);
+      setFetchSettled(false);
       try {
         const images = await getAllGalleryImages();
-        setAllImages(images);
+        if (!cancelled) setAllImages(images);
       } catch (e) {
         console.error("Error fetching gallery images:", e);
       } finally {
-        setLoadingList(false);
+        if (!cancelled) setFetchSettled(true);
       }
     })();
+    return () => {
+      cancelled = true;
+    };
   }, [initialImages]);
 
   // フィルター
@@ -65,30 +84,47 @@ export default function GalleryGrid({
   // ページング
   const imagesPerPage = 6;
   const totalPages = Math.ceil(filteredImages.length / imagesPerPage);
-  const startIndex = (currentPage - 1) * imagesPerPage;
+  const startIndex = (page - 1) * imagesPerPage;
   const currentImages = filteredImages.slice(
     startIndex,
     startIndex + imagesPerPage
   );
 
   // 先頭N枚の読み込みカウント（lazy待ちで詰まらないように）
-  const [loadedEagerCount, setLoadedEagerCount] = useState(0);
+  const loaderKey = `${startIndex}|${activeCategory}|${filteredImages.length}|${eagerCount}`;
+  const [loader, setLoader] = useState<{
+    key: string;
+    loaded: number;
+    show: boolean;
+  } | null>(null);
+  const loaderMatches = loader !== null && loader.key === loaderKey;
+  const loadedEagerCount = loaderMatches ? loader.loaded : 0;
+  const showLoader = loaderMatches ? loader.show : true;
+  if (!loaderMatches) {
+    setLoader({ key: loaderKey, loaded: 0, show: true });
+  }
   const targetEager = Math.min(eagerCount, currentImages.length);
 
-  // カテゴリ変更時は1ページ目に戻す
+  // ページ/フィルター変更時のフォールバックタイマー
   useEffect(() => {
-    setCurrentPage(1);
-  }, [activeCategory]);
-
-  // ページ/フィルター変更時にリセット & フォールバックタイマー
-  useEffect(() => {
-    setLoadedEagerCount(0);
-    setShowLoader(true);
-
     // 1.8秒フォールバック：ネットが遅くても表示を開始
-    const t = setTimeout(() => setShowLoader(false), 1800);
+    const t = setTimeout(() => {
+      setLoader((current) =>
+        current && current.key === loaderKey
+          ? { ...current, show: false }
+          : current
+      );
+    }, 1800);
     return () => clearTimeout(t);
-  }, [startIndex, activeCategory, filteredImages.length, eagerCount]);
+  }, [loaderKey]);
+
+  const markEagerLoaded = (idx: number) => {
+    if (idx >= targetEager) return;
+    setLoader((current) => {
+      if (!current || current.key !== loaderKey) return current;
+      return { ...current, loaded: current.loaded + 1 };
+    });
+  };
 
   const handleImageError = (imageId: string, idx: number) => {
     setImageLoadErrors((prev) => {
@@ -97,11 +133,11 @@ export default function GalleryGrid({
       return next;
     });
     // エラーでも eager 対象ならカウントを進める
-    if (idx < targetEager) setLoadedEagerCount((c) => c + 1);
+    markEagerLoaded(idx);
   };
 
   const handleImageLoaded = (idx: number) => {
-    if (idx < targetEager) setLoadedEagerCount((c) => c + 1);
+    markEagerLoaded(idx);
   };
 
   // 表示判定：先頭N枚が読み込み完了 or フォールバック経過
@@ -221,10 +257,10 @@ export default function GalleryGrid({
         <div className="mx-auto mt-16 max-w-[1200px] px-5 md:px-6">
           <div className="flex items-center justify-center gap-10">
             <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page === 1}
               className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text focus-visible:ring-offset-2 ${
-                currentPage === 1
+                page === 1
                   ? "cursor-not-allowed text-text-muted"
                   : "text-text hover:text-text-muted"
               }`}
@@ -233,7 +269,7 @@ export default function GalleryGrid({
               <span
                 aria-hidden="true"
                 className={`transition-transform duration-300 ${
-                  currentPage === 1 ? "" : "group-hover:-translate-x-1"
+                  page === 1 ? "" : "group-hover:-translate-x-1"
                 }`}
               >
                 ←
@@ -241,17 +277,17 @@ export default function GalleryGrid({
               Prev
             </button>
             <span className="select-none font-mincho text-lg tracking-[0.2em] text-text">
-              {String(currentPage).padStart(2, "0")}
+              {String(page).padStart(2, "0")}
               <span className="mx-2 text-border">/</span>
               <span className="text-text-muted">
                 {String(totalPages).padStart(2, "0")}
               </span>
             </span>
             <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
+              onClick={() => handlePageChange(page + 1)}
+              disabled={page === totalPages}
               className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text focus-visible:ring-offset-2 ${
-                currentPage === totalPages
+                page === totalPages
                   ? "cursor-not-allowed text-text-muted"
                   : "text-text hover:text-text-muted"
               }`}
@@ -261,7 +297,7 @@ export default function GalleryGrid({
               <span
                 aria-hidden="true"
                 className={`transition-transform duration-300 ${
-                  currentPage === totalPages ? "" : "group-hover:translate-x-1"
+                  page === totalPages ? "" : "group-hover:translate-x-1"
                 }`}
               >
                 →
