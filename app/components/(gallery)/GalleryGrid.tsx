@@ -31,12 +31,16 @@ export default function GalleryGrid({
   useEffect(() => {
     const w = window.innerWidth;
     // sm未満:3, md未満:4, それ以上:6 くらいが体感バランス良い
+    // window はマウント後にしか読めない
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEagerCount(w < 640 ? 3 : w < 1024 ? 4 : 6);
   }, []);
 
   // 初回 & 再取得（安全のため）
   useEffect(() => {
     if (initialImages.length > 0) {
+      // 初期画像があれば取得不要。ローダーを即座に止める
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoadingList(false);
       return;
     }
@@ -77,11 +81,15 @@ export default function GalleryGrid({
 
   // カテゴリ変更時は1ページ目に戻す
   useEffect(() => {
+    // カテゴリが変わったら1ページ目へ戻す
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurrentPage(1);
   }, [activeCategory]);
 
   // ページ/フィルター変更時にリセット & フォールバックタイマー
   useEffect(() => {
+    // ページ/フィルターが変わったら読み込み状況を数え直す
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoadedEagerCount(0);
     setShowLoader(true);
 
