@@ -2,23 +2,9 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Lightbox from "./Lightbox";
 import { getAllGalleryImages, GalleryImage } from "@/lib/supabase";
-
-function subscribeEagerCount() {
-  return () => {};
-}
-
-function getEagerCountSnapshot() {
-  const w = window.innerWidth;
-  // sm未満:3, md未満:4, それ以上:6 くらいが体感バランス良い
-  return w < 640 ? 3 : w < 1024 ? 4 : 6;
-}
-
-function getEagerCountServerSnapshot() {
-  return 3;
-}
 
 interface GalleryGridProps {
   activeCategory: string;
@@ -31,45 +17,44 @@ export default function GalleryGrid({
 }: GalleryGridProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [allImages, setAllImages] = useState<GalleryImage[]>(initialImages);
-  const [fetchSettled, setFetchSettled] = useState(initialImages.length > 0);
-  const loadingList = initialImages.length === 0 && !fetchSettled;
+  const [loadingList, setLoadingList] = useState(initialImages.length === 0);
   const [imageLoadErrors, setImageLoadErrors] = useState<Set<string>>(
     new Set()
   );
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageCategory, setPageCategory] = useState(activeCategory);
-  const categoryChanged = pageCategory !== activeCategory;
-  const page = categoryChanged ? 1 : currentPage;
-  if (categoryChanged) {
-    setPageCategory(activeCategory);
-    setCurrentPage(1);
-  }
 
-  // 画面幅に応じて「先頭何枚を eager にするか」。SSR はモバイル想定の 3。
-  const eagerCount = useSyncExternalStore(
-    subscribeEagerCount,
-    getEagerCountSnapshot,
-    getEagerCountServerSnapshot
-  );
+  // ▼ ローダー制御（Filter直下に表示）
+  const [showLoader, setShowLoader] = useState(true);
+  // 画面幅に応じて「先頭何枚を eager にするか」
+  const [eagerCount, setEagerCount] = useState(3); // 初期はモバイル想定
 
-  // 初回画像が無いときだけ取り直す
   useEffect(() => {
-    if (initialImages.length > 0) return;
-    let cancelled = false;
+    const w = window.innerWidth;
+    // sm未満:3, md未満:4, それ以上:6 くらいが体感バランス良い
+    // window はマウント後にしか読めない
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setEagerCount(w < 640 ? 3 : w < 1024 ? 4 : 6);
+  }, []);
+
+  // 初回 & 再取得（安全のため）
+  useEffect(() => {
+    if (initialImages.length > 0) {
+      // 初期画像があれば取得不要。ローダーを即座に止める
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLoadingList(false);
+      return;
+    }
     (async () => {
-      setFetchSettled(false);
+      setLoadingList(true);
       try {
         const images = await getAllGalleryImages();
-        if (!cancelled) setAllImages(images);
+        setAllImages(images);
       } catch (e) {
         console.error("Error fetching gallery images:", e);
       } finally {
-        if (!cancelled) setFetchSettled(true);
+        setLoadingList(false);
       }
     })();
-    return () => {
-      cancelled = true;
-    };
   }, [initialImages]);
 
   // フィルター
@@ -84,47 +69,34 @@ export default function GalleryGrid({
   // ページング
   const imagesPerPage = 6;
   const totalPages = Math.ceil(filteredImages.length / imagesPerPage);
-  const startIndex = (page - 1) * imagesPerPage;
+  const startIndex = (currentPage - 1) * imagesPerPage;
   const currentImages = filteredImages.slice(
     startIndex,
     startIndex + imagesPerPage
   );
 
   // 先頭N枚の読み込みカウント（lazy待ちで詰まらないように）
-  const loaderKey = `${startIndex}|${activeCategory}|${filteredImages.length}|${eagerCount}`;
-  const [loader, setLoader] = useState<{
-    key: string;
-    loaded: number;
-    show: boolean;
-  } | null>(null);
-  const loaderMatches = loader !== null && loader.key === loaderKey;
-  const loadedEagerCount = loaderMatches ? loader.loaded : 0;
-  const showLoader = loaderMatches ? loader.show : true;
-  if (!loaderMatches) {
-    setLoader({ key: loaderKey, loaded: 0, show: true });
-  }
+  const [loadedEagerCount, setLoadedEagerCount] = useState(0);
   const targetEager = Math.min(eagerCount, currentImages.length);
 
-  // ページ/フィルター変更時のフォールバックタイマー
+  // カテゴリ変更時は1ページ目に戻す
   useEffect(() => {
-    // 1.8秒フォールバック：ネットが遅くても表示を開始
-    const t = setTimeout(() => {
-      setLoader((current) =>
-        current && current.key === loaderKey
-          ? { ...current, show: false }
-          : current
-      );
-    }, 1800);
-    return () => clearTimeout(t);
-  }, [loaderKey]);
+    // カテゴリが変わったら1ページ目へ戻す
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCurrentPage(1);
+  }, [activeCategory]);
 
-  const markEagerLoaded = (idx: number) => {
-    if (idx >= targetEager) return;
-    setLoader((current) => {
-      if (!current || current.key !== loaderKey) return current;
-      return { ...current, loaded: current.loaded + 1 };
-    });
-  };
+  // ページ/フィルター変更時にリセット & フォールバックタイマー
+  useEffect(() => {
+    // ページ/フィルターが変わったら読み込み状況を数え直す
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLoadedEagerCount(0);
+    setShowLoader(true);
+
+    // 1.8秒フォールバック：ネットが遅くても表示を開始
+    const t = setTimeout(() => setShowLoader(false), 1800);
+    return () => clearTimeout(t);
+  }, [startIndex, activeCategory, filteredImages.length, eagerCount]);
 
   const handleImageError = (imageId: string, idx: number) => {
     setImageLoadErrors((prev) => {
@@ -133,11 +105,11 @@ export default function GalleryGrid({
       return next;
     });
     // エラーでも eager 対象ならカウントを進める
-    markEagerLoaded(idx);
+    if (idx < targetEager) setLoadedEagerCount((c) => c + 1);
   };
 
   const handleImageLoaded = (idx: number) => {
-    markEagerLoaded(idx);
+    if (idx < targetEager) setLoadedEagerCount((c) => c + 1);
   };
 
   // 表示判定：先頭N枚が読み込み完了 or フォールバック経過
@@ -257,10 +229,10 @@ export default function GalleryGrid({
         <div className="mx-auto mt-16 max-w-[1200px] px-5 md:px-6">
           <div className="flex items-center justify-center gap-10">
             <button
-              onClick={() => handlePageChange(page - 1)}
-              disabled={page === 1}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
               className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text focus-visible:ring-offset-2 ${
-                page === 1
+                currentPage === 1
                   ? "cursor-not-allowed text-text-muted"
                   : "text-text hover:text-text-muted"
               }`}
@@ -269,7 +241,7 @@ export default function GalleryGrid({
               <span
                 aria-hidden="true"
                 className={`transition-transform duration-300 ${
-                  page === 1 ? "" : "group-hover:-translate-x-1"
+                  currentPage === 1 ? "" : "group-hover:-translate-x-1"
                 }`}
               >
                 ←
@@ -277,17 +249,17 @@ export default function GalleryGrid({
               Prev
             </button>
             <span className="select-none font-mincho text-lg tracking-[0.2em] text-text">
-              {String(page).padStart(2, "0")}
+              {String(currentPage).padStart(2, "0")}
               <span className="mx-2 text-border">/</span>
               <span className="text-text-muted">
                 {String(totalPages).padStart(2, "0")}
               </span>
             </span>
             <button
-              onClick={() => handlePageChange(page + 1)}
-              disabled={page === totalPages}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
               className={`group flex items-center gap-2 font-['Noto_Sans_JP'] text-xs font-medium uppercase tracking-[0.26em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text focus-visible:ring-offset-2 ${
-                page === totalPages
+                currentPage === totalPages
                   ? "cursor-not-allowed text-text-muted"
                   : "text-text hover:text-text-muted"
               }`}
@@ -297,7 +269,7 @@ export default function GalleryGrid({
               <span
                 aria-hidden="true"
                 className={`transition-transform duration-300 ${
-                  page === totalPages ? "" : "group-hover:translate-x-1"
+                  currentPage === totalPages ? "" : "group-hover:translate-x-1"
                 }`}
               >
                 →
