@@ -1,5 +1,14 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { findSecretsInPublicEnv } from "./lib/public-env";
+
+// NEXT_PUBLIC_ に秘密の鍵が入っていたら、ブラウザに出る前にビルドを止める
+const leaked = findSecretsInPublicEnv(process.env);
+if (leaked.length > 0) {
+  throw new Error(
+    `${leaked.join(", ")} に秘密の鍵（Supabase の secret / service_role）が入っています。NEXT_PUBLIC_ の値はブラウザに出るので、公開用の鍵（publishable）を入れてください`,
+  );
+}
 
 const withNextIntl = createNextIntlPlugin("./i18n.ts");
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import GalleryFilter from "./GalleryFilter";
 import GalleryGrid from "./GalleryGrid";
-import { GalleryImage } from "@/lib/supabase";
+import type { GalleryImage } from "@/lib/supabase";
 
 interface ClientGalleryProps {
   initialImages: GalleryImage[];

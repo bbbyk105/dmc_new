@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { GalleryImage } from "@/lib/supabase";
+import type { GalleryImage } from "@/lib/supabase";
 
 interface LightboxProps {
   images: GalleryImage[];
