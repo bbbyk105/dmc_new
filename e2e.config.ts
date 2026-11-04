@@ -21,6 +21,8 @@ export default {
           executable: "node",
           args: ["node_modules/next/dist/bin/next", "start", "--port", "{port}", "--hostname", "127.0.0.1"],
           log: ".e2e/logs/app.log",
+          // テストではメールを送らずにログへ出す（お問い合わせのテストで本物のメールが出ないように）
+          env: { MAIL_MODE: "log" },
         },
       },
     },
