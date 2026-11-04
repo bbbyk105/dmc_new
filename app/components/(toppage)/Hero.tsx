@@ -346,14 +346,9 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.9, ease: reveal }}
             className="pointer-events-auto mt-8 flex flex-wrap items-center gap-x-6 gap-y-5 md:mt-11 lg:gap-x-8"
           >
-            <a
-              href="https://dmcfuji0823.wixsite.com/reservation/en"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-invert px-9 lg:px-10"
-            >
+            <Link href={`/${locale}/reserve`} className="btn-invert px-9 lg:px-10">
               {t.reserve}
-            </a>
+            </Link>
             <Link
               href={`/${locale}/gallery`}
               className="inline-block font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-background transition-colors duration-300 hover:text-background/70"

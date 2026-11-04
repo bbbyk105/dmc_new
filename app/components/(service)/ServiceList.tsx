@@ -230,11 +230,7 @@ export default function ServiceList() {
                 </Link>
               )}
               <Link
-                href={
-                  locale === "ja"
-                    ? "https://dmcfuji0823.wixsite.com/reservation"
-                    : "https://dmcfuji0823.wixsite.com/reservation/en"
-                }
+                href={`/${locale}/reserve?service=${locale === "ja" ? "hanayume" : "camu"}`}
               >
                 <button className="btn-primary w-full sm:w-auto">
                   {locale === "ja" ? "予約する" : "Book Now"}
@@ -306,7 +302,7 @@ export default function ServiceList() {
 
               {/* CTA */}
               <div className="mt-auto">
-                <Link href="https://dmcfuji0823.wixsite.com/reservation">
+                <Link href={`/${locale}/reserve?service=chloe`}>
                   <button className="btn-primary w-full">
                     {locale === "ja" ? "予約する" : "Book Now"}
                   </button>

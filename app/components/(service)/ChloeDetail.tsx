@@ -93,7 +93,7 @@ export default function ChloeDetail() {
           {
             number: "01",
             title: "ご予約",
-            description: "お電話またはお問い合わせフォームからご予約",
+            description: "オンライン予約またはお電話でご予約",
           },
           {
             number: "02",
@@ -213,7 +213,7 @@ export default function ChloeDetail() {
           {
             number: "01",
             title: "Reservation",
-            description: "Book via phone or contact form",
+            description: "Book online or by phone",
           },
           {
             number: "02",
@@ -568,13 +568,13 @@ export default function ChloeDetail() {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <Link href={`/${locale}/contact`}>
+          <Link href={`/${locale}/reserve?service=chloe`}>
             <motion.button
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
               className="btn-primary px-12"
             >
-              {locale === "ja" ? "ご予約・お問い合わせ" : "Book Now"}
+              {locale === "ja" ? "ご予約はこちら" : "Book Now"}
             </motion.button>
           </Link>
         </motion.div>

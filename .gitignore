@@ -49,3 +49,9 @@ node_modules/
 .e2e/summary.md
 .e2e/logs/
 .e2e/videos/
+
+# お店から届いた写真の元データ（大きいので git に入れない。ショップには scripts/optimize-photos.mjs で縮めたものを管理画面から上げる）
+/images/
+
+# 本番 DB のバックアップ（個人情報を含むので上げない）
+/backups/

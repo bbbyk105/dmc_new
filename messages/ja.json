@@ -5,8 +5,10 @@
         "gallery": "ギャラリー",
         "service": "サービス",
         "blog": "ブログ",
+        "shop": "ショップ",
         "contact": "お問い合わせ",
-        "reserve": "ご予約"
+        "reserve": "ご予約",
+        "legal": "特定商取引法に基づく表記"
     },
     "footer": {
         "company": "DMC.LLC",

@@ -21,7 +21,6 @@ gsap.registerPlugin(useGSAP);
 
 export type MobileNavItem = { href: string; label: string };
 
-const RESERVE_URL = "https://dmcfuji0823.wixsite.com/reservation/en";
 
 /* ------------------------------------------------------------------
    ハンバーガーボタン：2本線が GSAP で × に変形する
@@ -281,15 +280,9 @@ export default function MobileMenu({
 
           {/* フッター：予約・言語・連絡先 */}
           <div className="mm-footer mt-8 flex flex-col gap-6">
-            <a
-              href={RESERVE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={onClose}
-              className="btn-invert"
-            >
+            <Link href={`/${locale}/reserve`} onClick={onClose} className="btn-invert">
               {reserveLabel}
-            </a>
+            </Link>
 
             <div className="flex items-center justify-between">
               <LanguageSwitcher isScrolled={false} />

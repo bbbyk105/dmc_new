@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:e2e": "next build && e2e run",
+    "test:e2e": "node scripts/build-for-e2e.mjs && e2e run",
     "test:unit": "node --test 'lib/**/*.test.mjs'"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.81.0",
     "framer-motion": "^12.23.24",
     "gsap": "^3.15.0",
@@ -21,7 +22,10 @@
     "next-intl": "^4.5.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "resend": "6.37.0"
+    "resend": "6.37.0",
+    "server-only": "^0.0.1",
+    "sharp": "^0.34.5",
+    "stripe": "^23.1.0"
   },
   "devDependencies": {
     "@e2e-dev/web": "0.14.0",

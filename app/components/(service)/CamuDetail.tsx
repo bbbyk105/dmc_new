@@ -484,7 +484,7 @@ export default function CamuDetail() {
       {/* CTA */}
       <section className="border-t border-border py-16">
         <div className="container mx-auto px-6 text-center lg:px-12">
-          <Link href="https://dmcfuji0823.wixsite.com/reservation/en">
+          <Link href={`/${locale}/reserve?service=camu`}>
             <button className="btn-primary px-12">
               {isJa ? "予約する" : "Book Now"}
             </button>

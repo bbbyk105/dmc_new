@@ -28,7 +28,9 @@ export default function Footer() {
     { href: `/${locale}/gallery`, label: t("nav.gallery") },
     { href: `/${locale}/service`, label: t("nav.service") },
     { href: `/${locale}/blog`, label: t("nav.blog") },
+    { href: `/${locale}/shop`, label: t("nav.shop") },
     { href: `/${locale}/contact`, label: t("nav.contact") },
+    { href: `/${locale}/legal/tokushoho`, label: t("nav.legal") },
   ];
 
   return (

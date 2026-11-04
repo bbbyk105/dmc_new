@@ -50,6 +50,7 @@ export default function Header() {
     { href: `/${locale}/service`, label: t("service") },
     { href: `/${locale}/gallery`, label: t("gallery") },
     { href: `/${locale}/blog`, label: t("blog") },
+    { href: `/${locale}/shop`, label: t("shop") },
     { href: `/${locale}/contact`, label: t("contact") },
   ];
 
@@ -116,14 +117,12 @@ export default function Header() {
           })}
 
           {/* Reserve Button（色は墨 1 系統。地が墨の時だけ生成りに反転させる） */}
-          <a
-            href="https://dmcfuji0823.wixsite.com/reservation/en"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href={`/${locale}/reserve`}
             className={`${solid ? "btn-primary" : "btn-invert"} min-h-0 px-6 py-2.5 text-xs`}
           >
             {t("reserve")}
-          </a>
+          </Link>
 
           {/* Language Switcher */}
           <LanguageSwitcher isScrolled={solid} />

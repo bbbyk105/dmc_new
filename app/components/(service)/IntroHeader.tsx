@@ -21,9 +21,7 @@ export default function IntroHeader() {
 
   const t = content[locale as keyof typeof content] || content.ja;
   const reservationUrl =
-    locale === "ja"
-      ? "https://dmcfuji0823.wixsite.com/reservation"
-      : "https://dmcfuji0823.wixsite.com/reservation/en";
+    `/${locale}/reserve`;
 
   return (
     <section className="bg-background py-16 md:py-20">
