@@ -1,15 +1,4 @@
-import nodemailer from "nodemailer";
-
-// メール送信用のトランスポーター作成
-export const createTransporter = () => {
-  return nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  });
-};
+// お問い合わせのメールの文面（送信は lib/mail/resend.ts）
 
 // お問い合わせメールのテンプレート
 export const createContactEmailTemplate = (data: {
