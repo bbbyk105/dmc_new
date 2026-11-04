@@ -8,7 +8,7 @@ import { isUuid } from "@/lib/reserve/validate";
 import { sendOrderPaid } from "@/lib/mail/notify";
 import type { OrderRow } from "@/lib/db/types";
 import { destinationFor } from "@/lib/shop/destination";
-import { formatShippingAddress } from "@/lib/shop/address";
+import { formatShippingAddress, shippingDetailsOf } from "@/lib/shop/address";
 import { clientKeyOf, newCode, newReleaseToken } from "./ids";
 
 export type StartOrderResult =
@@ -139,7 +139,7 @@ export async function startOrderCheckout(
 /** 支払いの済んだ Checkout のセッションで注文を支払い済みにする。Webhook と完了ページの両方から呼ぶ */
 export async function completeOrderSession(session: Stripe.Checkout.Session): Promise<void> {
   if (session.payment_status !== "paid") return;
-  const shipping = session.collected_information?.shipping_details;
+  const shipping = shippingDetailsOf(session);
   const { data, error } = await supabaseAdmin().rpc("mark_order_paid", {
     p_session_id: session.id,
     p_payment_intent_id: paymentIntentId(session),
