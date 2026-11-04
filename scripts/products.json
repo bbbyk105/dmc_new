@@ -1,0 +1,150 @@
+{
+  "note": "ショップの商品（2026-11-02 に届いた写真から）。値段は仮。在庫 0（売り切れ）で公開する。写真は images/web/（scripts/optimize-photos.mjs で縮めたもの）。紹介文は写真から書いたもので、素材の内訳・サイズ・お手入れはお店に確認して足す",
+  "products": [
+    {
+      "slug": "pouch-red-floral",
+      "name_ja": "ポーチ（朱・花柄）",
+      "name_en": "Pouch (vermilion floral)",
+      "price": 3000,
+      "stock": 0,
+      "sort": 10,
+      "images": [
+        "4E1A2380.webp",
+        "4E1A2374.webp",
+        "4E1A2496.webp"
+      ],
+      "description_ja": "朱色の地に、白と淡い桃色の大きな花が並ぶ着物の生地で仕立てたポーチです。口元には黒地に金の柄の生地を切り替え、金のファスナーで開け閉めします。化粧品や筆記具など、かばんの中の小物をまとめるのに。\n\n着物の生地から仕立てているため、柄の出方や色の濃さは一つずつ異なります。画面の設定によって、実物と色味が違って見えることがあります。",
+      "description_en": "A zip pouch made from kimono fabric with large white and pale pink flowers on a vermilion ground. The top is trimmed with black-and-gold fabric and closes with a gold zipper. Handy for keeping cosmetics and small things together in your bag.\n\nBecause each piece is made from kimono fabric, the placement and depth of the pattern vary from piece to piece. Colors may look slightly different depending on your screen."
+    },
+    {
+      "slug": "pouch-black-gold",
+      "name_ja": "ポーチ（黒と金・房つき）",
+      "name_en": "Pouch with tassel (black and gold)",
+      "price": 3000,
+      "stock": 0,
+      "sort": 20,
+      "images": [
+        "4E1A2382.webp",
+        "4E1A2385.webp",
+        "4E1A2496.webp"
+      ],
+      "description_ja": "黒地に色とりどりの花が咲く着物の生地と、金の生地を斜めに切り替えたポーチです。赤いファスナーの引き手に、紫の房を付けています。\n\n着物の生地から仕立てているため、柄の出方や色の濃さは一つずつ異なります。画面の設定によって、実物と色味が違って見えることがあります。",
+      "description_en": "A pouch that pairs kimono fabric with colorful flowers on black and a gold fabric, joined on the diagonal. A purple tassel hangs from the red zipper pull.\n\nBecause each piece is made from kimono fabric, the placement and depth of the pattern vary from piece to piece. Colors may look slightly different depending on your screen."
+    },
+    {
+      "slug": "pouch-gold-floral",
+      "name_ja": "ポーチ（金・花柄・房つき）",
+      "name_en": "Pouch with tassel (gold floral)",
+      "price": 3000,
+      "stock": 0,
+      "sort": 30,
+      "images": [
+        "4E1A2391.webp",
+        "4E1A2491.webp"
+      ],
+      "description_ja": "金の地に、黄色や緑で大きな花をあしらった着物の生地のポーチです。丸みのある形で、ファスナーの引き手に紫の房を付けています。\n\n着物の生地から仕立てているため、柄の出方や色の濃さは一つずつ異なります。画面の設定によって、実物と色味が違って見えることがあります。",
+      "description_en": "A rounded pouch made from kimono fabric with large yellow and green flowers on a gold ground, finished with a purple tassel on the zipper pull.\n\nBecause each piece is made from kimono fabric, the placement and depth of the pattern vary from piece to piece. Colors may look slightly different depending on your screen."
+    },
+    {
+      "slug": "tote-gold-floral",
+      "name_ja": "トートバッグ（金地・花の丸）",
+      "name_en": "Tote bag (gold with floral roundels)",
+      "price": 8000,
+      "stock": 0,
+      "sort": 40,
+      "images": [
+        "4E1A2399.webp",
+        "4E1A2402.webp",
+        "4E1A2482.webp"
+      ],
+      "description_ja": "金の地に、赤や青の花を丸くまとめた柄が散る着物の生地で仕立てたトートバッグです。黒の持ち手で、華やかな柄を引き締めています。\n\n着物の生地から仕立てているため、柄の出方や色の濃さは一つずつ異なります。画面の設定によって、実物と色味が違って見えることがあります。",
+      "description_en": "A tote bag made from kimono fabric scattered with red and blue floral roundels on a gold ground. Black handles balance the bright pattern.\n\nBecause each piece is made from kimono fabric, the placement and depth of the pattern vary from piece to piece. Colors may look slightly different depending on your screen."
+    },
+    {
+      "slug": "tote-gold-silver-wave",
+      "name_ja": "トートバッグ（金と銀の波）",
+      "name_en": "Tote bag (gold and silver waves)",
+      "price": 8000,
+      "stock": 0,
+      "sort": 50,
+      "images": [
+        "4E1A2409.webp",
+        "4E1A2482.webp"
+      ],
+      "description_ja": "金の生地と、銀と黒の細かな柄の生地を、波のような線で切り替えたトートバッグです。色数を抑えた組み合わせなので、洋服にも合わせやすい一枚です。\n\n着物の生地から仕立てているため、柄の出方や色の濃さは一つずつ異なります。画面の設定によって、実物と色味が違って見えることがあります。",
+      "description_en": "A tote bag that joins a gold fabric and a fine silver-and-black patterned fabric along a wave-like line. The restrained colors go easily with everyday clothes.\n\nBecause each piece is made from kimono fabric, the placement and depth of the pattern vary from piece to piece. Colors may look slightly different depending on your screen."
+    },
+    {
+      "slug": "tote-teal-crane",
+      "name_ja": "トートバッグ（青緑・鶴）",
+      "name_en": "Tote bag (teal with cranes)",
+      "price": 8000,
+      "stock": 0,
+      "sort": 60,
+      "images": [
+        "4E1A2415.webp",
+        "4E1A2482.webp"
+      ],
+      "description_ja": "青緑の地に、金の丸紋と白い鶴が舞う着物の生地のトートバッグです。鶴は長寿を願う吉祥の柄として、着物に多く使われてきました。\n\n着物の生地から仕立てているため、柄の出方や色の濃さは一つずつ異なります。画面の設定によって、実物と色味が違って見えることがあります。",
+      "description_en": "A tote bag made from kimono fabric with white cranes and gold roundels on a teal ground. Cranes have long been used on kimono as an auspicious motif wishing for long life.\n\nBecause each piece is made from kimono fabric, the placement and depth of the pattern vary from piece to piece. Colors may look slightly different depending on your screen."
+    },
+    {
+      "slug": "tote-red-floral",
+      "name_ja": "トートバッグ（朱と茶・花柄）",
+      "name_en": "Tote bag (vermilion and brown floral)",
+      "price": 8000,
+      "stock": 0,
+      "sort": 70,
+      "images": [
+        "4E1A2422.webp",
+        "4E1A2482.webp"
+      ],
+      "description_ja": "茶から朱へと色が移る地に、白や淡い桃色の花が咲く着物の生地のトートバッグです。色合いの近いテーブルマットもあります。\n\n着物の生地から仕立てているため、柄の出方や色の濃さは一つずつ異なります。画面の設定によって、実物と色味が違って見えることがあります。",
+      "description_en": "A tote bag made from kimono fabric with white and pale pink flowers on a ground that shifts from brown to vermilion. A table mat in similar colors is also available.\n\nBecause each piece is made from kimono fabric, the placement and depth of the pattern vary from piece to piece. Colors may look slightly different depending on your screen."
+    },
+    {
+      "slug": "tote-black-gold",
+      "name_ja": "トートバッグ（黒と金・花柄）",
+      "name_en": "Tote bag (black and gold floral)",
+      "price": 8000,
+      "stock": 0,
+      "sort": 80,
+      "images": [
+        "4E1A2424.webp",
+        "4E1A2438.webp",
+        "4E1A2482.webp"
+      ],
+      "description_ja": "黒地に花や扇の柄が入った着物の生地と、金の生地を斜めに切り替えたトートバッグです。色を揃えたポーチ（黒と金・房つき）もあります。\n\n着物の生地から仕立てているため、柄の出方や色の濃さは一つずつ異なります。画面の設定によって、実物と色味が違って見えることがあります。",
+      "description_en": "A tote bag that pairs kimono fabric with flowers and folding fans on black and a gold fabric, joined on the diagonal. A matching pouch (black and gold, with tassel) is also available.\n\nBecause each piece is made from kimono fabric, the placement and depth of the pattern vary from piece to piece. Colors may look slightly different depending on your screen."
+    },
+    {
+      "slug": "mat-red-floral",
+      "name_ja": "テーブルマット（朱と茶・花柄）",
+      "name_en": "Table mat (vermilion and brown floral)",
+      "price": 4000,
+      "stock": 0,
+      "sort": 90,
+      "images": [
+        "4E1A2441.webp",
+        "4E1A2449.webp",
+        "4E1A2457.webp"
+      ],
+      "description_ja": "茶から朱へと色が移る地に、白や淡い桃色の花が咲く着物の生地のテーブルマットです。カップやお皿の下に敷いて、お茶の時間に。\n\n着物の生地から仕立てているため、柄の出方や色の濃さは一つずつ異なります。画面の設定によって、実物と色味が違って見えることがあります。",
+      "description_en": "A table mat made from kimono fabric with white and pale pink flowers on a ground that shifts from brown to vermilion. Lay it under a cup or plate for tea time.\n\nBecause each piece is made from kimono fabric, the placement and depth of the pattern vary from piece to piece. Colors may look slightly different depending on your screen."
+    },
+    {
+      "slug": "mat-teal-gold",
+      "name_ja": "テーブルマット（青緑と金）",
+      "name_en": "Table mat (teal and gold)",
+      "price": 4000,
+      "stock": 0,
+      "sort": 100,
+      "images": [
+        "4E1A2454.webp",
+        "4E1A2457.webp"
+      ],
+      "description_ja": "青緑と黒の地に、金の丸紋が並ぶ着物の生地のテーブルマットです。食卓のほか、花瓶や置物の下に敷いて棚や玄関の飾りにも。\n\n着物の生地から仕立てているため、柄の出方や色の濃さは一つずつ異なります。画面の設定によって、実物と色味が違って見えることがあります。",
+      "description_en": "A table mat made from kimono fabric with gold roundels on a teal and black ground. Use it on the table, or under a vase or ornament on a shelf or in the entryway.\n\nBecause each piece is made from kimono fabric, the placement and depth of the pattern vary from piece to piece. Colors may look slightly different depending on your screen."
+    }
+  ]
+}

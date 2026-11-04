@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  createTransporter,
-  createContactEmailTemplate,
-  createAutoReplyTemplate,
-} from "@/lib/email";
+import { createContactEmailTemplate, createAutoReplyTemplate } from "@/lib/email";
+import { mailFrom, resendClient, sendViaResend, shopInbox } from "@/lib/mail/resend";
 
 type ContactFormData = {
   name: string;
@@ -63,7 +60,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    const contactEmail = createContactEmailTemplate(body);
+    const autoReply = createAutoReplyTemplate(body.name, body.locale);
+    const mails = [
+      // お店へ（返信するとお客さまに届く）
+      { to: shopInbox(), subject: contactEmail.subject, text: contactEmail.text, html: contactEmail.html, replyTo: body.email },
+      // お客さまへの自動返信（返信するとお店に届く）
+      { to: body.email, subject: autoReply.subject, text: autoReply.text, html: autoReply.html, replyTo: shopInbox() },
+    ];
+
+    // 手元の確認では送らずにログへ出す（予約・注文のメールと同じ）
+    if (process.env.MAIL_MODE === "log") {
+      for (const m of mails) console.info(`[mail] to=${m.to} subject=${m.subject}`);
+      return NextResponse.json({ success: true, message: "Email logged" }, { status: 200 });
+    }
+
+    // メールは Resend で送る（RESEND_API_KEY が無いと送れない）
+    const client = resendClient();
+    if (!client) {
       return NextResponse.json(
         {
           success: false,
@@ -73,29 +87,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const transporter = createTransporter();
-    await transporter.verify();
-
-    const contactEmail = createContactEmailTemplate(body);
-    const autoReply = createAutoReplyTemplate(body.name, body.locale);
-
-    await Promise.all([
-      transporter.sendMail({
-        from: `"DMC Contact Form" <${process.env.GMAIL_USER}>`,
-        to: process.env.CONTACT_EMAIL || process.env.GMAIL_USER,
-        subject: contactEmail.subject,
-        text: contactEmail.text,
-        html: contactEmail.html,
-        replyTo: body.email,
-      }),
-      transporter.sendMail({
-        from: `"DMC" <${process.env.GMAIL_USER}>`,
-        to: body.email,
-        subject: autoReply.subject,
-        text: autoReply.text,
-        html: autoReply.html,
-      }),
-    ]);
+    await sendViaResend(mails, { client, from: mailFrom() });
 
     return NextResponse.json(
       {

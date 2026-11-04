@@ -3,6 +3,10 @@ import { locales } from "@/i18n";
 import { getSiteUrl } from "@/lib/seo";
 import { fetchBlogList } from "@/lib/microcms";
 import { pageRoutes } from "@/lib/routes";
+import { getActiveProducts } from "@/lib/db/shop";
+
+// 管理画面で足した商品・新しいブログ記事を、デプロイし直さなくても載せる（1 時間ごとに作り直す）
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getSiteUrl();
@@ -31,5 +35,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  return [...staticEntries, ...blogEntries];
+  // ショップの商品（読めなければ商品だけ外し、ほかのページの sitemap は出す）
+  const products = await getActiveProducts().catch((error) => {
+    console.error("[sitemap] 商品を読めませんでした", error);
+    return [];
+  });
+  const productEntries = locales.flatMap((locale) =>
+    products.map((product) => ({
+      url: `${baseUrl}/${locale}/shop/${product.slug}`,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+      lastModified: new Date(product.updated_at),
+    })),
+  );
+
+  return [...staticEntries, ...blogEntries, ...productEntries];
 }

@@ -35,14 +35,9 @@ export default function CtaSection() {
             : "Booking and consultation are always welcome — we will plan around your dates and preferred locations."}
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8">
-          <a
-            href="https://dmcfuji0823.wixsite.com/reservation/en"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary px-11"
-          >
+          <Link href={`/${locale}/reserve`} className="btn-primary px-11">
             {isJa ? "ご予約はこちら" : "Reserve a Session"}
-          </a>
+          </Link>
           <Link
             href={`/${locale}/contact`}
             className="inline-block border-b border-border pb-1.5 font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-text transition-colors duration-300 hover:border-text"

@@ -142,10 +142,11 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWeb) }}
         />
       </head>
-      <body className="min-h-screen bg-background antialiased">
+      {/* 中身の短いページでも、フッターを画面の下まで届かせる（main が残りの高さを埋める） */}
+      <body className="flex min-h-screen flex-col bg-background antialiased">
         <NextIntlClientProvider messages={messages}>
           <Header />
-          <main>{children}</main>
+          <main className="flex-1">{children}</main>
           <Footer />
         </NextIntlClientProvider>
       </body>

@@ -5,8 +5,10 @@
         "gallery": "Gallery",
         "service": "Service",
         "blog": "Blog",
+        "shop": "Shop",
         "contact": "Contact",
-        "reserve": "Reserve"
+        "reserve": "Reserve",
+        "legal": "Legal Notice"
     },
     "footer": {
         "company": "DMC.LLC",

@@ -1,5 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
+import { createServerClient } from "@supabase/ssr";
 import { locales, defaultLocale } from "./i18n";
 import { isPagePath } from "./lib/routes";
 
@@ -12,8 +13,38 @@ const handleI18nRouting = createMiddleware({
   alternateLinks: false,
 });
 
-export default function proxy(request: NextRequest) {
+/**
+ * 管理画面（/admin）は多言語のリダイレクトに乗せず、Supabase Auth のトークンを更新して Cookie に書き戻す
+ * （Server Component からは Cookie を書けないため、ここで行う）。検索にも出さない
+ */
+async function refreshAdminSession(request: NextRequest): Promise<NextResponse> {
+  let response = NextResponse.next({ request });
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (url && key) {
+    const supabase = createServerClient(url, key, {
+      cookies: {
+        getAll: () => request.cookies.getAll(),
+        setAll: (list) => {
+          list.forEach(({ name, value }) => request.cookies.set(name, value));
+          response = NextResponse.next({ request });
+          list.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+        },
+      },
+    });
+    await supabase.auth.getUser();
+  }
+  response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
+}
+
+export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+    return refreshAdminSession(request);
+  }
 
   // 末尾スラッシュ（/about/・/ja/about/）は外してからロケールを決め、1 回のリダイレクトで正規の URL へ送る。
   // Next 本体の 308（/about/ → /about）は next.config の skipTrailingSlashRedirect で止めてある
