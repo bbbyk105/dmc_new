@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
   // proxy の matcher の外（/api/*、/sitemap.xml などの拡張子つき）は末尾スラッシュを外さなくなる（/sitemap.xml/ が 200 になる）が、
   // 外から使われる URL ではないので許容する
   skipTrailingSlashRedirect: true,
+  // next dev が AI 向けの AGENTS.md を自動で作らないようにする（AGENTS.md は人が書く指示の置き場として使う）
+  agentRules: false,
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 2560, 3200, 3840],
