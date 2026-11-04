@@ -42,33 +42,31 @@ export default function AboutContent() {
   const locale = useLocale();
   const isJa = locale === "ja";
 
+  // フライヤーの DMC = Dad · Mom · Child（会社＝父、スタッフ＝母、商品とサービス＝子）を、お店で実際にしていることで書く
   const story = [
     {
       letter: "D",
-      word: "DAD",
-      en: "Building the future.",
-      ja: "未来を築く力。",
+      word: "Dad",
+      ja: "父",
       body: isJa
-        ? "会社は、家族を支える父のように。"
-        : "The company stands like a father who supports the family, building what comes next.",
+        ? ["父が家族を支えるように、会社はお店とスタッフを支えます。", "何年先も、この場所でお迎えできるように。"]
+        : ["Like a father supporting his family, the company supports the studio and our staff, so we can keep welcoming you here for years to come."],
     },
     {
       letter: "M",
-      word: "MOM",
-      en: "Connecting hearts.",
-      ja: "心をつなぐ優しさ。",
+      word: "Mom",
+      ja: "母",
       body: isJa
-        ? "スタッフは、母のような優しさでお客様をお迎えします。"
-        : "Our staff welcome every guest with the warmth of a mother.",
+        ? ["スタッフは母のような気持ちでお迎えします。", "着物が初めての方にも、着付けから撮影までそばについてご案内します。"]
+        : ["Our staff welcome you the way a mother would. If it is your first time in kimono, we stay with you from dressing to the photo shoot."],
     },
     {
       letter: "C",
-      word: "CHILD",
-      en: "Nurturing products & experiences.",
-      ja: "大切に育てる商品と感動。",
+      word: "Child",
+      ja: "子",
       body: isJa
-        ? "一つひとつの商品とサービスを、子どものように大切に育てます。"
-        : "We raise each product and experience with the care given to a child.",
+        ? ["撮影のプランも、着物の布を使った小物も、", "子どもを育てるように一つずつ手をかけています。"]
+        : ["We look after each photo plan, and each item made with kimono fabric, the way you would raise a child."],
     },
   ];
 
@@ -174,7 +172,7 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* ───────── Our Story：D / M / C ───────── */}
+      {/* ───────── 名前の由来：D / M / C ───────── */}
       <section className="py-24 md:py-32" style={{ backgroundColor: PAPER }}>
         <div className="mx-auto max-w-[1200px] px-5 md:px-6">
           <motion.div {...fadeUp} transition={{ duration: 0.7 }}>
@@ -182,56 +180,59 @@ export default function AboutContent() {
               className="font-serif text-[11px] uppercase tracking-[0.34em]"
               style={{ color: MUTED }}
             >
-              D · M · C
+              Our Name
             </p>
             <h2
-              className="mt-5 font-mincho text-[1.6rem] font-medium tracking-[0.08em] md:text-3xl"
+              className="mt-5 font-mincho text-[1.6rem] font-medium leading-[1.6] tracking-[0.08em] md:text-3xl"
               style={{ color: INK }}
             >
-              {isJa ? "名前に込めた、三つの想い" : "Three wishes in our name"}
+              {isJa ? (
+                <>
+                  DMC は、<span className="whitespace-nowrap">Dad・Mom・Child</span> の頭文字です
+                </>
+              ) : (
+                "DMC stands for Dad, Mom, Child"
+              )}
             </h2>
+            <p className="mt-5 font-['Noto_Sans_JP'] text-sm leading-8 tracking-[0.02em] text-text-muted">
+              {isJa ? "お店をひとつの家族にたとえて、つけた名前です。" : "We named our studio after a family."}
+            </p>
           </motion.div>
 
-          <div className="mt-14 grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8">
+          <ul className="mt-14 border-b" style={{ borderColor: LINE }}>
             {story.map((s, i) => (
-              <motion.article
+              <motion.li
                 key={s.word}
                 {...fadeUp}
                 transition={{ duration: 0.8, delay: i * 0.12 }}
-                className="relative border-t pt-8"
+                className="grid grid-cols-[3.5rem_1fr] gap-x-5 border-t py-8 md:grid-cols-[7rem_9rem_1fr] md:items-baseline md:gap-x-10 md:py-10"
                 style={{ borderColor: LINE }}
               >
                 <span
-                  className="pointer-events-none absolute -top-6 right-0 select-none font-serif text-[6.5rem] leading-none"
-                  style={{ color: LINE }}
+                  className="row-span-2 font-serif text-5xl leading-none md:row-span-1 md:text-6xl"
+                  style={{ color: INK }}
                   aria-hidden="true"
                 >
                   {s.letter}
                 </span>
-                <p
-                  className="font-serif text-xs uppercase tracking-[0.3em]"
-                  style={{ color: MUTED }}
-                >
-                  {s.letter} = {s.word}
+                <p className="font-serif text-xs uppercase tracking-[0.3em]" style={{ color: MUTED }}>
+                  {s.word}
+                  {isJa && <span className="ml-3 font-mincho tracking-[0.2em]">{s.ja}</span>}
                 </p>
+                {/* 広い画面では一文ずつ改行する（文の途中で折り返さない） */}
                 <p
-                  className="mt-4 font-serif text-sm uppercase tracking-[0.12em]"
+                  className="mt-3 max-w-3xl font-mincho text-[15px] leading-8 tracking-[0.04em] md:mt-0 md:text-base md:leading-9"
                   style={{ color: INK }}
                 >
-                  {s.en}
+                  {s.body.map((line) => (
+                    <span key={line} className="lg:block">
+                      {line}
+                    </span>
+                  ))}
                 </p>
-                <h3
-                  className="mt-3 font-mincho text-xl font-medium tracking-[0.06em] md:text-2xl"
-                  style={{ color: INK }}
-                >
-                  {s.ja}
-                </h3>
-                <p className="mt-4 font-['Noto_Sans_JP'] text-sm leading-8 tracking-[0.02em] text-text-muted">
-                  {s.body}
-                </p>
-              </motion.article>
+              </motion.li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
