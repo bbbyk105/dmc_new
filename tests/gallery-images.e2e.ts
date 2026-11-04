@@ -8,8 +8,10 @@ import { expect, test } from "e2e";
  * Supabase を落とすことはできないので、Supabase の URL を fetch が接続しないポート（9。fetch の仕様で禁止）にして、届かない状態を作る。
  */
 test("Supabase に届かないときは、空配列ではなく失敗を返す", async () => {
+  process.env.SUPABASE_URL = "http://127.0.0.1:9";
   process.env.NEXT_PUBLIC_SUPABASE_URL = "http://127.0.0.1:9";
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "test";
+  // 一覧はサーバーだけで、秘密の鍵で読む（ブラウザに出る NEXT_PUBLIC_ の鍵は使わない）
+  process.env.SUPABASE_SERVICE_ROLE_KEY = "test";
   const { getAllGalleryImages } = await import("../lib/supabase");
 
   const outcome = await getAllGalleryImages().then(

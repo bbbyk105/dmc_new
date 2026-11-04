@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Lightbox from "./Lightbox";
-import { getAllGalleryImages, GalleryImage } from "@/lib/supabase";
+// 型だけを読む。写真の一覧はサーバー（page.tsx）が読んで渡す。ブラウザから Supabase には行かない
+import type { GalleryImage } from "@/lib/supabase";
 
 interface GalleryGridProps {
   activeCategory: string;
@@ -16,42 +17,16 @@ export default function GalleryGrid({
   initialImages,
 }: GalleryGridProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const [allImages, setAllImages] = useState<GalleryImage[]>(initialImages);
-  const [loadingList, setLoadingList] = useState(initialImages.length === 0);
+  const allImages = initialImages;
   const [imageLoadErrors, setImageLoadErrors] = useState<Set<string>>(
     new Set()
   );
-  const [currentPage, setCurrentPage] = useState(1);
+  // ページはカテゴリと組で持つ。カテゴリが変わったら 1 ページ目に戻る
+  const [paging, setPaging] = useState({ category: activeCategory, page: 1 });
+  const currentPage = paging.category === activeCategory ? paging.page : 1;
 
-  // ▼ ローダー制御（Filter直下に表示）
-  const [showLoader, setShowLoader] = useState(true);
-  // 画面幅に応じて「先頭何枚を eager にするか」
-  const [eagerCount, setEagerCount] = useState(3); // 初期はモバイル想定
-
-  useEffect(() => {
-    const w = window.innerWidth;
-    // sm未満:3, md未満:4, それ以上:6 くらいが体感バランス良い
-    setEagerCount(w < 640 ? 3 : w < 1024 ? 4 : 6);
-  }, []);
-
-  // 初回 & 再取得（安全のため）
-  useEffect(() => {
-    if (initialImages.length > 0) {
-      setLoadingList(false);
-      return;
-    }
-    (async () => {
-      setLoadingList(true);
-      try {
-        const images = await getAllGalleryImages();
-        setAllImages(images);
-      } catch (e) {
-        console.error("Error fetching gallery images:", e);
-      } finally {
-        setLoadingList(false);
-      }
-    })();
-  }, [initialImages]);
+  // 画面幅に応じて「先頭何枚を eager にするか」（サーバーではモバイル想定の 3）
+  const eagerCount = useSyncExternalStore(subscribeResize, eagerCountForWindow, () => 3);
 
   // フィルター
   const filteredImages = useMemo(
@@ -71,24 +46,20 @@ export default function GalleryGrid({
     startIndex + imagesPerPage
   );
 
-  // 先頭N枚の読み込みカウント（lazy待ちで詰まらないように）
-  const [loadedEagerCount, setLoadedEagerCount] = useState(0);
+  // 先頭N枚の読み込みカウント（lazy待ちで詰まらないように）。
+  // ページ・フィルターが変わったら数え直すので、いま見ている並び（view）ごとに持つ
   const targetEager = Math.min(eagerCount, currentImages.length);
+  const view = `${startIndex}|${activeCategory}|${filteredImages.length}|${eagerCount}`;
+  const [loaded, setLoaded] = useState({ view, count: 0 });
+  const loadedEagerCount = loaded.view === view ? loaded.count : 0;
+  const countLoaded = () => setLoaded((prev) => ({ view, count: (prev.view === view ? prev.count : 0) + 1 }));
 
-  // カテゴリ変更時は1ページ目に戻す
+  // 1.8秒フォールバック：ネットが遅くても表示を開始
+  const [timedOutView, setTimedOutView] = useState<string | null>(null);
   useEffect(() => {
-    setCurrentPage(1);
-  }, [activeCategory]);
-
-  // ページ/フィルター変更時にリセット & フォールバックタイマー
-  useEffect(() => {
-    setLoadedEagerCount(0);
-    setShowLoader(true);
-
-    // 1.8秒フォールバック：ネットが遅くても表示を開始
-    const t = setTimeout(() => setShowLoader(false), 1800);
+    const t = setTimeout(() => setTimedOutView(view), 1800);
     return () => clearTimeout(t);
-  }, [startIndex, activeCategory, filteredImages.length, eagerCount]);
+  }, [view]);
 
   const handleImageError = (imageId: string, idx: number) => {
     setImageLoadErrors((prev) => {
@@ -97,20 +68,19 @@ export default function GalleryGrid({
       return next;
     });
     // エラーでも eager 対象ならカウントを進める
-    if (idx < targetEager) setLoadedEagerCount((c) => c + 1);
+    if (idx < targetEager) countLoaded();
   };
 
   const handleImageLoaded = (idx: number) => {
-    if (idx < targetEager) setLoadedEagerCount((c) => c + 1);
+    if (idx < targetEager) countLoaded();
   };
 
   // 表示判定：先頭N枚が読み込み完了 or フォールバック経過
-  const readyToShow =
-    !loadingList && (loadedEagerCount >= targetEager || !showLoader);
+  const readyToShow = loadedEagerCount >= targetEager || timedOutView === view;
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
-    setCurrentPage(page);
+    setPaging({ category: activeCategory, page });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -282,4 +252,15 @@ export default function GalleryGrid({
       )}
     </>
   );
+}
+
+function subscribeResize(onChange: () => void) {
+  window.addEventListener("resize", onChange);
+  return () => window.removeEventListener("resize", onChange);
+}
+
+/** sm未満:3, md未満:4, それ以上:6 くらいが体感バランス良い */
+function eagerCountForWindow() {
+  const w = window.innerWidth;
+  return w < 640 ? 3 : w < 1024 ? 4 : 6;
 }

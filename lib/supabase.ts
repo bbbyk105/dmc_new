@@ -1,12 +1,19 @@
 // lib/supabase.ts
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: { persistSession: false },
-});
+/**
+ * ギャラリーの写真の一覧は、サーバー（page.tsx）だけで読む。
+ * バケットの一覧は公開用の鍵（publishable）では読めないので、秘密の鍵（SUPABASE_SERVICE_ROLE_KEY）を使う。
+ * NEXT_PUBLIC_ でない変数なので、ブラウザ向けの JS には入らない。ブラウザの部品はここから型だけを読む
+ */
+function storageClient() {
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    throw new Error("NEXT_PUBLIC_SUPABASE_URL と SUPABASE_SERVICE_ROLE_KEY を設定してください");
+  }
+  return createClient(url, key, { auth: { persistSession: false } });
+}
 
 export interface GalleryImage {
   id: string;
@@ -30,6 +37,7 @@ export async function getImagesFromFolder(
   category: string
 ): Promise<GalleryImage[]> {
   try {
+    const supabase = storageClient();
     const { data, error } = await supabase.storage
       .from(bucketName)
       .list(folderPath, {
