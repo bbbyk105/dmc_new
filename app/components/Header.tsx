@@ -13,13 +13,9 @@ export default function Header() {
   const t = useTranslations("nav");
   const locale = useLocale();
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // 透明ヘッダー（白文字）はダークヒーローのあるトップページだけ。
-  // 他ページは白背景に重なるため、最初からソリッド表示にする。
   const isHome = pathname === `/${locale}` || pathname === `/${locale}/`;
-  const solid = isScrolled || !isHome;
 
   // ページ遷移したらメニューを閉じる（前回の pathname を state に持ち、レンダー中に比較して閉じる）
   const [menuPathname, setMenuPathname] = useState(pathname);
@@ -29,12 +25,6 @@ export default function Header() {
   }
 
   const closeMobileMenu = useCallback(() => setIsMobileMenuOpen(false), []);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // 背景スクロール制限
   useEffect(() => {
@@ -57,11 +47,7 @@ export default function Header() {
   // ヘッダーの見た目。メニュー展開中は透明にして、墨のパネルの上にロゴとボタンだけを残す
   const headerSkin = isMobileMenuOpen
     ? "bg-transparent"
-    : solid
-    ? "border-b border-border bg-background/95 backdrop-blur-sm"
-    : "bg-transparent";
-  // ロゴ・ハンバーガーを白抜きにする条件（透明ヘッダー時 or メニュー展開中）
-  const onDark = !solid || isMobileMenuOpen;
+    : "border-b border-border bg-background/95 backdrop-blur-sm";
 
   return (
     <header
@@ -80,7 +66,7 @@ export default function Header() {
               alt="DMC FUJI - 富士市の着物撮影スタジオ"
               fill
               className={`object-contain transition-all duration-300 ${
-                onDark ? "brightness-0 invert" : ""
+                isMobileMenuOpen ? "brightness-0 invert" : ""
               }`}
               priority
             />
@@ -102,13 +88,7 @@ export default function Header() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={`font-['Noto_Sans_JP'] text-sm font-medium uppercase tracking-wider transition-colors ${
-                  solid
-                    ? active
-                      ? "text-text"
-                      : "text-text-muted hover:text-text"
-                    : active
-                    ? "text-background"
-                    : "text-background/60 hover:text-background"
+                  active ? "text-text" : "text-text-muted hover:text-text"
                 }`}
               >
                 {item.label}
@@ -116,23 +96,23 @@ export default function Header() {
             );
           })}
 
-          {/* Reserve Button（色は墨 1 系統。地が墨の時だけ生成りに反転させる） */}
+          {/* Reserve Button（色は墨 1 系統） */}
           <Link
             href={`/${locale}/reserve`}
-            className={`${solid ? "btn-primary" : "btn-invert"} min-h-0 px-6 py-2.5 text-xs`}
+            className="btn-primary min-h-0 px-6 py-2.5 text-xs"
           >
             {t("reserve")}
           </Link>
 
           {/* Language Switcher */}
-          <LanguageSwitcher isScrolled={solid} />
+          <LanguageSwitcher isScrolled />
         </div>
 
         {/* Mobile Menu Button（GSAP で × に変形） */}
         <HamburgerButton
           open={isMobileMenuOpen}
           onClick={() => setIsMobileMenuOpen((v) => !v)}
-          light={onDark}
+          light={isMobileMenuOpen}
           locale={locale}
         />
       </nav>

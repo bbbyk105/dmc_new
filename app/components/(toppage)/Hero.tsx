@@ -10,10 +10,10 @@ import { useLocale } from "next-intl";
  *
  * 写真には一切手を入れない（暗幕・ぼかし・帯・プレートなし）。
  * 代わりに、着物写真の3カラムが流れるウォールを右 2/3（モバイルは上半分）に寄せ、
- * -4° の回転でできる斜めの縁をそのまま見せる。文字は左側の墨の地に左揃えで置き、
- * 大見出しの端だけが写真に食い込むコリジョンで一枚の構図にする。
+ * -4° の回転でできる斜めの縁をそのまま見せる。地はサイト全体と同じ生成りの紙で、
+ * 文字は左側に左揃えで置き、写真には重ねない。
  * ドリフトは CSS keyframes（globals.css の .hero-drift-*）で駆動。
- * ホバーするとそのカラムの流れが止まり、写真が少し拡大して完全な明るさになり、キャプションが出る。
+ * ホバーするとそのカラムの流れが止まり、写真が少し拡大して、写真の下の余白に説明文が出る。
  */
 
 type Lang = "ja" | "en";
@@ -114,7 +114,7 @@ const TILES = {
  * 列の長さはドリフト時間（globals.css）と釣り合わせてある。
  */
 const WALL_COLUMNS: Tile[][] = [
-  // 左列: 大見出しの端が触れるので、左端が静かなカット（風景・空間・被写体が中央）
+  // 左列: 文字の隣に来るので、静かなカット（風景・空間・被写体が中央）
   [TILES.fuji, TILES.studio, TILES.rack, TILES.chloe, TILES.entrance, TILES.counter],
   // 中央列: 看板写真（茶畑×富士×着物）と神社・白無垢
   [TILES.camu, TILES.shrine, TILES.uchikake, TILES.shiromuku, TILES.cafe],
@@ -141,27 +141,28 @@ function WallColumn({
         {doubled.map((tile, i) => (
           <div
             key={`${tile.src}-${i}`}
-            className="group relative aspect-[3/4] w-full shrink-0 overflow-hidden"
+            className="group relative aspect-[3/4] w-full shrink-0"
           >
-            <Image
-              src={tile.src}
-              alt=""
-              fill
-              sizes="(min-width: 768px) 24vw, 58vw"
-              quality={85}
-              priority={i < 2}
-              className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
-              style={{ objectPosition: tile.pos }}
-            />
-            {/* ほんのり墨（10%）。ホバーで消えて写真本来の明るさに */}
+            <div className="absolute inset-0 overflow-hidden">
+              {/*
+                枠は 3:4 で写真の多くは 3:2 なので、object-cover で枠の幅の約 2 倍まで拡大される。
+                sizes は枠の幅ではなく、この拡大後の幅で指定する（枠の幅のままだと解像度が足りず潰れて見える）
+              */}
+              <Image
+                src={tile.src}
+                alt=""
+                fill
+                sizes="(min-width: 768px) 42vw, 100vw"
+                quality={85}
+                priority={i < 2}
+                className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                style={{ objectPosition: tile.pos }}
+              />
+            </div>
+            {/* ホバー時の説明文。写真の上に箱を置かず、写真の下の余白に出す */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-text/10 transition-opacity duration-700 group-hover:opacity-0"
-            />
-            {/* ホバー時のキャプション */}
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute bottom-4 left-4 translate-y-2 bg-background/92 px-3 py-1.5 font-['Noto_Sans_JP'] text-[11px] tracking-[0.2em] text-text opacity-0 backdrop-blur-sm transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100 md:bottom-5 md:left-5"
+              className="pointer-events-none absolute left-0 top-full pt-1.5 font-['Noto_Sans_JP'] text-[11px] leading-none tracking-[0.2em] text-text-muted opacity-0 transition-opacity duration-500 group-hover:opacity-100"
             >
               {tile.label[lang]}
             </span>
@@ -212,14 +213,11 @@ export default function Hero() {
 
   const t = content[lang];
 
-  // 見出しの端が写真に食い込む部分のための、ごく柔らかい影（面としては見えない）
-  const headlineShadow =
-    "0 2px 32px color-mix(in srgb, var(--color-text) 55%, transparent), 0 1px 2px color-mix(in srgb, var(--color-text) 35%, transparent)";
   const reveal = [0.22, 1, 0.36, 1] as const;
 
   const headlineLines = ["Ceremonial", "Kimono", "Experience"];
   const headlineClass =
-    "mt-5 w-max max-w-none font-serif text-[clamp(3rem,7.2vw,7rem)] font-normal leading-[0.98] text-background md:mt-6";
+    "mt-5 w-max max-w-none font-serif text-[clamp(3rem,7.2vw,7rem)] font-normal leading-[0.98] text-text md:mt-6 md:text-[clamp(2.75rem,5.8vw,7rem)]";
 
   // 一行ずつ下から立ち上がる見出し（ディセンダが切れないよう少し下に余白）
   const Headline = (
@@ -234,7 +232,6 @@ export default function Hero() {
             animate={{ y: 0 }}
             transition={{ duration: 1.1, delay: 0.25 + i * 0.1, ease: reveal }}
             className="block"
-            style={{ textShadow: headlineShadow }}
           >
             {line}
           </motion.span>
@@ -244,15 +241,15 @@ export default function Hero() {
   );
 
   return (
-    <section className="relative min-h-svh overflow-hidden bg-text">
+    <section className="relative min-h-svh overflow-hidden bg-background">
       {/*
         写真ウォール（背景・ホバー可能）。
-        モバイル: 上 50svh。md 以上: 右 68vw。どちらも -4° 回転させ、
+        モバイル: 上 50svh。md: 右 60vw、lg 以上: 右 64vw（見出しに重ならない幅）。どれも -4° 回転させ、
         回転で生まれる斜めの縁（左／下）をそのまま構図の一部として見せる。
         外にはみ出す分は section の overflow-hidden で切る。
       */}
       <div
-        className="absolute inset-x-[-8vw] top-[-6%] h-[52svh] select-none md:inset-x-auto md:inset-y-[-8%] md:right-[-7vw] md:h-auto md:w-[68vw]"
+        className="absolute inset-x-[-8vw] top-[-6%] h-[52svh] select-none md:inset-x-auto md:inset-y-[-8%] md:right-[-7vw] md:h-auto md:w-[60vw] lg:w-[64vw]"
         aria-hidden="true"
         style={{ transform: "rotate(-4deg)" }}
       >
@@ -268,23 +265,13 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* 上端（透明ヘッダー用）だけ薄く。写真の中央は明るいまま */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-40"
-        aria-hidden="true"
-        style={{
-          background:
-            "linear-gradient(to bottom, color-mix(in srgb, var(--color-text) 30%, transparent) 0%, transparent 100%)",
-        }}
-      />
-
-      {/* 縦書きタグライン（左端・墨の地の上） */}
+      {/* 縦書きタグライン（左端） */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 1.1 }}
         aria-hidden="true"
-        className="pointer-events-none absolute left-7 top-1/2 z-10 hidden -translate-y-1/2 select-none font-mincho text-[13px] tracking-[0.5em] text-background/55 md:block lg:left-10"
+        className="pointer-events-none absolute left-7 top-1/2 z-10 hidden -translate-y-1/2 select-none font-mincho text-[13px] tracking-[0.5em] text-text/55 md:block lg:left-10"
         style={{ writingMode: "vertical-rl" }}
       >
         {t.tagline}
@@ -303,9 +290,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: reveal }}
-              className="flex items-start gap-3 font-mincho text-[11px] font-normal leading-[1.5] tracking-[0.2em] text-background/70 md:gap-4 md:tracking-[0.24em] xl:text-[12px] xl:tracking-[0.3em]"
+              className="flex items-start gap-3 font-mincho text-[11px] font-normal leading-[1.5] tracking-[0.2em] text-text/70 md:gap-4 md:tracking-[0.24em] xl:text-[12px] xl:tracking-[0.3em]"
             >
-              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-background/50 md:w-8" />
+              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-text/50 md:w-8" />
               <span>{h1Keyword}</span>
             </motion.h1>
           ) : (
@@ -313,9 +300,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: reveal }}
-              className="flex items-start gap-3 font-mincho text-[11px] leading-[1.5] tracking-[0.26em] text-background/70 md:gap-4 md:tracking-[0.3em] xl:text-[12px] xl:tracking-[0.36em]"
+              className="flex items-start gap-3 font-mincho text-[11px] leading-[1.5] tracking-[0.26em] text-text/70 md:gap-4 md:tracking-[0.3em] xl:text-[12px] xl:tracking-[0.36em]"
             >
-              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-background/50 md:w-8" />
+              <span aria-hidden="true" className="mt-[0.75em] h-px w-5 shrink-0 bg-text/50 md:w-8" />
               <span>{t.eyebrow}</span>
             </motion.p>
           )}
@@ -335,7 +322,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.75, ease: reveal }}
-            className="mt-7 max-w-[24rem] font-mincho text-[13px] leading-[2.1] tracking-[0.06em] text-background/85 md:mt-10 md:text-[14px] md:leading-[2.2]"
+            className="mt-7 max-w-[24rem] font-mincho text-[13px] leading-[2.1] tracking-[0.06em] text-text/85 md:mt-10 md:text-[14px] md:leading-[2.2]"
           >
             {t.lead}
           </motion.p>
@@ -346,14 +333,14 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.9, ease: reveal }}
             className="pointer-events-auto mt-8 flex flex-wrap items-center gap-x-6 gap-y-5 md:mt-11 lg:gap-x-8"
           >
-            <Link href={`/${locale}/reserve`} className="btn-invert px-9 lg:px-10">
+            <Link href={`/${locale}/reserve`} className="btn-primary px-9 lg:px-10">
               {t.reserve}
             </Link>
             <Link
               href={`/${locale}/gallery`}
-              className="inline-block font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-background transition-colors duration-300 hover:text-background/70"
+              className="inline-block font-['Noto_Sans_JP'] text-[13px] tracking-[0.22em] text-text transition-colors duration-300 hover:text-text/70"
             >
-              <span className="border-b border-background/40 pb-1">{t.gallery}</span>
+              <span className="border-b border-text/40 pb-1">{t.gallery}</span>
             </Link>
           </motion.div>
         </div>
@@ -367,8 +354,8 @@ export default function Hero() {
         className="pointer-events-none absolute bottom-8 left-[clamp(5rem,8vw,8.5rem)] z-10 hidden items-center gap-4 md:flex"
         aria-hidden="true"
       >
-        <span className="hero-scroll-line block h-10 w-px bg-gradient-to-b from-background to-transparent" />
-        <span className="font-['Noto_Sans_JP'] text-[10px] uppercase tracking-[0.3em] text-background/55">
+        <span className="hero-scroll-line block h-10 w-px bg-gradient-to-b from-text to-transparent" />
+        <span className="font-['Noto_Sans_JP'] text-[10px] uppercase tracking-[0.3em] text-text/55">
           {t.scroll}
         </span>
       </motion.div>
