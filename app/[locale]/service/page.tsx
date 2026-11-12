@@ -15,7 +15,7 @@ import {
   buildServiceSchema,
   getSiteUrl,
 } from "@/lib/seo";
-import { SITE_NAME } from "@/lib/site-info";
+import { BUSINESS_NAME } from "@/lib/site-info";
 import { faqContent } from "@/lib/faq-data";
 import { setRequestLocale } from "next-intl/server";
 
@@ -78,7 +78,7 @@ export default async function ServicePage({ params }: Props) {
         ? "富士山と茶畑を背景にした伝統的な着物撮影体験。"
         : "Traditional kimono photography with Mt. Fuji and tea fields.",
       url: `${siteUrl}/${locale}/service/camu`,
-      providerName: SITE_NAME,
+      providerName: BUSINESS_NAME,
       providerUrl: siteUrl,
       areaServed: "Fuji-shi",
       image: `${siteUrl}/images/camu.webp`,
@@ -91,7 +91,7 @@ export default async function ServicePage({ params }: Props) {
         ? "富士市のレンタルフォトスタジオ。撮影やポートレートに。"
         : "Rental studio for photo shoots and portraits in Fuji City.",
       url: `${siteUrl}/${locale}/service`,
-      providerName: SITE_NAME,
+      providerName: BUSINESS_NAME,
       providerUrl: siteUrl,
       areaServed: "Fuji-shi",
       image: `${siteUrl}/images/chloe.webp`,
@@ -102,7 +102,7 @@ export default async function ServicePage({ params }: Props) {
         ? "着物やスタジオセッションと合わせて楽しめる抹茶・お茶体験。"
         : "Matcha and tea tasting experience. Optional add-on to kimono or studio sessions.",
       url: `${siteUrl}/${locale}/service`,
-      providerName: SITE_NAME,
+      providerName: BUSINESS_NAME,
       providerUrl: siteUrl,
       areaServed: "Fuji-shi",
       image: `${siteUrl}/images/cha.webp`,

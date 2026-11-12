@@ -8,7 +8,7 @@ import {
   buildServiceSchema,
   getSiteUrl,
 } from "@/lib/seo";
-import { SITE_NAME } from "@/lib/site-info";
+import { BUSINESS_NAME } from "@/lib/site-info";
 import { setRequestLocale } from "next-intl/server";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -78,7 +78,7 @@ export default async function CamuPage({ params }: Props) {
       ? "富士山と茶畑を背景に、伝統的な着物姿で特別な一枚を撮影。成人式前撮り・七五三・ブライダルにも対応。"
       : "Kimono photo session with Mt. Fuji and tea fields as your backdrop. Coming-of-age, Shichi-Go-San, and bridal photography available.",
     url: `${siteUrl}/${locale}/service/camu`,
-    providerName: SITE_NAME,
+    providerName: BUSINESS_NAME,
     providerUrl: siteUrl,
     areaServed: "Fuji-shi",
     image: `${siteUrl}/images/camu.webp`,
