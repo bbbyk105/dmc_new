@@ -16,6 +16,7 @@ import {
   PARKING_JA,
   PARKING_EN,
   SAME_AS_INSTAGRAM,
+  GOOGLE_MAPS_URL,
 } from "@/lib/site-info";
 
 /**
@@ -77,9 +78,8 @@ export default function AboutContent() {
     { en: "Memories", ja: "思い出" },
   ];
 
-  const mapsUrl =
-    "https://www.google.com/maps/search/?api=1&query=" +
-    encodeURIComponent("DMC FUJI 静岡県富士市荒田島町1-13 ラシェット1");
+  // 住所の検索ではなく、Google マップの店舗ページ（クチコミ・写真・ルート）を開く
+  const mapsUrl = GOOGLE_MAPS_URL;
 
   return (
     <>

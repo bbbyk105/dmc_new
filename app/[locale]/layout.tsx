@@ -121,7 +121,7 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
   const siteUrl = getSiteUrl();
-  const jsonLdOrg = buildOrganizationOrLocalBusiness(siteUrl);
+  const jsonLdOrg = buildOrganizationOrLocalBusiness(siteUrl, locale);
   const jsonLdWeb = buildWebsite(siteUrl);
 
   return (

@@ -5,6 +5,26 @@
 
 export const SITE_NAME = "DMC FUJI | Ceremonial Kimono Photo Studio & Rental";
 
+/** 構造化データの店名（説明を足さない。Google マップの店名と結びつけるのは alternateName で行う） */
+export const BUSINESS_NAME = "DMC FUJI";
+/**
+ * 構造化データの別名。Google マップ（ビジネスプロフィール）の店名は「DMC ドレスマンコード」のため、
+ * サイトの店舗データと同じお店だと Google に結びつけてもらえるよう入れておく
+ */
+export const BUSINESS_ALTERNATE_NAMES = ["DMC ドレスマンコード", "ディーエムシー"];
+
+/** Google マップの店舗ページ（CID で指す。店名が変わっても URL は変わらない） */
+export const GOOGLE_MAPS_URL = "https://maps.google.com/?cid=6772274389816221658";
+/** Google マップの店舗のピンの位置（2026-11-12 に店舗ページで確認） */
+export const GEO_COORDINATES = {
+  "@type": "GeoCoordinates" as const,
+  latitude: 35.1582153,
+  longitude: 138.6861072,
+};
+
+/** 料金の幅（Chloe 1 時間 ¥2,000 〜 CAMU Premium ¥100,000） */
+export const PRICE_RANGE = "¥2,000–¥100,000";
+
 /** 住所（表示用・日本語） */
 export const ADDRESS_JA = "〒417-0043 静岡県富士市荒田島町1-13 ラシェット1";
 /** 住所（表示用・英語） */
@@ -25,7 +45,17 @@ export const CLOSED_JA = "定休日: 水曜日";
 /** 定休（表示用・英語） */
 export const CLOSED_EN = "Closed: Wednesday";
 
-/** schema.org PostalAddress 用 */
+/** schema.org PostalAddress 用（日本語のページ。Google マップの住所の書き方に合わせる） */
+export const ADDRESS_SCHEMA_JA = {
+  "@type": "PostalAddress" as const,
+  streetAddress: "荒田島町1-13 ラシェット1",
+  addressLocality: "富士市",
+  addressRegion: "静岡県",
+  postalCode: "417-0043",
+  addressCountry: "JP",
+};
+
+/** schema.org PostalAddress 用（英語のページ） */
 export const ADDRESS_SCHEMA = {
   "@type": "PostalAddress" as const,
   streetAddress: "1-13 Aratajimacho, Rashette 1",

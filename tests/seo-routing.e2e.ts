@@ -192,3 +192,48 @@ describe("ページの応答", () => {
     }
   });
 });
+
+/** <head> に出た JSON-LD のうち、@type が type のもの */
+function jsonLdInHead(html: string, type: string) {
+  const headEnd = html.indexOf("</head>");
+  expect(headEnd).toBeGreaterThan(0);
+  const head = html.slice(0, headEnd);
+  return [...head.matchAll(/<script\b[^>]*\btype="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
+    .map((m) => JSON.parse(m[1]))
+    .filter((data) => data["@type"] === type);
+}
+
+describe("店舗の構造化データ（MEO）", () => {
+  test("全ページの <head> に、Google マップの店舗と結びつく LocalBusiness を 1 つ出す", async ({ app }) => {
+    for (const [path, locality] of [
+      ["/ja", "富士市"],
+      ["/ja/about", "富士市"],
+      ["/en", "Fuji-shi"],
+      ["/en/service", "Fuji-shi"],
+    ] as const) {
+      const html = await (await get(app.baseUrl, path, { "user-agent": GOOGLEBOT_UA })).text();
+      const found = jsonLdInHead(html, "LocalBusiness");
+      expect(found.length).toBe(1);
+      const business = found[0];
+      expect({
+        path,
+        name: business.name,
+        alternateName: business.alternateName,
+        locality: business.address?.addressLocality,
+        postalCode: business.address?.postalCode,
+        telephone: business.telephone,
+        hasMap: business.hasMap,
+        geo: [business.geo?.latitude, business.geo?.longitude],
+      }).toEqual({
+        path,
+        name: "DMC FUJI",
+        alternateName: ["DMC ドレスマンコード", "ディーエムシー"],
+        locality,
+        postalCode: "417-0043",
+        telephone: "+81545554550",
+        hasMap: "https://maps.google.com/?cid=6772274389816221658",
+        geo: [35.1582153, 138.6861072],
+      });
+    }
+  });
+});

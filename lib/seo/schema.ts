@@ -1,72 +1,12 @@
 import { getSiteUrl } from "./site-url";
-import {
-  SITE_NAME,
-  ADDRESS_SCHEMA,
-  TELEPHONE_E164,
-  OPENING_HOURS_SPECIFICATION,
-  SAME_AS_INSTAGRAM,
-} from "@/lib/site-info";
+import { BUSINESS_NAME } from "@/lib/site-info";
+import { buildLocalBusiness, businessId } from "./local-business";
 
 /**
- * LocalBusiness JSON-LD（NAP + makesOffer で主要サービスを表現）
+ * LocalBusiness JSON-LD（中身は lib/seo/local-business.ts）
  */
-export function buildOrganizationOrLocalBusiness(siteUrl: string): object {
-  return {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: SITE_NAME,
-    url: siteUrl,
-    image: `${siteUrl}/images/hero.jpg`,
-    priceRange: "¥10,000–¥100,000",
-    address: ADDRESS_SCHEMA,
-    telephone: TELEPHONE_E164,
-    hasMap:
-      "https://www.google.com/maps/search/?api=1&query=" +
-      encodeURIComponent("1-13 Aratajimacho, Fuji-shi, Shizuoka, 417-0043"),
-    openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
-    areaServed: [
-      {
-        "@type": "City",
-        name: "Fuji-shi",
-        containedInPlace: { "@type": "AdministrativeArea", name: "Shizuoka" },
-      },
-      { "@type": "Country", name: "Japan" },
-    ],
-    sameAs: [SAME_AS_INSTAGRAM],
-    makesOffer: [
-      {
-        "@type": "Offer",
-        name: "Kimono Experience in Fuji",
-        description:
-          "Kimono wearing and photo session with Mt. Fuji and tea fields as your backdrop. Traditional ceremonial kimono experience in Fuji City, Shizuoka.",
-        itemOffered: {
-          "@type": "Service",
-          name: "Kimono Experience in Fuji",
-          areaServed: { "@type": "City", name: "Fuji-shi" },
-        },
-      },
-      {
-        "@type": "Offer",
-        name: "Photo Studio Rental (Chloe)",
-        description:
-          "Rental studio for photo shoots and portraits. Chloe studio space available for hire in Fuji City.",
-        itemOffered: {
-          "@type": "Service",
-          name: "Photo Studio Rental (Chloe)",
-        },
-      },
-      {
-        "@type": "Offer",
-        name: "Matcha / Tea Experience",
-        description:
-          "Matcha and tea tasting experience. Optional add-on to kimono or studio sessions.",
-        itemOffered: {
-          "@type": "Service",
-          name: "Matcha / Tea Experience",
-        },
-      },
-    ],
-  };
+export function buildOrganizationOrLocalBusiness(siteUrl: string, locale: string): object {
+  return buildLocalBusiness(siteUrl, locale);
 }
 
 /**
@@ -76,7 +16,7 @@ export function buildWebsite(siteUrl: string): object {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: SITE_NAME,
+    name: BUSINESS_NAME,
     url: siteUrl,
     inLanguage: ["ja", "en"],
   };
@@ -135,12 +75,12 @@ export function buildBlogPostingSchema(post: {
     inLanguage: post.inLanguage,
     author: {
       "@type": "Organization",
-      name: SITE_NAME,
+      name: BUSINESS_NAME,
       url: siteUrl,
     },
     publisher: {
       "@type": "Organization",
-      name: SITE_NAME,
+      name: BUSINESS_NAME,
       url: siteUrl,
       logo: {
         "@type": "ImageObject",
@@ -189,6 +129,8 @@ export function buildServiceSchema(service: {
     ...(service.image && { image: service.image }),
     provider: {
       "@type": "LocalBusiness",
+      // <head> の LocalBusiness（lib/seo/local-business.ts）と同じお店として結びつける
+      "@id": businessId(getSiteUrl()),
       name: service.providerName,
       url: service.providerUrl,
     },
