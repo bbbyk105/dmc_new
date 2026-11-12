@@ -17,6 +17,8 @@ export function buildWebsite(siteUrl: string): object {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: BUSINESS_NAME,
+    // サイトのタイトルは「… | DMC FUJI」のため、検索結果のサイト名の候補として添える
+    alternateName: ["DMC FUJI"],
     url: siteUrl,
     inLanguage: ["ja", "en"],
   };

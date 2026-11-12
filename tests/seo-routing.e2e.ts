@@ -226,8 +226,8 @@ describe("店舗の構造化データ（MEO）", () => {
         geo: [business.geo?.latitude, business.geo?.longitude],
       }).toEqual({
         path,
-        name: "DMC FUJI",
-        alternateName: ["DMC ドレスマンコード", "ディーエムシー"],
+        name: "DMC",
+        alternateName: ["DMC FUJI", "DMC ドレスマンコード", "ディーエムシー"],
         locality,
         postalCode: "417-0043",
         telephone: "+81545554550",

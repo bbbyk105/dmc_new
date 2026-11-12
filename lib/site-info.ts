@@ -5,13 +5,18 @@
 
 export const SITE_NAME = "DMC FUJI | Ceremonial Kimono Photo Studio & Rental";
 
-/** 構造化データの店名（説明を足さない。Google マップの店名と結びつけるのは alternateName で行う） */
-export const BUSINESS_NAME = "DMC FUJI";
 /**
- * 構造化データの別名。Google マップ（ビジネスプロフィール）の店名は「DMC ドレスマンコード」のため、
- * サイトの店舗データと同じお店だと Google に結びつけてもらえるよう入れておく
+ * 構造化データの店名。お店の名前は「DMC」（Dad・Mom・Child の頭文字。ロゴ・会社名 DMC合同会社と同じ）。
+ * 「FUJI」は場所を表す言葉なので名前に入れない
  */
-export const BUSINESS_ALTERNATE_NAMES = ["DMC ドレスマンコード", "ディーエムシー"];
+export const BUSINESS_NAME = "DMC";
+/**
+ * 構造化データの別名。サイトのタイトル・Instagram（@dmcfuji123）では「DMC FUJI」、
+ * Google マップ（ビジネスプロフィール）では「DMC ドレスマンコード」と出ているため、同じお店だと結びつけてもらえるよう入れておく
+ */
+export const BUSINESS_ALTERNATE_NAMES = ["DMC FUJI", "DMC ドレスマンコード", "ディーエムシー"];
+/** 会社名（特定商取引法に基づく表記の販売業者と同じ） */
+export const LEGAL_NAME = "DMC合同会社";
 
 /** Google マップの店舗ページ（CID で指す。店名が変わっても URL は変わらない） */
 export const GOOGLE_MAPS_URL = "https://maps.google.com/?cid=6772274389816221658";
