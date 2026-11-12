@@ -14,6 +14,7 @@ import {
   BUSINESS_NAME,
   GEO_COORDINATES,
   GOOGLE_MAPS_URL,
+  LEGAL_NAME,
   OPENING_HOURS_SPECIFICATION,
   PRICE_RANGE,
   SAME_AS_INSTAGRAM,
@@ -25,8 +26,13 @@ export function businessId(siteUrl: string): string {
   return `${siteUrl}/#business`;
 }
 
+// 海外から来る方向けの着物撮影（CAMU）を先に出す
 const OFFERS = {
   ja: [
+    {
+      name: "着物撮影「CAMU」（海外のお客さま向け）",
+      description: "富士山と茶畑を背景に、色打掛を着て撮影する、海外から来る方向けの着物撮影。着付け・ヘアセット・撮影データのお渡しまで。",
+    },
     {
       name: "着物撮影「花夢」",
       description: "富士山と茶畑を背景にした着物撮影。成人式の前撮り・七五三・ブライダルにも対応。",
@@ -42,9 +48,9 @@ const OFFERS = {
   ],
   en: [
     {
-      name: "Kimono Experience in Fuji (CAMU)",
+      name: "Kimono Photo Experience at Mt. Fuji (CAMU)",
       description:
-        "Kimono wearing and photo session with Mt. Fuji and tea fields as your backdrop, in Fuji City, Shizuoka.",
+        "Ceremonial kimono photo sessions for visitors from overseas, with Mt. Fuji and tea fields as your backdrop. Kimono rental, dressing, hair styling and photo data included.",
     },
     {
       name: "Photo Studio Rental (Chloe)",
@@ -65,9 +71,10 @@ export function buildLocalBusiness(siteUrl: string, locale: string) {
     "@id": businessId(siteUrl),
     name: BUSINESS_NAME,
     alternateName: BUSINESS_ALTERNATE_NAMES,
+    legalName: LEGAL_NAME,
     description: isJa
-      ? "静岡県富士市の着物撮影・着物レンタル・レンタルスタジオ。富士山と茶畑を背景にした着物撮影「花夢」、レンタルスタジオ「Chloe」、抹茶とカフェ。"
-      : "Kimono photography, kimono rental and a rental photo studio in Fuji City, Shizuoka, with Mt. Fuji and tea fields as the backdrop.",
+      ? "富士山のふもと、静岡県富士市の着物体験と写真撮影のスタジオ（DMC = Dad・Mom・Child）。海外から来る方向けの着物撮影「CAMU」、日本の方向けの「花夢」、レンタルスタジオ「Chloe」。"
+      : "Kimono experience and photo shoots at the foot of Mt. Fuji in Fuji City, Shizuoka, for visitors from overseas (DMC = Dad, Mom, Child). Ceremonial kimono photo sessions (CAMU) with Mt. Fuji and tea fields, and a rental studio (Chloe).",
     // Google マップの店舗ページの「ウェブサイト」（dmc123.jp）と同じ。@id で参照する側（サービスの provider）もこの URL
     url: siteUrl,
     image: `${siteUrl}/images/hero.jpg`,
